@@ -1,0 +1,43 @@
+<h2 id="deepembeddingsinglecellclustering">Deep Embedding Single-cell Clustering</h2>
+
+<p>DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm construct a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learns cluster-specific gene expression representation and cluster assignments based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances biological and technical differences between clusters, and reduces the influence of batch effect. DESC also enables soft clustering by assigning cluster-specific probabilities to each cell, which facilitates the identification of cells clustered with high-confidence and interpretation of results. </p>
+
+<p>For thorough details, see the preprint:
+https://www.biorxiv.org</p>
+
+<h2 id="usages">Usages</h2>
+
+<p>The <strong>desc</strong> package is an implementation of deep embedding single-cell clustering. With desc, you can:</p>
+
+<ul>
+<li>Preprocessing single cell expression data from varies of formats</li>
+
+<li>Build low-dimensional representation of single cell expression</li>
+
+<li>Obtain a soft-clustering assignments of cells</li>
+
+<li>Visualize cell clusters separation and expression pattern</li>
+</ul>
+
+<h2 id="installation">Installation</h2>
+
+<p>To install the current release:</p>
+
+<pre><code>pip install desc
+</code></pre>
+
+<h2 id="contributing">Contributing</h2>
+
+<p>Souce code: https://github.com/Yafei611</p>
+
+<p>We are continuing to add new features. Any kind of contribution, like bug reports or feature requests, are welcome.</p>
+
+<h2 id="references">References</h2>
+
+<p>Please cite the references appropriately in case they are used. <br />
+[1] DESC <br />
+[2] DESC</p>
+
+<h2 id="licence">Licence</h2>
+
+<p>Copyright (C) 2018 Mingyao's Lab</p>
