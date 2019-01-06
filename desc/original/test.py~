@@ -1,0 +1,36 @@
+import os
+import anndata
+import numpy as np
+import pandas as pd
+import scanpy.api as sc
+#try:
+#    import .train as train
+#    from .api import desc
+#except:
+import train as train
+from api import desc
+
+try:
+    import tensorflow as tf
+except ImportError:
+    raise ImportError('DESC requires tensorflow  Please follow instructions'
+                      ' at https://www.tensorflow.org/install/ to install'
+                      ' it.')
+
+adata=sc.read("paul15_cluster.h5ad")
+#simple filter
+sc.pp.filter_cells(adata,min_genes=10)
+sc.pp.normalize_per_cell(adata,counts_per_cell_after=1e4)
+sc.pp.log1p(adata)
+sc.pp.filter_genes(adata,min_cells=20)
+
+def test_api():
+    adata=desc(x,dims,louvain_resolution=0.4,use_GPU=True)
+     
+    #adata=desc(x,dims,louvain_resolution=0.4,use_GPU=False)
+    
+    #adata=desc(x,dims,louvain_resolution='0.4,0.6,0.8',use_GPU=True)
+
+    #adata=desc(x,dims,louvain_resolution=[0.4,0.5,0.8],use_GPU=True)
+
+
