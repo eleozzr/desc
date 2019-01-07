@@ -5,12 +5,11 @@ DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. T
 
 ![DESC workflow](docs/assets/images/desc_workflow.png)
 
-For thorough details, see the preprint:
-https://www.biorxiv.org
+For thorough details, see the preprint: [Bioxiv](https://www.biorxiv.org)
 
 ## Usages
 
-The **desc** package is an implementation of deep embedding single-cell clustering. With desc, you can:
+The [**desc**](https://github.com/Yafei611/desc) package is an implementation of deep embedding single-cell clustering. With desc, you can:
 
 - Preprocess single cell expression data from varies of formats
 - Build low-dimensional representation of single cell expression
@@ -24,6 +23,8 @@ To install the current release:
 ```
 pip install desc
 ```
+
+Please check DESC [Tutorial](https://yafei611.github.io/desc/tutorial.html) for more detials.
 
 ## Contributing
 
