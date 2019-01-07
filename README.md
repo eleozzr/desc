@@ -6,7 +6,6 @@ DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. T
 ![DESC workflow](docs/assets/images/desc_workflow.png)
 
 For thorough details, see the preprint: [Bioxiv](https://www.biorxiv.org)
-
 <br>
 
 ## Usages
@@ -17,7 +16,6 @@ The [**desc**](https://github.com/Yafei611/desc) package is an implementation of
 - Build low-dimensional representation of single cell expression
 - Obtain a soft-clustering assignments of cells
 - Visualize cell clusters separation and expression pattern
-
 <br>
 
 ## Installation
@@ -29,7 +27,6 @@ pip install desc
 ```
 
 Please check DESC [Tutorial](https://yafei611.github.io/desc/tutorial.html) for more detials.
-
 <br>
 
 ## Contributing
@@ -37,7 +34,6 @@ Please check DESC [Tutorial](https://yafei611.github.io/desc/tutorial.html) for 
 Souce code: https://github.com/Yafei611
 
 We are continuing to add new features. Any kind of contribution, like bug reports or feature requests, are welcome.
-
 <br>
 
 ## References
@@ -45,7 +41,6 @@ We are continuing to add new features. Any kind of contribution, like bug report
 Please consider to cite the references in case they are used.  
 [1] DESC    
 [2] DESC
-
 <br>
 
 ## Licence
