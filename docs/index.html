@@ -1,6 +1,27 @@
-<h2 id="deepembeddingsinglecellclustering">Deep Embedding Single-cell Clustering</h2>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+  </head>
+  <body>
+  	<nav>
+  
+    <a href="/" class="current">Home</a>
+  
+    <a href="/installation.html" >Installation</a>
+  
+    <a href="/tutorial.html" >Tutorial</a>
+  
+    <a href="/contact.html" >Contact</a>
+  
+</nav>
+    <h2 id="deep-embedding-single-cell-clustering">Deep Embedding Single-cell Clustering</h2>
 
-<p>DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm construct a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learns cluster-specific gene expression representation and cluster assignments based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances biological and technical differences between clusters, and reduces the influence of batch effect. DESC also enables soft clustering by assigning cluster-specific probabilities to each cell, which facilitates the identification of cells clustered with high-confidence and interpretation of results. </p>
+<p>DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm construct a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learns cluster-specific gene expression representation and cluster assignments based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances biological and technical differences between clusters, and reduces the influence of batch effect. DESC also enables soft clustering by assigning cluster-specific probabilities to each cell, which facilitates the identification of cells clustered with high-confidence and interpretation of results.</p>
+
+<p><img src="assets/images/desc_workflow.png" alt="DESC workflow" /></p>
 
 <p>For thorough details, see the preprint:
 https://www.biorxiv.org</p>
@@ -10,21 +31,11 @@ https://www.biorxiv.org</p>
 <p>The <strong>desc</strong> package is an implementation of deep embedding single-cell clustering. With desc, you can:</p>
 
 <ul>
-<li>Preprocessing single cell expression data from varies of formats</li>
-
-<li>Build low-dimensional representation of single cell expression</li>
-
-<li>Obtain a soft-clustering assignments of cells</li>
-
-<li>Visualize cell clusters separation and expression pattern</li>
+  <li>Preprocess single cell expression data from varies of formats</li>
+  <li>Build low-dimensional representation of single cell expression</li>
+  <li>Obtain a soft-clustering assignments of cells</li>
+  <li>Visualize cell clusters separation and expression pattern</li>
 </ul>
-
-<h2 id="installation">Installation</h2>
-
-<p>To install the current release:</p>
-
-<pre><code>pip install desc
-</code></pre>
 
 <h2 id="contributing">Contributing</h2>
 
@@ -34,10 +45,13 @@ https://www.biorxiv.org</p>
 
 <h2 id="references">References</h2>
 
-<p>Please cite the references appropriately in case they are used. <br />
-[1] DESC <br />
+<p>Please cite the references appropriately in case they are used.<br />
+[1] DESC  <br />
 [2] DESC</p>
 
 <h2 id="licence">Licence</h2>
 
-<p>Copyright (C) 2018 Mingyao's Lab</p>
+<p>Copyright (C) 2018 Mingyao’s Lab</p>
+
+  </body>
+</html>
