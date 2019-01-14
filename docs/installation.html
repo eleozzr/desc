@@ -26,29 +26,44 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/desc/">Home</a><a class="page-link" href="/desc/installation.html">Installation</a><a class="page-link" href="/desc/tutorial.html">Tutorial</a><a class="page-link" href="/desc/contact.html">Contact</a><a class="page-link" href="/desc/test.html">Test</a></div>
+        <div class="trigger"><a class="page-link" href="/desc/">Home</a><a class="page-link" href="/desc/installation.html">Installation</a><a class="page-link" href="/desc/tutorial.html">Tutorial</a><a class="page-link" href="/desc/contact.html">Contact</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <h2 id="installation">Installation</h2>
+        <h1 id="installation">Installation</h1>
 
 <p>To install the current release:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install desc
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pip install desc
 </code></pre></div></div>
 
 <p><br /></p>
 
-<h2 id="try-your-first-decs-analysis">Try your first DECS analysis</h2>
+<h1 id="run-a-quick-desc-test">Run a quick desc test</h1>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$python
+<p>Now, let us run a quick test to see if the <strong>desc</strong> is ready:</p>
+
+<p>Firstly, enter Python’s Interpreter from your console:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import desc
+<p>Then, in an Python interpeter session, typing:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">desc</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">desc</span><span class="o">.</span><span class="n">run_desc_test</span><span class="p">()</span>
 </code></pre></div></div>
 
-<p>Learn more about DESC in <a href="/tutorial.html">Tutorial</a></p>
+<p>The <code class="highlighter-rouge">run_desc_test()</code> function enables you to perform a quick desc analysis on a small pre-processed data. If you see something like:</p>
+
+<p><strong>“The desc has been trained successfully!”</strong><br />
+<strong>…</strong><br />
+<strong>“The run time is xxx.xxxx”</strong></p>
+
+<p>then you are ready to go.</p>
+
+<p><br /></p>
+
+<p>Next, how about learn more about DESC in <a href="/desc/tutorial.html">Tutorial</a>?</p>
 
       </div>
     </main><footer class="site-footer h-card">

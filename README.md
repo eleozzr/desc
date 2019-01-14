@@ -31,7 +31,7 @@ Please check DESC [Tutorial](https://yafei611.github.io/desc/tutorial.html) for 
 
 ## Contributing
 
-Souce code: https://github.com/Yafei611
+Souce code: [Github](https://github.com/Yafei611/desc)  
 
 We are continuing to add new features. Any kind of contribution, like bug reports or feature requests, are welcome.
 <br>

@@ -31,10 +31,8 @@ import scanpy.api as sc
 import pandas as pd
 from natsort import natsorted #call natsorted
 import os
-try:
-    from .SAE import SAE  # load Stacked autoencoder
-except:
-    from SAE import SAE
+from .SAE import SAE  # load Stacked autoencoder
+
 
 
 class ClusteringLayer(Layer):

@@ -26,166 +26,166 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/desc/">Home</a><a class="page-link" href="/desc/installation.html">Installation</a><a class="page-link" href="/desc/tutorial.html">Tutorial</a><a class="page-link" href="/desc/contact.html">Contact</a><a class="page-link" href="/desc/test.html">Test</a></div>
+        <div class="trigger"><a class="page-link" href="/desc/">Home</a><a class="page-link" href="/desc/installation.html">Installation</a><a class="page-link" href="/desc/tutorial.html">Tutorial</a><a class="page-link" href="/desc/contact.html">Contact</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <p>Text can be <strong>bold</strong>, <em>italic</em>, or <del>strikethrough</del>.</p>
+        <p>In this tutorial, we will perform an entire desc analysis with a dataset of Peripheral Blood Mononuclear Cells (PBMC). In the dataset, the expression levels of 2,700 cells were sequenced using the Illumina NextSeq 500. The data is freely available from 10X Genomics and the raw can be downloaded <a href="https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz">here</a>.</p>
 
-<p><a href="./another-page.html">Link to another page</a>.</p>
+<p><br /></p>
 
-<p>There should be whitespace between paragraphs.</p>
+<h1 id="1-import-data">1 Import data</h1>
 
-<p>There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.</p>
+<p>The current version of desc works with a <a href="https://anndata.readthedocs.io/en/latest/anndata.AnnData.html">AnnData</a> object. AnnData stores a data matrix <code class="highlighter-rouge">.X</code> together with annotations of observations <code class="highlighter-rouge">.obs</code>, variables <code class="highlighter-rouge">.var</code> and unstructured annotations <code class="highlighter-rouge">.uns</code>. The <strong>desc</strong> package provides 3 ways to prepare a AnnData object for the following analysis:</p>
 
-<h1 id="header-1">Header 1</h1>
+<h2 id="11-start-from-a-10x-dataset">1.1 Start from a 10X dataset</h2>
 
-<p>This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.</p>
+<p>The desc package provides a function to load the 10X dataset directly. Download the <a href="https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz">data</a> and unzip it. Then put everything in <em>filtered_gene_bc_matrices/hg19/</em> to <em>data/pbmc/</em>.</p>
 
-<h2 id="header-2">Header 2</h2>
-
-<blockquote>
-  <p>This is a blockquote following a header.</p>
-
-  <p>When something is important enough, you do it even if the odds are not in your favor.</p>
-</blockquote>
-
-<h3 id="header-3">Header 3</h3>
-
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Javascript code with syntax highlighting.</span>
-<span class="kd">var</span> <span class="nx">fun</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">lang</span><span class="p">(</span><span class="nx">l</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">dateformat</span><span class="p">.</span><span class="nx">i18n</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./lang/'</span> <span class="o">+</span> <span class="nx">l</span><span class="p">)</span>
-  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load the 10X data by providing the path to data
+</span><span class="n">adata</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">read_10X</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="s">'data/pbmc'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Ruby code with syntax highlighting</span>
-<span class="no">GitHubPages</span><span class="o">::</span><span class="no">Dependencies</span><span class="p">.</span><span class="nf">gems</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">gem</span><span class="p">,</span> <span class="n">version</span><span class="o">|</span>
-  <span class="n">s</span><span class="p">.</span><span class="nf">add_dependency</span><span class="p">(</span><span class="n">gem</span><span class="p">,</span> <span class="s2">"= </span><span class="si">#{</span><span class="n">version</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="k">end</span>
+<h2 id="12-start-from-mtx-and-csv-files">1.2 Start from .mtx and .csv files</h2>
+
+<p>When the expression data doesn’t follow the standard 10X dataset format, we can manually import the data as follows:<br />
+Read the expression matrix from .mtx file.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="n">adata</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">read_mtx</span><span class="p">(</span><span class="s">'data/pbmc/matrix.mtx'</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 </code></pre></div></div>
 
-<h4 id="header-4">Header 4</h4>
+<p>Read the .csv file for gene annotations. Make sure the gene names are unique.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">genes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/pbmc/genes.tsv'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">)</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s">'gene_ids'</span><span class="p">]</span> <span class="o">=</span> <span class="n">genes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s">'gene_symbols'</span><span class="p">]</span> <span class="o">=</span> <span class="n">genes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="c1"># Make sure the gene names are unique
+</span><span class="n">var_names</span> <span class="o">=</span> <span class="n">genes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">var_names</span><span class="o">.</span><span class="n">is_unique</span>
+<span class="n">var_names</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">make_index_unique</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">var_names</span><span class="p">))</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">var_names</span> <span class="o">=</span> <span class="n">var_names</span>
+</code></pre></div></div>
+
+<p>Read the .csv file for cell annotations.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cells</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/pbmc/barcodes.tsv'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">)</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'barcode'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs_names</span> <span class="o">=</span> <span class="n">cells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<h2 id="13-start-from-a-h5ad-file">1.3 Start from a .h5ad file</h2>
+<p>Or load a previously saved AnnData object:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adata</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="s">'data/pbmc.h5ad'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>For more ways to create AnnData objects, please check <a href="https://anndata.readthedocs.io/en/latest/api.html#reading">here</a></p>
+
+<p><br /></p>
+
+<h1 id="2-preprocessing">2 Preprocessing</h1>
+
+<p>The standard scRNA data preprocessing workflow may include filtration of cells/genes, normalization, scaling and selection of highly variables genes. While filtration of cells/genes should be done separately before desc analysis, the desc package provides functions for normalization, scaling and selection of highly variables genes.</p>
+
+<p>The data for desc analysis should at least go over the following pre-processing steps:</p>
+
+<h2 id="21-normalization">2.1 Normalization</h2>
+<p>The function <code class="highlighter-rouge">normalize_per_cell</code> normalizes the gene expression measurements for each cell by the total expression, multiplies this by a scale factor (10,000 by default).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">normalize_per_cell</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">counts_per_cell_after</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
+</code></pre></div></div>
+<p>The figure shows the <strong>sorted</strong> totoal expression level for each cell before/after the normalization procedure.
+<img src="assets/images/Figure_1_normalization.png" alt="desc normalization" /></p>
+
+<h2 id="22-logarithm-transformation">2.2 logarithm transformation</h2>
+<p>Also, the following analysis and the desc analysis should be performed on log-scaled data.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
+</code></pre></div></div>
+<p>The figure shows a histogram of expression levels before/after logarithm transformation.
+<img src="assets/images/Figure_2_log.png" alt="desc normalization" /></p>
+
+<h2 id="23-selection-of-highly-variable-genes">2.3 Selection of highly variable genes</h2>
+<p>The desc analysis should be performed on a particular set of genes, like highly variable genes, known cell-type markers or a combination of both, which help to separate cell groups. The function <code class="highlighter-rouge">highly_variable_genes</code> can help to select a set of the highly variable gene while controlling for the relationship between variability and average expression level. The function is from <a href="https://scanpy.readthedocs.io/en/latest/">scanpy</a>. Check the <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">function document</a> for detailed information about usage and parameter setting.</p>
+
+<p>For reducing the compuation cost in the tutorial, we use <strong>top 100</strong> highly variable genes in the pbmc data for the following analysis:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n_top_genes</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">desc</span><span class="o">.</span><span class="n">highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_top_genes</span><span class="o">=</span><span class="n">n_top_genes</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="24-scaling">2.4 Scaling</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">zero_center</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+<p>The figure shows histogram of expreesion levels befter/after scaling.
+<img src="assets/images/Figure_3_scaling.png" alt="desc normalization" /></p>
+
+<p><br /></p>
+
+<h1 id="3-desc-analysis">3 Desc analysis</h1>
+
+<p>Now we are ready to run a desc analysis. The function <code class="highlighter-rouge">train</code> will perform desc on the expression matrix (2700 x 100 in this tutorial) and save the clustering labels as well other results in the AnnData object. For a full list of desc parameter please check the desc documentation on the <a href="https://pypi.org/project/desc/">pypi</a>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adata</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n_top_genes</span><span class="p">),</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">resolution</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>After the desc model training, several result slots will be added to the adata:</p>
 
 <ul>
-  <li>This is an unordered list following a header.</li>
-  <li>This is an unordered list following a header.</li>
-  <li>This is an unordered list following a header.</li>
+  <li><strong>adata.obs[‘ident’]</strong><br />
+This slot is the clustering labels from the desc. The size of the ‘ident’ is <em>number of the cell by one</em> (2700 x 1 in this tutorial). 
+One may want to check the number of cell for each of the clusters by:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'ident'</span><span class="p">]):</span>
+  <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'ident'</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>adata.obsm[‘prob’].</strong><br />
+This slot contains the probabilties of each cell belongs to each of the cell clusters. The size should be <em>numbers of cell by numbers of clusters</em> (2700 x ?? in this tutorial)</p>
+  </li>
+  <li><strong>adata.obs[‘max_prob’].</strong><br />
+This slot contains the probabilities of each cell belongs to the assigned cluster. The size is <em>number of the cell by one</em> (2700 x 1 in this tutorial). A reliable assignment should base on a relatively high <strong>max_prob</strong>. Let us check <strong>max_prob</strong> for all cells using a scatter plot.</li>
 </ul>
 
-<h5 id="header-5">Header 5</h5>
-
-<ol>
-  <li>This is an ordered list following a header.</li>
-  <li>This is an ordered list following a header.</li>
-  <li>This is an ordered list following a header.</li>
-</ol>
-
-<h6 id="header-6">Header 6</h6>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">head1</th>
-      <th style="text-align: left">head two</th>
-      <th style="text-align: left">three</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left">ok</td>
-      <td style="text-align: left">good swedish fish</td>
-      <td style="text-align: left">nice</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">out of stock</td>
-      <td style="text-align: left">good and plenty</td>
-      <td style="text-align: left">nice</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">ok</td>
-      <td style="text-align: left">good <code class="highlighter-rouge">oreos</code></td>
-      <td style="text-align: left">hmm</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">ok</td>
-      <td style="text-align: left">good <code class="highlighter-rouge">zoute</code> drop</td>
-      <td style="text-align: left">yumm</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="theres-a-horizontal-rule-below-this">There’s a horizontal rule below this.</h3>
-
-<hr />
-
-<h3 id="here-is-an-unordered-list">Here is an unordered list:</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">max_prob</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'max_prob'</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">max_prob</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">max_prob</span><span class="p">))),</span> <span class="n">max_prob</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'sorted max_prob'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'cell index'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'max_prob'</span><span class="p">)</span>
+</code></pre></div></div>
+<p><img src="assets/images/Figure_4_max_prob.png" alt="max_prob" /></p>
 
 <ul>
-  <li>Item foo</li>
-  <li>Item bar</li>
-  <li>Item baz</li>
-  <li>Item zip</li>
+  <li><strong>adata.obsm[‘embedded’]</strong><br />
+This slot is a low dimension representation of the expression data. the size is <em>number of the cell by the number of network nodes in the lowest layer</em> (2700 x 8 in this tutorial). This slot facilitates users to generate tSNE plot or do other downstream analysis.</li>
 </ul>
 
-<h3 id="and-an-ordered-list">And an ordered list:</h3>
+<p><br /></p>
 
-<ol>
-  <li>Item one</li>
-  <li>Item two</li>
-  <li>Item three</li>
-  <li>Item four</li>
-</ol>
+<h1 id="4-visualization">4 Visualization</h1>
 
-<h3 id="and-a-nested-list">And a nested list:</h3>
+<p>Next, let us visualize the desc clustering using a tSNE plot:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tsne</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">run_tsne</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+</code></pre></div></div>
+<p><img src="assets/images/Figure_5_tsne.png" alt="max_prob" /> 
+Note that the <code class="highlighter-rouge">tun_tsne</code> function in the desc package is a warpper fo the <a href="https://github.com/DmitryUlyanov/Multicore-TSNE"><code class="highlighter-rouge">MulticoreTSNE</code></a>. The tSNE visualization can be quite depend on the parameter settings. Thus, we suggest to run <code class="highlighter-rouge">run_tsne</code> under a grid of parameter settings to get a optimal visualization. To know more about tNSE paramter, please check <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">here</a>.</p>
 
-<ul>
-  <li>level 1 item
-    <ul>
-      <li>level 2 item</li>
-      <li>level 2 item
-        <ul>
-          <li>level 3 item</li>
-          <li>level 3 item</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>level 1 item
-    <ul>
-      <li>level 2 item</li>
-      <li>level 2 item</li>
-      <li>level 2 item</li>
-    </ul>
-  </li>
-  <li>level 1 item
-    <ul>
-      <li>level 2 item</li>
-      <li>level 2 item</li>
-    </ul>
-  </li>
-  <li>level 1 item</li>
-</ul>
+<p><br /></p>
 
-<h3 id="definition-lists-can-be-used-with-html-syntax">Definition lists can be used with HTML syntax.</h3>
+<h1 id="5-save-result">5 Save result</h1>
+<p>Lastly, let us save the desc result for the further analysis:</p>
 
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+<h2 id="51-save-to-a-h5ad-file">5.1 Save to a .h5ad file</h2>
+<p>The AnnData object can be save to a .h5ad file for further analysis in Python enviroument.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adata</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">'../result/desc_result.h5ad'</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The final element.
+<h2 id="52-save-to-csv-files">5.2 Save to .csv files</h2>
+<p>Also, the desc result can be separatly save to .csv files, which can be easily accessed using R, c or other tools for future analysis.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">write_desc_result</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span> <span class="n">save_dir</span><span class="o">=</span><span class="s">'tmp_result'</span><span class="p">)</span>
 </code></pre></div></div>
+<p>The function will generate 3 files including <strong>cluster_ident.cvs</strong>, <strong>prob_matrix.cvs</strong> and <strong>embedded.cvs</strong>, which conresponding to <strong>adata.obs[‘ident’]</strong>, <strong>adata.obsm[‘prob’].</strong> and <strong>adata.obsm[‘embedded’]</strong>.</p>
+
 
       </div>
     </main><footer class="site-footer h-card">
