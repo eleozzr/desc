@@ -33,9 +33,24 @@
       <div class="wrapper">
         <h1 id="installation">Installation</h1>
 
-<p>To install the current release:</p>
+<p>To install the current release of <code class="highlighter-rouge">desc</code> you can choose:</p>
+
+<ul>
+  <li>PyPI<br />
+Directly install the package from PyPI:</li>
+</ul>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pip install desc
+</code></pre></div></div>
+
+<ul>
+  <li>Github<br />
+Download the package from the Github and install it locally:</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/Yafei611/desc
+cd desc
+pip install .
 </code></pre></div></div>
 
 <p><br /></p>
@@ -59,11 +74,28 @@
 <strong>…</strong><br />
 <strong>“The run time is xxx.xxxx”</strong></p>
 
-<p>then you are ready to go.</p>
+<p>then you are ready to go. 
+<br />
+Next, how about learn more about DESC in <a href="/desc/tutorial.html">Tutorial</a>?</p>
 
 <p><br /></p>
 
-<p>Next, how about learn more about DESC in <a href="/desc/tutorial.html">Tutorial</a>?</p>
+<h1 id="troubleshooting">Troubleshooting</h1>
+
+<ul>
+  <li>
+    <p><strong>Required python version</strong><br />
+The desc package works on <code class="highlighter-rouge">python 3 - 3.7</code>. However, we suggest our users run the <code class="highlighter-rouge">desc</code> on <code class="highlighter-rouge">python 3.6</code>, since one of the <code class="highlighter-rouge">desc</code> dependences, <code class="highlighter-rouge">keras</code> hasn’t tested against 3.7 yet. <a href="https://github.com/keras-team/keras/issues/11690">Check here</a> for more details.</p>
+  </li>
+  <li>
+    <p><strong>Encountering errors when installing <code class="highlighter-rouge">pydot</code></strong><br />
+<code class="highlighter-rouge">pydot</code> is one of the <code class="highlighter-rouge">desc</code> dependeicis. While it requires <a href="https://www.graphviz.org/">graphviz</a>, which can be downloaded <a href="https://www.graphviz.org/download/">here</a>.</p>
+  </li>
+  <li>
+    <p><strong>Encountering errors when installing <code class="highlighter-rouge">python-igraph</code></strong><br />
+Please refer the installation of the <code class="highlighter-rouge">python-igraph</code> package <a href="https://igraph.org/python/">here</a>.</p>
+  </li>
+</ul>
 
       </div>
     </main><footer class="site-footer h-card">

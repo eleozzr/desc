@@ -16,7 +16,8 @@ setup(name = 'desc',
 			include_package_data=True,
 			install_requires = [
 				'pydot', 'python-igraph', 'tensorflow',
-				'keras', 'scanpy', 'pandas', 'louvain'
+				'keras', 'scanpy', 'pandas', 'louvain',
+				'MulticoreTSNE'
 				],
 			zip_safe = False
 			)

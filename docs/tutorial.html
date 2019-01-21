@@ -35,9 +35,17 @@
 
 <p><br /></p>
 
+<h1 id="0-import-python-modules">0 Import python modules</h1>
+
+<p>In the tutorial, we will need <code class="highlighter-rouge">desc</code> module for clustering analysis and <code class="highlighter-rouge">scanpy</code> for data preprocessing.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">desc</span>
+<span class="kn">import</span> <span class="nn">scanpy.api</span> <span class="k">as</span> <span class="n">sc</span>
+</code></pre></div></div>
+
 <h1 id="1-import-data">1 Import data</h1>
 
-<p>The current version of desc works with a <a href="https://anndata.readthedocs.io/en/latest/anndata.AnnData.html">AnnData</a> object. AnnData stores a data matrix <code class="highlighter-rouge">.X</code> together with annotations of observations <code class="highlighter-rouge">.obs</code>, variables <code class="highlighter-rouge">.var</code> and unstructured annotations <code class="highlighter-rouge">.uns</code>. The <strong>desc</strong> package provides 3 ways to prepare a AnnData object for the following analysis:</p>
+<p>The current version of desc works with a <a href="https://anndata.readthedocs.io/en/latest/anndata.AnnData.html">AnnData</a> object. AnnData stores a data matrix <code class="highlighter-rouge">.X</code> together with annotations of observations <code class="highlighter-rouge">.obs</code>, variables <code class="highlighter-rouge">.var</code> and unstructured annotations <code class="highlighter-rouge">.uns</code>. The <strong>desc</strong> package provides 3 ways to prepare an AnnData object for the following analysis:</p>
 
 <h2 id="11-start-from-a-10x-dataset">1.1 Start from a 10X dataset</h2>
 
@@ -86,11 +94,45 @@ Read the expression matrix from .mtx file.</p>
 
 <h1 id="2-preprocessing">2 Preprocessing</h1>
 
-<p>The standard scRNA data preprocessing workflow may include filtration of cells/genes, normalization, scaling and selection of highly variables genes. While filtration of cells/genes should be done separately before desc analysis, the desc package provides functions for normalization, scaling and selection of highly variables genes.</p>
+<p>The standard scRNA data preprocessing workflow may include filtration of cells/genes, normalization, scaling and selection of highly variables genes. In this tutorial, we use <code class="highlighter-rouge">scanpy</code> to preprocess the data. Note that among the preprocessing steps, filtration of cells/genes and selecting highly variables genes are optional while <strong>normalization and scaling are strictly required before the desc analysis</strong>.</p>
 
-<p>The data for desc analysis should at least go over the following pre-processing steps:</p>
+<p>Following steps show a topical pre-processing procedure for the human blood cells data:</p>
 
-<h2 id="21-normalization">2.1 Normalization</h2>
+<h2 id="21-filtering-cells-and-genes">2.1 Filtering cells and genes</h2>
+
+<p>Typing <code class="highlighter-rouge">adata</code> in the python console shows that the original datasets contain expressions for 2700 gene across 32738 cells.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; adata
+AnnData object with n_obs × n_vars = 2700 × 32738 
+    obs: 'barcode', 'n_genes'
+    var: 'gene_ids', 'gene_symbols', 'n_cells'
+</code></pre></div></div>
+
+<p>Let us remove cells with very few expressed genes, as well as genes are lowly expressed, using the function provided by <code class="highlighter-rouge">scanpy</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_cells</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_genes</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_cells</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>A relatively high expression of mitochondria genes indicating a lower data quality in scRNA data. Therefore, we want to also remove cells with a high proportion of mitochondria genes expression.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="c1"># look for mitochondria genes which are started by 'MT'
+</span><span class="n">mito_genes</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">'MT-'</span><span class="p">)</span>
+<span class="c1"># Get the mitochondria gene expression proportion
+</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'percent_mito'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">adata</span><span class="p">[:,</span> <span class="n">mito_genes</span><span class="p">]</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span>
+<span class="c1"># Keep only cell with a low mitochondria expression
+</span><span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'percent_mito'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">,</span> <span class="p">:]</span>
+</code></pre></div></div>
+
+<p>After filteration, we ahve 13714 cells left in the dataset.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; adata
+AnnData object with n_obs × n_vars = 2700 × 13714 
+    obs: 'barcode', 'n_genes'
+    var: 'gene_ids', 'gene_symbols', 'n_cells'
+</code></pre></div></div>
+
+<h2 id="22-normalization">2.2 Normalization</h2>
 <p>The function <code class="highlighter-rouge">normalize_per_cell</code> normalizes the gene expression measurements for each cell by the total expression, multiplies this by a scale factor (10,000 by default).</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">normalize_per_cell</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">counts_per_cell_after</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
@@ -98,15 +140,15 @@ Read the expression matrix from .mtx file.</p>
 <p>The figure shows the <strong>sorted</strong> totoal expression level for each cell before/after the normalization procedure.
 <img src="assets/images/Figure_1_normalization.png" alt="desc normalization" /></p>
 
-<h2 id="22-logarithm-transformation">2.2 logarithm transformation</h2>
+<h2 id="23-logarithm-transformation">2.3 logarithm transformation</h2>
 <p>Also, the following analysis and the desc analysis should be performed on log-scaled data.</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
 </code></pre></div></div>
 <p>The figure shows a histogram of expression levels before/after logarithm transformation.
 <img src="assets/images/Figure_2_log.png" alt="desc normalization" /></p>
 
-<h2 id="23-selection-of-highly-variable-genes">2.3 Selection of highly variable genes</h2>
-<p>The desc analysis should be performed on a particular set of genes, like highly variable genes, known cell-type markers or a combination of both, which help to separate cell groups. The function <code class="highlighter-rouge">highly_variable_genes</code> can help to select a set of the highly variable gene while controlling for the relationship between variability and average expression level. The function is from <a href="https://scanpy.readthedocs.io/en/latest/">scanpy</a>. Check the <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">function document</a> for detailed information about usage and parameter setting.</p>
+<h2 id="24-selection-of-highly-variable-genes">2.4 Selection of highly variable genes</h2>
+<p>The desc analysis should be performed on a particular set of genes, like highly variable genes, known cell-type markers or a combination of both, which help to separate cell groups. The function <code class="highlighter-rouge">highly_variable_genes</code> can help to select a set of the highly variable gene while controlling for the relationship between variability and average expression level. The function is also from <a href="https://scanpy.readthedocs.io/en/latest/">scanpy</a>. Check the <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">function document</a> for detailed information about usage and parameter setting.</p>
 
 <p>For reducing the compuation cost in the tutorial, we use <strong>top 100</strong> highly variable genes in the pbmc data for the following analysis:</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n_top_genes</span> <span class="o">=</span> <span class="mi">100</span>

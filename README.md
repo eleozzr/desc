@@ -18,12 +18,24 @@ The [**desc**](https://github.com/Yafei611/desc) package is an implementation of
 - Visualize cell clusters separation and expression pattern
 <br>
 
-## Installation
+# Installation
 
-To install the current release:
+To install the current release of `desc` you can choose:
+
+* PyPI  
+Directly install the package from PyPI:
 
 ```
-pip install desc
+$ pip install desc
+```
+
+* Github  
+Download the package from the Github and install it locally:
+
+```
+git clone https://github.com/Yafei611/desc
+cd desc
+pip install .
 ```
 
 Please check DESC [Tutorial](https://yafei611.github.io/desc/tutorial.html) for more detials.
