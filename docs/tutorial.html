@@ -39,8 +39,16 @@
 
 <p>In the tutorial, we will need <code class="highlighter-rouge">desc</code> module for clustering analysis and <code class="highlighter-rouge">scanpy</code> for data preprocessing.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">desc</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">desc</span> <span class="k">as</span> <span class="n">DESC</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
 <span class="kn">import</span> <span class="nn">scanpy.api</span> <span class="k">as</span> <span class="n">sc</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span> 
+<span class="n">sc</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">verbosity</span> <span class="o">=</span> <span class="mi">3</span>             <span class="c1"># verbosity: errors (0), warnings (1), info (2), hints (3)
+</span><span class="n">sc</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">print_versions</span><span class="p">()</span>
 </code></pre></div></div>
 
 <h1 id="1-import-data">1 Import data</h1>
@@ -116,13 +124,24 @@ AnnData object with n_obs × n_vars = 2700 × 32738
 
 <p>A relatively high expression of mitochondria genes indicating a lower data quality in scRNA data. Therefore, we want to also remove cells with a high proportion of mitochondria genes expression.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
-<span class="c1"># look for mitochondria genes which are started by 'MT'
-</span><span class="n">mito_genes</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">'MT-'</span><span class="p">)</span>
-<span class="c1"># Get the mitochondria gene expression proportion
-</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'percent_mito'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">adata</span><span class="p">[:,</span> <span class="n">mito_genes</span><span class="p">]</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span>
-<span class="c1"># Keep only cell with a low mitochondria expression
-</span><span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'percent_mito'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">,</span> <span class="p">:]</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mito_genes</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">'MT-'</span><span class="p">)</span>
+<span class="c1"># for each cell compute fraction of counts in mito genes vs. all genes
+# the `.A1` is only necessary as X is sparse (to transform to a dense array after summing)
+</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'percent_mito'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span>
+    <span class="n">adata</span><span class="p">[:,</span> <span class="n">mito_genes</span><span class="p">]</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span>
+<span class="c1"># add the total counts per cell as observations-annotation to adata
+</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'n_counts'</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span>
+</code></pre></div></div>
+
+<p>Then we can check proportion of mitochondrial genes expression</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="p">[</span><span class="s">'n_genes'</span><span class="p">,</span> <span class="s">'n_counts'</span><span class="p">,</span> <span class="s">'percent_mito'</span><span class="p">],</span><span class="n">jitter</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">multi_panel</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+<p><img src="assets/images/output_16_0.png" alt="desc qc" /></p>
+
+<p>And remove low qualiyu cells:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>adata = adata[adata.obs['n_genes'] &lt; 2500, :]
+adata = adata[adata.obs['percent_mito'] &lt; 0.05, :]
 </code></pre></div></div>
 
 <p>After filteration, we ahve 13714 cells left in the dataset.</p>
@@ -137,29 +156,34 @@ AnnData object with n_obs × n_vars = 2700 × 13714
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">normalize_per_cell</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">counts_per_cell_after</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
 </code></pre></div></div>
-<p>The figure shows the <strong>sorted</strong> totoal expression level for each cell before/after the normalization procedure.
-<img src="assets/images/Figure_1_normalization.png" alt="desc normalization" /></p>
 
 <h2 id="23-logarithm-transformation">2.3 logarithm transformation</h2>
 <p>Also, the following analysis and the desc analysis should be performed on log-scaled data.</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
 </code></pre></div></div>
-<p>The figure shows a histogram of expression levels before/after logarithm transformation.
-<img src="assets/images/Figure_2_log.png" alt="desc normalization" /></p>
 
 <h2 id="24-selection-of-highly-variable-genes">2.4 Selection of highly variable genes</h2>
-<p>The desc analysis should be performed on a particular set of genes, like highly variable genes, known cell-type markers or a combination of both, which help to separate cell groups. The function <code class="highlighter-rouge">highly_variable_genes</code> can help to select a set of the highly variable gene while controlling for the relationship between variability and average expression level. The function is also from <a href="https://scanpy.readthedocs.io/en/latest/">scanpy</a>. Check the <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">function document</a> for detailed information about usage and parameter setting.</p>
+<p>The desc analysis should be performed on a particular set of genes, like highly variable genes, known cell-type markers or a combination of both, which help to separate cell groups. The function <code class="highlighter-rouge">highly_variable_genes</code> can help to select a set of the highly variable gene while controlling for the relationship between variability and average expression level. It takes <strong>normalizaed, log-scaled</strong> data as input and can provide a adata obeject which contain a subset of highly variable genes.</p>
 
-<p>For reducing the compuation cost in the tutorial, we use <strong>top 100</strong> highly variable genes in the pbmc data for the following analysis:</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n_top_genes</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">desc</span><span class="o">.</span><span class="n">highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_top_genes</span><span class="o">=</span><span class="n">n_top_genes</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<p>The function is from <a href="https://scanpy.readthedocs.io/en/latest/">scanpy</a>. Check the <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">function document</a> for detailed information about usage and parameter setting.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_mean</span><span class="o">=</span><span class="mf">0.0125</span><span class="p">,</span> <span class="n">max_mean</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_disp</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>In this dataset, 1844 genes were kept as highly variable genes:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; adata
+AnnData object with n_obs × n_vars = 2643 × 1844 
+    obs: 'barcode', 'n_genes', 'percent_mito', 'n_counts'
+    var: 'gene_ids', 'gene_symbols', 'n_cells', 'highly_variable', 'means', 'dispersions', 'dispersions_norm'
 </code></pre></div></div>
 
 <h2 id="24-scaling">2.4 Scaling</h2>
+
+<p>At last, the data need to be centralized before the desc analysis:</p>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">zero_center</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </code></pre></div></div>
-<p>The figure shows histogram of expreesion levels befter/after scaling.
-<img src="assets/images/Figure_3_scaling.png" alt="desc normalization" /></p>
 
 <p><br /></p>
 
@@ -167,50 +191,48 @@ AnnData object with n_obs × n_vars = 2700 × 13714
 
 <p>Now we are ready to run a desc analysis. The function <code class="highlighter-rouge">train</code> will perform desc on the expression matrix (2700 x 100 in this tutorial) and save the clustering labels as well other results in the AnnData object. For a full list of desc parameter please check the desc documentation on the <a href="https://pypi.org/project/desc/">pypi</a>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adata</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">n_top_genes</span><span class="p">),</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="n">resolution</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adata</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span> <span class="n">tol</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                   <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">louvain_resolution</span><span class="o">=</span><span class="p">[</span><span class="mf">0.8</span><span class="p">],</span>
+                   <span class="n">save_dir</span><span class="o">=</span><span class="s">"result_pbmc3k"</span><span class="p">,</span> <span class="n">do_tsne</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+                   <span class="n">do_umap</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">num_Cores_tsne</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                   <span class="n">save_encoder_weights</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
 
 <p>After the desc model training, several result slots will be added to the adata:</p>
 
-<ul>
-  <li><strong>adata.obs[‘ident’]</strong><br />
-This slot is the clustering labels from the desc. The size of the ‘ident’ is <em>number of the cell by one</em> (2700 x 1 in this tutorial). 
-One may want to check the number of cell for each of the clusters by:
-    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'ident'</span><span class="p">]):</span>
-  <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'ident'</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p><strong>adata.obsm[‘prob’].</strong><br />
-This slot contains the probabilties of each cell belongs to each of the cell clusters. The size should be <em>numbers of cell by numbers of clusters</em> (2700 x ?? in this tutorial)</p>
-  </li>
-  <li><strong>adata.obs[‘max_prob’].</strong><br />
-This slot contains the probabilities of each cell belongs to the assigned cluster. The size is <em>number of the cell by one</em> (2700 x 1 in this tutorial). A reliable assignment should base on a relatively high <strong>max_prob</strong>. Let us check <strong>max_prob</strong> for all cells using a scatter plot.</li>
-</ul>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">max_prob</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'max_prob'</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-<span class="n">max_prob</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">max_prob</span><span class="p">))),</span> <span class="n">max_prob</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s">'sorted max_prob'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">'cell index'</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'max_prob'</span><span class="p">)</span>
-</code></pre></div></div>
-<p><img src="assets/images/Figure_4_max_prob.png" alt="max_prob" /></p>
+<p>Following are the desc result under <strong>resolution=0.8</strong></p>
 
 <ul>
-  <li><strong>adata.obsm[‘embedded’]</strong><br />
-This slot is a low dimension representation of the expression data. the size is <em>number of the cell by the number of network nodes in the lowest layer</em> (2700 x 8 in this tutorial). This slot facilitates users to generate tSNE plot or do other downstream analysis.</li>
+  <li>The cluster result <strong>desc_0.8</strong> has beed added into adata.obs, which stands for the clustering labels from the desc.</li>
+  <li>The tsne coordinate <strong>X_tsne0.8</strong> has been added into adata.obsm,</li>
+  <li>The umap coordinate <strong>X_umap0.8</strong> has been added into adata.obsm,</li>
+  <li>The maximum probability matrix <strong>prob_matrix0.8</strong> has been added into adata.uns,</li>
+  <li><strong>X_Embeded_z0.8</strong> is the low dimension representation of the expression data, the size is number of the cell by the number of network nodes in the bottleneck layer (2700 x 16 in this tutorial). This slot facilitates users to generate tSNE or Umap plot or do other downstream analysis.</li>
 </ul>
 
 <p><br /></p>
 
 <h1 id="4-visualization">4 Visualization</h1>
 
-<p>Next, let us visualize the desc clustering using a tSNE plot:</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tsne</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">run_tsne</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">perplexity</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span>
+<p>Here, we want to check Cluster result, max probability, and feature plot of tsne and umap:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">prob_08</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s">"prob_matrix0.8"</span><span class="p">]</span>
+<span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">"max.prob0.8"</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="nb">max</span><span class="p">(</span><span class="n">prob_08</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">#tsne plot 
+</span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">basis</span><span class="o">=</span><span class="s">"tsne0.8"</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s">'desc_0.8'</span><span class="p">,</span><span class="s">"max.prob0.8"</span><span class="p">,</span><span class="s">'MS4A1'</span><span class="p">,</span> <span class="s">'NKG7'</span><span class="p">])</span>
 </code></pre></div></div>
-<p><img src="assets/images/Figure_5_tsne.png" alt="max_prob" /> 
-Note that the <code class="highlighter-rouge">tun_tsne</code> function in the desc package is a warpper fo the <a href="https://github.com/DmitryUlyanov/Multicore-TSNE"><code class="highlighter-rouge">MulticoreTSNE</code></a>. The tSNE visualization can be quite depend on the parameter settings. Thus, we suggest to run <code class="highlighter-rouge">run_tsne</code> under a grid of parameter settings to get a optimal visualization. To know more about tNSE paramter, please check <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">here</a>.</p>
+<p><img src="assets/images/output_45_0.png" alt="desc v1" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#tsne plot 
+</span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">basis</span><span class="o">=</span><span class="s">"umap0.8"</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s">'desc_0.8'</span><span class="p">,</span><span class="s">"max.prob0.8"</span><span class="p">,</span><span class="s">'MS4A1'</span><span class="p">,</span> <span class="s">'NKG7'</span><span class="p">])</span>
+</code></pre></div></div>
+<p><img src="assets/images/output_46_0.png" alt="desc v2" /></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">"desc_0.8"</span><span class="p">]</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">"desc_0.8"</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">stacked_violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="p">[</span><span class="s">"MS4A1"</span><span class="p">,</span> <span class="s">"GNLY"</span><span class="p">,</span> <span class="s">"CD3E"</span><span class="p">,</span> <span class="s">"CD14"</span><span class="p">,</span> <span class="s">"FCER1A"</span><span class="p">,</span> <span class="s">"FCGR3A"</span><span class="p">,</span> <span class="s">"LYZ"</span><span class="p">,</span> <span class="s">"PPBP"</span><span class="p">,</span> <span class="s">"CD8A"</span><span class="p">],</span>
+                     <span class="n">groupby</span><span class="o">=</span><span class="s">'desc_0.8'</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">swap_axes</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+<p><img src="assets/images/output_47_1.png" alt="desc v3" /></p>
 
 <p><br /></p>
 
@@ -224,9 +246,13 @@ Note that the <code class="highlighter-rouge">tun_tsne</code> function in the de
 
 <h2 id="52-save-to-csv-files">5.2 Save to .csv files</h2>
 <p>Also, the desc result can be separatly save to .csv files, which can be easily accessed using R, c or other tools for future analysis.</p>
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">write_desc_result</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span> <span class="n">save_dir</span><span class="o">=</span><span class="s">'tmp_result'</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#`obs` slot
+</span><span class="n">meta_data</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">meta_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">"meta.data.csv"</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">","</span><span class="p">)</span>
+<span class="c1">#`obsm` slot, which is numpy.ndarray
+</span><span class="n">obsm_data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s">"X_tsne0.6"</span><span class="p">])</span>
+<span class="n">obsm_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">"tsne.csv"</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">","</span><span class="p">)</span>
 </code></pre></div></div>
-<p>The function will generate 3 files including <strong>cluster_ident.cvs</strong>, <strong>prob_matrix.cvs</strong> and <strong>embedded.cvs</strong>, which conresponding to <strong>adata.obs[‘ident’]</strong>, <strong>adata.obsm[‘prob’].</strong> and <strong>adata.obsm[‘embedded’]</strong>.</p>
 
 
       </div>

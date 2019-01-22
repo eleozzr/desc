@@ -1,2 +1,0 @@
-from .desc import train
-	

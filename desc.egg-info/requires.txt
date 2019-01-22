@@ -5,3 +5,4 @@ keras
 scanpy
 pandas
 louvain
+MulticoreTSNE
