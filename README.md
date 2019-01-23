@@ -1,7 +1,7 @@
 
 ## Deep Embedding for Single-cell Clustering 
 
-DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm constructs a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learning the cluster-specific gene expression representation and member assignments based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances the biological and the technical differences between clusters, and reduces the influence of the batch effect. DESC also enables soft clustering by assigning cluster-specific probabilities to each cell, which facilitates the identification of cells clusters with high-confidence and interpretation of results. 
+DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm constructs a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learning the cluster-specific gene expression representation and member assignments based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances the biological and the technical differences between clusters, and reduces the influence of the batch effect. DESC also enables soft clustering by assigning cluster-specific probability to each cell, which facilitates the identification of cells clusters with high-confidence and interpretation of results. 
 
 ![DESC workflow](docs/assets/images/desc_workflow.png)
 

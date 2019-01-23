@@ -33,38 +33,36 @@
       <div class="wrapper">
         <h2 id="deep-embedding-for-single-cell-clustering">Deep Embedding for Single-cell Clustering</h2>
 
-<p>DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm construct a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learns cluster-specific gene expression representation and cluster assignments based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances biological and technical differences between clusters, and reduces the influence of batch effect. DESC also enables soft clustering by assigning cluster-specific probabilities to each cell, which facilitates the identification of cells clustered with high-confidence and interpretation of results.</p>
-
-<p><img src="assets/images/desc_workflow.png" alt="DESC workflow" /></p>
+<p>DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm constructs a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learning the cluster-specific gene expression representation and member assignments based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances the biological and the technical differences between clusters, and reduces the influence of the batch effect. DESC also enables soft clustering by assigning cluster-specific probability to each cell, which facilitates the identification of cells clusters with high-confidence and interpretation of results.
+<img src="assets/images/desc_workflow.png" alt="DESC workflow" /></p>
 
 <p>For thorough details, see the preprint: <a href="https://www.biorxiv.org">Bioxiv</a></p>
 
 <p><br /></p>
 
-<h2 id="usages">Usages</h2>
+<h2 id="usage">Usage</h2>
 
-<p>The <a href="https://github.com/Yafei611/desc"><strong>desc</strong></a> package is an implementation of deep embedding single-cell clustering. With desc, you can:</p>
+<p>The <a href="https://github.com/eleozzr/desc"><strong>desc</strong></a> package is an implementation of deep embedding for single-cell clustering. With desc, you can:</p>
 
 <ul>
-  <li>Preprocess single cell expression data from varies of formats</li>
-  <li>Build low-dimensional representation of single cell expression</li>
-  <li>Obtain a soft-clustering assignments of cells</li>
-  <li>Visualize cell clusters separation and expression pattern</li>
+  <li>Pre-process single cell expression data from varies of formats</li>
+  <li>Build a low-dimensional representation of the single-cell expression data</li>
+  <li>Obtain soft-clustering assignments of cells</li>
+  <li>Visualize the cell clusters separation and the expression pattern</li>
 </ul>
 
 <p><br /></p>
 
 <h2 id="references">References</h2>
 
-<p>Please cite the references appropriately in case they are used.<br />
+<p>Please consider citing the references in case they are used.<br />
 [1] DESC  <br />
-[2] DESC</p>
-
-<p><br /></p>
+[2] DESC
+<br /></p>
 
 <h2 id="licence">Licence</h2>
 
-<p>Copyright (C) 2018 Mingyao’s Lab</p>
+<p>Copyright (C) 2019 Mingyao’s Lab</p>
 
       </div>
     </main><footer class="site-footer h-card">
