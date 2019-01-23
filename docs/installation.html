@@ -43,7 +43,7 @@ Directly install the package from PyPI:</li>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pip install desc
 </code></pre></div></div>
 
-<p>If you do not have sudo rights (you get a Permission denied error):</p>
+<p>If you do not have sudo rights (when you get a permission denied error):</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pip install --user desc
 </code></pre></div></div>
@@ -53,7 +53,7 @@ Directly install the package from PyPI:</li>
 Download the package from the Github and install it locally:</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/Yafei611/desc
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/eleozzr/desc
 cd desc
 pip install .
 </code></pre></div></div>
@@ -62,17 +62,19 @@ pip install .
   <li>Anaconda</li>
 </ul>
 
-<p>If you do not have a working Python3.5 or Python3.6 installation, consider installing Anaconda , (see Installing Anaconda ).After installing Anaconda, you can creat your environment, for example DESC (you can change other name.)</p>
+<p>If you do not have a working Python3.5 or Python3.6 installation, consider installing Anaconda , (see Installing Anaconda ). After installing Anaconda, you can create a new environment, for example, DESC:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create -n DESC python=3.5.3
 # activate your environment 
 source activate DESC 
-git clone https://github.com/Yafei611/desc
+git clone https://github.com/eleozzr/desc
 cd desc
-python3 setup.py build
-python3 setup.py install
-# now you can check whether `desc` installed sucessfully!
+python setup.py build
+python setup.py install
+# now you can check whether `desc` installed successfully!
 </code></pre></div></div>
+
+<p>Please check DESC <a href="https://eleozzr.github.io/desc/tutorial.html">Tutorial</a> for more detials.</p>
 
 <p><br /></p>
 
@@ -80,11 +82,11 @@ python3 setup.py install
 
 <p>Now, let us run a quick test to see if the <strong>desc</strong> is ready:</p>
 
-<p>Firstly, enter Python’s Interpreter from your console:</p>
+<p>Firstly, enter Python’s interpreter from your console:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python
 </code></pre></div></div>
 
-<p>Then, in an Python interpeter session, typing:</p>
+<p>Then, in a Python interpeter session, typing:</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">desc</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">desc</span><span class="o">.</span><span class="n">run_desc_test</span><span class="p">()</span>
 </code></pre></div></div>
@@ -104,7 +106,8 @@ Next, how about learn more about DESC in <a href="/desc/tutorial.html">Tutorial<
 <h1 id="troubleshooting">Troubleshooting</h1>
 
 <ul>
-  <li>For linux user: If you see <code class="highlighter-rouge">*/ld: cannot find -l***</code> , which means it cannot find lib file, where <code class="highlighter-rouge">l***</code> stands for link lib file <code class="highlighter-rouge">lib***.so</code>. The first thing you need install the cooresponding lib file, for example if you saw <code class="highlighter-rouge">*/ld: cannot find -lxml2</code>, you can try
+  <li>For Linux users:
+If you see <code class="highlighter-rouge">*/ld: cannot find -l***</code> , which means it cannot find lib file, where <code class="highlighter-rouge">l***</code> stands for link lib file <code class="highlighter-rouge">lib***.so</code>. The first thing you need is to install the corresponding lib file, for example, if you see <code class="highlighter-rouge">*/ld: cannot find -lxml2</code>, you can try
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#For ubuntu/debian user you can try
 sudo apt-get install python3-dev
 sudo apt-get install libxml2-dev
@@ -112,7 +115,7 @@ sudo apt-get install libxml2-dev
 sudo yum install libxml2-devel
 sudo yum install libxml2-devel
 </code></pre></div>    </div>
-    <p>Then try to install desc again. If issues still arise, you should try the following (but with Permission), we take libxml2 as example</p>
+    <p>Then, try to install desc again. If the issue still arises, you should try the following (with the permission), take libxml2 as an example:</p>
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /usr/lib64
 ls -al|grep "xml2"
 sudo ln -s libxml2.so.2 libxml2.so
@@ -120,18 +123,18 @@ ls -al|grep "xml2"
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>For windows user 
-You can click <a href="https://igraph.org/python/">python-igraph</a> if there are some issues for python-igraph (DESC depends on python-igraph). Note that the automatic compilation of the C core when running pip install python-igraph will not work on Windows! So the preferred way to install the Python interface on Windows is to download one of the unofficial installers built by <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph">Christoph Gohlke</a>. (Thanks Christoph!). Download it according to your python version and windows, but because python-igraph depend on pycairo, you had better download <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo">pycairo</a> firstly.</p>
+    <p>For Windows users: 
+Check <a href="https://igraph.org/python/">python-igraph</a> if there are some issues when installing python-igraph (DESC depends on python-igraph). Note that the automatic compilation of the C core when running pip install python-igraph will not work on Windows! So the preferred way for installing the Python interface on Windows is to download one of the unofficial installers built by <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph">Christoph Gohlke</a>. (Thanks Christoph!). Download it according to your python and windows version. Because python-igraph depend on pycairo, you had better download <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo">pycairo</a> first.</p>
   </li>
-  <li>Take python3.6 win64 as example,after you download pycairo and python-igraph, you can run following commands.
+  <li>Take python3.6 win64 as example, after you download pycairo and python-igraph, you can run following commands.
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install pycairo-1.18.0-cp36-cp36m-win_amd64.whl
 pip install python_igraph-0.7.1.post6-cp36-cp36m-win_amd64.whl
 </code></pre></div>    </div>
   </li>
   <li>If you have some install issues about pydot,
     <ul>
-      <li>For linux users, you should can run <code class="highlighter-rouge">pip3 install pydot graphviz</code>.</li>
-      <li>For windows user, you should download Graphviz from <a href="https://graphviz.gitlab.io/_pages/Download/Download_windows.html">Graphviz</a> and you need to set the PATH variable yourself. After you finished the following setting, you should close the <code class="highlighter-rouge">cmd</code> window and restart <code class="highlighter-rouge">cmd</code> window.
+      <li>For Linux users, you should can run <code class="highlighter-rouge">pip3 install pydot graphviz</code>.</li>
+      <li>For Windows user, you should download Graphviz from <a href="https://graphviz.gitlab.io/_pages/Download/Download_windows.html">Graphviz</a> and you need to set the PATH variable yourself. After you finished the following setting, you should close the <code class="highlighter-rouge">cmd</code> window and restart <code class="highlighter-rouge">cmd</code> window.
         <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  #here I downloaded `graphviz` in C:\Users\dell\Desktop
   import os
   graphviz_setup='C:\Users\dell\Desktop\graphviz-2.38\release\bin'

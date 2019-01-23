@@ -31,7 +31,7 @@
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <p>In this tutorial, we will perform an entire desc analysis with a dataset of Peripheral Blood Mononuclear Cells (PBMC). In the dataset, the expression levels of 2,700 cells were sequenced using the Illumina NextSeq 500. The data is freely available from 10X Genomics and the raw can be downloaded <a href="https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz">here</a>.</p>
+        <p>In this tutorial, we will perform an entire desc analysis with a dataset of Peripheral Blood Mononuclear Cells (PBMC). In the dataset, the expression levels of 2,700 cells were sequenced using the Illumina NextSeq 500. The data are freely available from 10X Genomics and the raw can be downloaded <a href="https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz">here</a>.</p>
 
 <p><br /></p>
 
@@ -59,20 +59,20 @@
 
 <p>The desc package provides a function to load the 10X dataset directly. Download the <a href="https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz">data</a> and unzip it. Then put everything in <em>filtered_gene_bc_matrices/hg19/</em> to <em>data/pbmc/</em>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load the 10X data by providing the path to data
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load the 10X data by providing the path to the data
 </span><span class="n">adata</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">read_10X</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="s">'data/pbmc'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h2 id="12-start-from-mtx-and-csv-files">1.2 Start from .mtx and .csv files</h2>
 
-<p>When the expression data doesn’t follow the standard 10X dataset format, we can manually import the data as follows:<br />
+<p>When the expression data do not follow the standard 10X dataset format, we can manually import the data as follows:<br />
 Read the expression matrix from .mtx file.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
 <span class="n">adata</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">read_mtx</span><span class="p">(</span><span class="s">'data/pbmc/matrix.mtx'</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 </code></pre></div></div>
 
-<p>Read the .csv file for gene annotations. Make sure the gene names are unique.</p>
+<p>Read the .csv file for the gene annotations. Make sure the gene names are unique.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">genes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/pbmc/genes.tsv'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">)</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s">'gene_ids'</span><span class="p">]</span> <span class="o">=</span> <span class="n">genes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -84,7 +84,7 @@ Read the expression matrix from .mtx file.</p>
 <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span> <span class="o">=</span> <span class="n">var_names</span>
 </code></pre></div></div>
 
-<p>Read the .csv file for cell annotations.</p>
+<p>Read the .csv file for the cell annotations.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cells</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/pbmc/barcodes.tsv'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">)</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'barcode'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -104,11 +104,11 @@ Read the expression matrix from .mtx file.</p>
 
 <p>The standard scRNA data preprocessing workflow may include filtration of cells/genes, normalization, scaling and selection of highly variables genes. In this tutorial, we use <code class="highlighter-rouge">scanpy</code> to preprocess the data. Note that among the preprocessing steps, filtration of cells/genes and selecting highly variables genes are optional while <strong>normalization and scaling are strictly required before the desc analysis</strong>.</p>
 
-<p>Following steps show a topical pre-processing procedure for the human blood cells data:</p>
+<p>Following steps show a topical pre-processing procedure for analyzing the human blood cells data:</p>
 
 <h2 id="21-filtering-cells-and-genes">2.1 Filtering cells and genes</h2>
 
-<p>Typing <code class="highlighter-rouge">adata</code> in the python console shows that the original datasets contain expressions for 2700 gene across 32738 cells.</p>
+<p>Typing <code class="highlighter-rouge">adata</code> in the python console shows that the original datasets contain expressions for 2700 genes across 32738 cells.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; adata
 AnnData object with n_obs × n_vars = 2700 × 32738 
@@ -122,7 +122,7 @@ AnnData object with n_obs × n_vars = 2700 × 32738
 <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_cells</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>A relatively high expression of mitochondria genes indicating a lower data quality in scRNA data. Therefore, we want to also remove cells with a high proportion of mitochondria genes expression.</p>
+<p>A relatively high expression of mitochondria genes indicating a lower data quality in a scRNA data. Therefore, we want to also remove cells with a high proportion of mitochondria genes expression.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mito_genes</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">'MT-'</span><span class="p">)</span>
 <span class="c1"># for each cell compute fraction of counts in mito genes vs. all genes
@@ -138,13 +138,13 @@ AnnData object with n_obs × n_vars = 2700 × 32738
 </code></pre></div></div>
 <p><img src="assets/images/output_16_0.png" alt="desc qc" /></p>
 
-<p>And remove low qualiyu cells:</p>
+<p>And remove low quality cells:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>adata = adata[adata.obs['n_genes'] &lt; 2500, :]
 adata = adata[adata.obs['percent_mito'] &lt; 0.05, :]
 </code></pre></div></div>
 
-<p>After filteration, we ahve 13714 cells left in the dataset.</p>
+<p>After filteration, we have 13714 cells left in the dataset.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; adata
 AnnData object with n_obs × n_vars = 2700 × 13714 
     obs: 'barcode', 'n_genes'
@@ -152,20 +152,20 @@ AnnData object with n_obs × n_vars = 2700 × 13714
 </code></pre></div></div>
 
 <h2 id="22-normalization">2.2 Normalization</h2>
-<p>The function <code class="highlighter-rouge">normalize_per_cell</code> normalizes the gene expression measurements for each cell by the total expression, multiplies this by a scale factor (10,000 by default).</p>
+<p>The function <code class="highlighter-rouge">normalize_per_cell</code> normalize each cell by total counts over all genes, so that every cell has the same total count after normalization. (10,000 by default).</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">normalize_per_cell</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">counts_per_cell_after</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h2 id="23-logarithm-transformation">2.3 logarithm transformation</h2>
-<p>Also, the following analysis and the desc analysis should be performed on log-scaled data.</p>
+<p>Also, the following analysis and the desc analysis should be performed on the log-scaled data.</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h2 id="24-selection-of-highly-variable-genes">2.4 Selection of highly variable genes</h2>
-<p>The desc analysis should be performed on a particular set of genes, like highly variable genes, known cell-type markers or a combination of both, which help to separate cell groups. The function <code class="highlighter-rouge">highly_variable_genes</code> can help to select a set of the highly variable gene while controlling for the relationship between variability and average expression level. It takes <strong>normalizaed, log-scaled</strong> data as input and can provide a adata obeject which contain a subset of highly variable genes.</p>
+<p>The desc analysis should be performed on a particular set of genes, like highly variable genes, known cell-type markers or a combination of both, which help to separate cell groups. The function <code class="highlighter-rouge">highly_variable_genes</code> can help to select a set of the highly variable gene while controlling for the relationship between variability and average expression level. It takes <strong>normalized, log-scaled</strong> data as input and can provide an adata object which contains a subset of highly variable genes.</p>
 
-<p>The function is from <a href="https://scanpy.readthedocs.io/en/latest/">scanpy</a>. Check the <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">function document</a> for detailed information about usage and parameter setting.</p>
+<p>The function is from <a href="https://scanpy.readthedocs.io/en/latest/">scanpy</a>. Check the <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">function document</a> for detailed information about the usage and the parameter setting.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_mean</span><span class="o">=</span><span class="mf">0.0125</span><span class="p">,</span> <span class="n">max_mean</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_disp</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
@@ -189,7 +189,7 @@ AnnData object with n_obs × n_vars = 2643 × 1844
 
 <h1 id="3-desc-analysis">3 Desc analysis</h1>
 
-<p>Now we are ready to run a desc analysis. The function <code class="highlighter-rouge">train</code> will perform desc on the expression matrix (2700 x 100 in this tutorial) and save the clustering labels as well other results in the AnnData object. For a full list of desc parameter please check the desc documentation on the <a href="https://pypi.org/project/desc/">pypi</a>.</p>
+<p>Now we are ready to run a desc analysis. The function <code class="highlighter-rouge">train</code> will perform desc on the expression matrix (2643 × 1844 in this tutorial) and save the clustering labels as well as other related results in the AnnData object. For a full list of desc parameters please check the desc documentation on the <a href="https://pypi.org/project/desc/">pypi</a>.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adata</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="p">[</span><span class="n">adata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span> <span class="n">tol</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">n_neighbors</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
                    <span class="n">batch_size</span><span class="o">=</span><span class="mi">256</span><span class="p">,</span> <span class="n">louvain_resolution</span><span class="o">=</span><span class="p">[</span><span class="mf">0.8</span><span class="p">],</span>
@@ -203,18 +203,18 @@ AnnData object with n_obs × n_vars = 2643 × 1844
 <p>Following are the desc result under <strong>resolution=0.8</strong></p>
 
 <ul>
-  <li>The cluster result <strong>desc_0.8</strong> has beed added into adata.obs, which stands for the clustering labels from the desc.</li>
-  <li>The tsne coordinate <strong>X_tsne0.8</strong> has been added into adata.obsm,</li>
-  <li>The umap coordinate <strong>X_umap0.8</strong> has been added into adata.obsm,</li>
-  <li>The maximum probability matrix <strong>prob_matrix0.8</strong> has been added into adata.uns,</li>
-  <li><strong>X_Embeded_z0.8</strong> is the low dimension representation of the expression data, the size is number of the cell by the number of network nodes in the bottleneck layer (2700 x 16 in this tutorial). This slot facilitates users to generate tSNE or Umap plot or do other downstream analysis.</li>
+  <li>The clustering result <strong>desc_0.8</strong> has been added to adata.obs, which stands for the clustering labels from the desc.</li>
+  <li>The tsne coordinate <strong>X_tsne0.8</strong> has been added to adata.obsm,</li>
+  <li>The umap coordinate <strong>X_umap0.8</strong> has been added to adata.obsm,</li>
+  <li>The maximum probability matrix <strong>prob_matrix0.8</strong> has been added to adata.uns,</li>
+  <li><strong>X_Embeded_z0.8</strong> is the low dimensional representation of the expression data, the size is the number of the cells by the number of network nodes in the bottleneck layer (2700 x 16 in this tutorial). This slot facilitates users to generate tSNE or Umap plot or do other downstream analysis.</li>
 </ul>
 
 <p><br /></p>
 
 <h1 id="4-visualization">4 Visualization</h1>
 
-<p>Here, we want to check Cluster result, max probability, and feature plot of tsne and umap:</p>
+<p>Here, we want to check clustering result, max probability, and feature plots based on the tsne and the umap:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">prob_08</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s">"prob_matrix0.8"</span><span class="p">]</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">"max.prob0.8"</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="nb">max</span><span class="p">(</span><span class="n">prob_08</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -236,16 +236,16 @@ AnnData object with n_obs × n_vars = 2643 × 1844
 
 <p><br /></p>
 
-<h1 id="5-save-result">5 Save result</h1>
+<h1 id="5-save-the-result">5 Save the result</h1>
 <p>Lastly, let us save the desc result for the further analysis:</p>
 
 <h2 id="51-save-to-a-h5ad-file">5.1 Save to a .h5ad file</h2>
-<p>The AnnData object can be save to a .h5ad file for further analysis in Python enviroument.</p>
+<p>The AnnData object can be saved to a .h5ad file for the further analysis in a Python environment.</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adata</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">'../result/desc_result.h5ad'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h2 id="52-save-to-csv-files">5.2 Save to .csv files</h2>
-<p>Also, the desc result can be separatly save to .csv files, which can be easily accessed using R, c or other tools for future analysis.</p>
+<p>Also, the desc result can be separatly saved to .csv files, which can be easily accessed using R, c or other tools for the future analysis.</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#`obs` slot
 </span><span class="n">meta_data</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">meta_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">"meta.data.csv"</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">","</span><span class="p">)</span>
