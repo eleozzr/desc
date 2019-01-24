@@ -1,5 +1,5 @@
 
-## Deep Embedding for Single-cell Clustering 
+## Deep Embedding for Single-cell Clustering (DESC)
 
 DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm constructs a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learning the cluster-specific gene expression representation and member assignments based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances the biological and the technical differences between clusters, and reduces the influence of the batch effect. DESC also enables soft clustering by assigning a cluster-specific probability to each cell, which facilitates the identification of cells clusters with high-confidence and interpretation of results. 
 
@@ -58,7 +58,7 @@ pip install .
 
 * Anaconda
 
-If you do not have  Python3.5 or Python3.6 installed, consider installing Anaconda  (see [Installing Anaconda](https://docs.anaconda.com/anaconda/install/)). After installing Anaconda, you can create a new environment, for example, `DESC` (*you can change other name what you like*):
+If you do not have  Python3.5 or Python3.6 installed, consider installing Anaconda  (see [Installing Anaconda](https://docs.anaconda.com/anaconda/install/)). After installing Anaconda, you can create a new environment, for example, `DESC` (*you can change to any name you like*):
 
 ```bash
 conda create -n DESC python=3.5.3
@@ -71,7 +71,7 @@ python setup.py install
 # now you can check whether `desc` installed successfully!
 ```
 
-Please check DESC [Tutorial](https://eleozzr.github.io/desc/tutorial.html) for more details.
+Please check desc [Tutorial](https://eleozzr.github.io/desc/tutorial.html) for more details.
 
 <br>
 
