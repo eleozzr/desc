@@ -158,14 +158,14 @@ AnnData object with n_obs × n_vars = 2700 × 13714
 </code></pre></div></div>
 
 <h2 id="23-logarithm-transformation">2.3 logarithm transformation</h2>
-<p>Also, the following analysis and the desc analysis should be performed on the log-scaled data.</p>
+<p>Also, the following analysis and the desc analysis should be performed on log-transformed data.</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h2 id="24-selection-of-highly-variable-genes">2.4 Selection of highly variable genes</h2>
-<p>The desc analysis should be performed on a particular set of genes, like highly variable genes, known cell-type markers or a combination of both, which help to separate cell groups. The function <code class="highlighter-rouge">highly_variable_genes</code> can help to select a set of the highly variable genes. It takes <strong>normalized, log-scaled</strong> data as input and can provide an <code class="highlighter-rouge">AnnData</code> object which contains a subset of highly variable genes.</p>
+<p>We recommend performing desc analysis on highly variable genes. The highly variable genes can be selected using <code class="highlighter-rouge">highly_variable_genes</code> function. It takes <strong>normalized, log-transformed</strong> data as input and can provide an <code class="highlighter-rouge">AnnData</code> object which contains a subset of highly variable genes.</p>
 
-<p>The function is from <a href="https://scanpy.readthedocs.io/en/latest/">scanpy</a>. Check the <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">function document</a> for detailed information about the usage and the parameter setting.</p>
+<p>The function is from <a href="https://scanpy.readthedocs.io/en/latest/">scanpy</a>. Check the <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">function document</a> for detailed information about the usage and parameter setting.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_mean</span><span class="o">=</span><span class="mf">0.0125</span><span class="p">,</span> <span class="n">max_mean</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_disp</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
@@ -180,9 +180,7 @@ AnnData object with n_obs × n_vars = 2700 × 13714
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s">'highly_variable'</span><span class="p">]]</span>
 </code></pre></div></div>
 
-<p><strong>Note</strong>:The function <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">sc.pp.highly_variable_genes</a> is slightly different from <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.filter_genes_dispersion.html#scanpy.api.pp.filter_genes_dispersion">sc.pp.filter_genes_dispersion</a>. Because the function <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">sc.pp.highly_variable_genes</a> is similar to <code class="highlighter-rouge">FindVariableGenes</code> in R package <a href="https://satijalab.org/seurat/">Seurat</a> and it only add  some informations to <code class="highlighter-rouge">adata.var</code>, which cannot filter an <code class="highlighter-rouge">AnnData</code> object automatically. Thus, if using the function <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.filter_genes_dispersion.html#scanpy.api.pp.filter_genes_dispersion">sc.pp.filter_genes_dispersion</a> , you must make sure useing it after  <code class="highlighter-rouge">sc.pp.filter_genes_dispersion</code>  but before <code class="highlighter-rouge">sc.pp.log1p</code>.</p>
-
-<p>In this dataset, 1844 genes are kept as highly variable genes.</p>
+<p>In this dataset, 1844 genes are selected as highly variable genes.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; adata
 AnnData object with n_obs × n_vars = 2643 × 1838 
@@ -190,14 +188,12 @@ AnnData object with n_obs × n_vars = 2643 × 1838
     var: 'gene_ids', 'gene_symbols', 'n_cells', 'highly_variable', 'means', 'dispersions', 'dispersions_norm'
 </code></pre></div></div>
 
-<h2 id="24-scaling">2.4 Scaling</h2>
+<h2 id="25-scaling">2.5 Scaling</h2>
 
 <p>Finally, the data need to be standardized before the desc analysis:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">zero_center</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">max_value</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="c1">#or use
-#sc.pp.scale(adata, zero_center=True, max_value=3)
-</span></code></pre></div></div>
+</code></pre></div></div>
 
 <p><br /></p>
 
@@ -218,9 +214,9 @@ AnnData object with n_obs × n_vars = 2643 × 1838
 
 <ul>
   <li>The clustering result <strong>desc_0.8</strong> has been added to adata.obs, which include clustering labels from desc.</li>
-  <li>The tsne coordinate <strong>X_tsne0.8</strong> has been added to adata.obsm,</li>
-  <li>The umap coordinate <strong>X_umap0.8</strong> has been added to adata.obsm,</li>
-  <li>The maximum probability matrix <strong>prob_matrix0.8</strong> has been added to adata.uns,</li>
+  <li>The tSNE coordinate <strong>X_tsne0.8</strong> has been added to adata.obsm.</li>
+  <li>The umap coordinate <strong>X_umap0.8</strong> has been added to adata.obsm.</li>
+  <li>The maximum probability matrix <strong>prob_matrix0.8</strong> has been added to adata.uns.</li>
   <li><strong>X_Embeded_z0.8</strong> is the low dimensional representation of the expression data, the size is the number of the cells by the number of network nodes in the bottleneck layer (2700 x 16 in this tutorial). This slot facilitates users to generate tSNE or Umap plot or do other downstream analysis.</li>
 </ul>
 
@@ -228,17 +224,15 @@ AnnData object with n_obs × n_vars = 2643 × 1838
 
 <h1 id="4-visualization">4 Visualization</h1>
 
-<p>Here, we want to check clustering result, max probability, and feature plots based on the tsne and the umap:</p>
+<p>Here, we want to check clustering result, max probability, and feature plots based on the tSNE and the umap:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">prob_08</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s">"prob_matrix0.8"</span><span class="p">]</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">"max.prob0.8"</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="nb">max</span><span class="p">(</span><span class="n">prob_08</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="c1">#tsne plot 
-</span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">basis</span><span class="o">=</span><span class="s">"tsne0.8"</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s">'desc_0.8'</span><span class="p">,</span><span class="s">"max.prob0.8"</span><span class="p">,</span><span class="s">'MS4A1'</span><span class="p">,</span> <span class="s">'NKG7'</span><span class="p">])</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">basis</span><span class="o">=</span><span class="s">"tsne0.8"</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s">'desc_0.8'</span><span class="p">,</span><span class="s">"max.prob0.8"</span><span class="p">,</span><span class="s">'MS4A1'</span><span class="p">,</span> <span class="s">'NKG7'</span><span class="p">])</span>
 </code></pre></div></div>
 <p><img src="assets/images/output_45_0.png" alt="desc v1" /></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#tsne plot 
-</span><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">basis</span><span class="o">=</span><span class="s">"umap0.8"</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s">'desc_0.8'</span><span class="p">,</span><span class="s">"max.prob0.8"</span><span class="p">,</span><span class="s">'MS4A1'</span><span class="p">,</span> <span class="s">'NKG7'</span><span class="p">])</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">basis</span><span class="o">=</span><span class="s">"umap0.8"</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s">'desc_0.8'</span><span class="p">,</span><span class="s">"max.prob0.8"</span><span class="p">,</span><span class="s">'MS4A1'</span><span class="p">,</span> <span class="s">'NKG7'</span><span class="p">])</span>
 </code></pre></div></div>
 <p><img src="assets/images/output_46_0.png" alt="desc v2" /></p>
 
@@ -283,7 +277,7 @@ AnnData object with n_obs × n_vars = 2643 × 1838
           <li class="p-name">DESC</li><li><a class="u-email" href="mailto:mingyao.lab@gmail.com">mingyao.lab@gmail.com</a></li></ul>
       </div>
 
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eleozzr"><svg class="svg-icon"><use xlink:href="/desc/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eleozzr</span></a></li><li><a href="https://www.twitter.com/eleozzr"><svg class="svg-icon"><use xlink:href="/desc/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eleozzr</span></a></li></ul>
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eleozzr"><svg class="svg-icon"><use xlink:href="/desc/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eleozzr</span></a></li></ul>
 </div>
 
       <div class="footer-col footer-col-3">

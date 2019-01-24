@@ -12,10 +12,10 @@ For thorough details, see the preprint: [Bioxiv](https://www.biorxiv.org)
 
 The [**desc**](https://github.com/eleozzr/desc) package is an implementation of deep embedding for single-cell clustering. With desc, you can:
 
-- Pre-process single cell gene expression data from various formats.
+- Preprocess single cell gene expression data from various formats.
 - Build a low-dimensional representation of the single-cell gene expression data.
 - Obtain soft-clustering assignments of cells.
-- Visualize the cell clustering results and the gene expression patterns.
+- Visualize the cell clustering results and gene expression patterns.
 <br>
 
 # Installation
@@ -87,7 +87,7 @@ We are continuing adding new features. Bug reports or feature requests are welco
 
 Please consider citing the following reference:
 
-- Xiangjie Li, Yafei Lyu, Jihwan Park, Jingxiao Zhang, Dwight Stambolian, Katalin Susztak, Gang Hu, Mingyao Li. Deep learning enables accurate clustering and batch effect removal in single-cell RNA-seq analysis,2019: [https://www.biorxiv.org](https://www.biorxiv.org)
+- Xiangjie Li, Yafei Lyu, Jihwan Park, Jingxiao Zhang, Dwight Stambolian, Katalin Susztak, Gang Hu, Mingyao Li. Deep learning enables accurate clustering and batch effect removal in single-cell RNA-seq analysis (2019) [https://www.biorxiv.org](https://www.biorxiv.org)
 <br>
 
 ## Licence
