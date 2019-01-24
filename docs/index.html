@@ -1,97 +1,94 @@
-<!DOCTYPE HTML>
-<html>
- <head>
-  <meta charset="utf-8"/>
-  <title>
-   Made with Remarkable!
-  </title>
-  <link href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/github.min.css" rel="stylesheet"/>
-  <style type="text/css">
-   body,table tr{background-color:#fff}table tr td,table tr th{border:1px solid #ccc;text-align:left;padding:6px 13px;margin:0}pre code,table,table tr{padding:0}hr,pre code{background:0 0}body{font:16px Helvetica,Arial,sans-serif;line-height:1.4;color:#333;word-wrap:break-word;padding:10px 15px}strong,table tr th{font-weight:700}h1{font-size:2em;margin:.67em 0;text-align:center}h2{font-size:1.75em}h3{font-size:1.5em}h4{font-size:1.25em}h1,h2,h3,h4,h5,h6{font-weight:700;position:relative;margin-top:15px;margin-bottom:15px;line-height:1.1}h1,h2{border-bottom:1px solid #eee}hr{height:0;margin:15px 0;overflow:hidden;border:0;border-bottom:1px solid #ddd}a{color:#4183C4}a.absent{color:#c00}ol,ul{padding-left:15px;margin-left:5px}ol{list-style-type:lower-roman}table tr{border-top:1px solid #ccc;margin:0}table tr:nth-child(2n){background-color:#aaa}table tr td :first-child,table tr th :first-child{margin-top:0}table tr td:last-child,table tr th :last-child{margin-bottom:0}img{max-width:100%}blockquote{padding:0 15px;border-left:4px solid #ccc}code,tt{margin:0 2px;padding:0 5px;white-space:nowrap;border:1px solid #eaeaea;background-color:#f8f8f8;border-radius:3px}pre code{margin:0;white-space:pre;border:none}.highlight pre,pre{background-color:#f8f8f8;border:1px solid #ccc;font-size:13px;line-height:19px;overflow:auto;padding:6px 10px;border-radius:3px}
-  </style>
- </head>
- <body>
-  <hr/>
-  <p>
-   title: Home
-   <br/>
-   layout: default
-  </p>
-  <hr/>
-  <h2>
-   Deep Embedding for Single-cell Clustering
-  </h2>
-  <p>
-   DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm constructs a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learning  cluster-specific gene expression representation and cluster assignments based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances the biological and  technical differences between clusters, and reduces the influence of the batch effect. DESC also enables soft clustering by assigning cluster-specific probability to each cell, which facilitates the identification of cells clusters with high-confidence and interpretation of results.
-   <br/>
-   <img alt="DESC workflow" src="assets/images/desc_workflow.png"/>
-  </p>
-  <p>
-   For thorough details, see the preprint:
-   <a href="https://www.biorxiv.org">
-    Bioxiv
-   </a>
-  </p>
-  <p>
-   <br/>
-  </p>
-  <h2>
-   Usage
-  </h2>
-  <p>
-   The
-   <a href="https://github.com/eleozzr/desc">
-    <strong>
-     desc
-    </strong>
-   </a>
-   package is an implementation of deep embedding for single-cell clustering. With desc, you can:
-  </p>
-  <ul>
-   <li>
-    Pre-process single cell gene expression data from various formats.
-   </li>
-   <li>
-    Build a low-dimensional representation of the single-cell expression data.
-   </li>
-   <li>
-    Obtain soft-clustering assignments of cells.
-   </li>
-   <li>
-    Visualize the clustering results and gene expression patterns.
-   </li>
-  </ul>
-  <p>
-   <br/>
-  </p>
-  <h2>
-   References
-  </h2>
-  <p>
-   Please consider citing the references in case they are used.
-   <br/>
-   [1] DESC:
-   <a href="https://www.biorxiv.org">
-    Bioxiv
-   </a>
-   <br/>
-   <br/>
-  </p>
-  <h2>
-   Licence
-  </h2>
-  <p>
-   Copyright (C) 2019 Mingyao's Lab
-  </p>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js">
-  </script>
-  <script>
-   hljs.initHighlightingOnLoad();
-  </script>
-  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript">
-  </script>
-  <script type="text/javascript">
-   MathJax.Hub.Config({"showProcessingMessages" : false,"messageStyle" : "none","tex2jax": { inlineMath: [ [ "$", "$" ] ] }});
-  </script>
- </body>
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Home | DESC</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Home" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/desc/" />
+<meta property="og:url" content="http://localhost:4000/desc/" />
+<meta property="og:site_name" content="DESC" />
+<script type="application/ld+json">
+{"@type":"WebSite","url":"http://localhost:4000/desc/","name":"DESC","headline":"Home","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/desc/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/desc/feed.xml" title="DESC" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/desc/">DESC</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/desc/">Home</a><a class="page-link" href="/desc/installation.html">Installation</a><a class="page-link" href="/desc/tutorial.html">Tutorial</a><a class="page-link" href="/desc/contact.html">Contact</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h2 id="deep-embedding-for-single-cell-clustering">Deep Embedding for Single-cell Clustering</h2>
+
+<p>DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm constructs a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learning the cluster-specific gene expression representation and member assignments based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances the biological and the technical differences between clusters, and reduces the influence of the batch effect. DESC also enables soft clustering by assigning cluster-specific probability to each cell, which facilitates the identification of cells clusters with high-confidence and interpretation of results.
+<img src="assets/images/desc_workflow.png" alt="DESC workflow" /></p>
+
+<p>For thorough details, see the preprint: <a href="https://www.biorxiv.org">Bioxiv</a></p>
+
+<p><br /></p>
+
+<h2 id="usage">Usage</h2>
+
+<p>The <a href="https://github.com/eleozzr/desc"><strong>desc</strong></a> package is an implementation of deep embedding for single-cell clustering. With desc, you can:</p>
+
+<ul>
+  <li>Pre-process single cell expression data from varies of formats</li>
+  <li>Build a low-dimensional representation of the single-cell expression data</li>
+  <li>Obtain soft-clustering assignments of cells</li>
+  <li>Visualize the cell clusters separation and the expression pattern</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="references">References</h2>
+
+<p>Please consider citing the references in case they are used.<br />
+[1] DESC  <br />
+[2] DESC
+<br /></p>
+
+<h2 id="licence">Licence</h2>
+
+<p>Copyright (C) 2019 Mingyao’s Lab</p>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/desc/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">DESC</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">DESC</li><li><a class="u-email" href="mailto:mingyao.lab@gmail.com">mingyao.lab@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eleozzr"><svg class="svg-icon"><use xlink:href="/desc/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eleozzr</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
 </html>
