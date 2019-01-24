@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://localhost:4000/desc/tutorial.html" />
 <meta property="og:site_name" content="desc" />
 <script type="application/ld+json">
-{"@type":"WebPage","url":"http://localhost:4000/desc/tutorial.html","headline":"Tutorial","@context":"http://schema.org"}</script>
+{"headline":"Tutorial","@type":"WebPage","url":"http://localhost:4000/desc/tutorial.html","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/desc/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/desc/feed.xml" title="desc" /></head>
 <body><header class="site-header" role="banner">
@@ -53,7 +53,7 @@
 
 <h1 id="1-import-data">1 Import data</h1>
 
-<p>The current version of desc works with a <a href="https://anndata.readthedocs.io/en/latest/anndata.AnnData.html">AnnData</a> object. AnnData stores a data matrix <code class="highlighter-rouge">.X</code> together with annotations of observations <code class="highlighter-rouge">.obs</code>, variables <code class="highlighter-rouge">.var</code> and unstructured annotations <code class="highlighter-rouge">.uns</code>. The <strong>desc</strong> package provides 3 ways to prepare an AnnData object for the following analysis.</p>
+<p>The current version of desc works with an <a href="https://anndata.readthedocs.io/en/latest/anndata.AnnData.html">AnnData</a> object. AnnData stores a data matrix <code class="highlighter-rouge">.X</code> together with annotations of observations <code class="highlighter-rouge">.obs</code>, variables <code class="highlighter-rouge">.var</code> and unstructured annotations <code class="highlighter-rouge">.uns</code>. The <strong>desc</strong> package provides 3 ways to prepare an AnnData object for the following analysis.</p>
 
 <h2 id="11-start-from-a-10x-dataset">1.1 Start from a 10X dataset</h2>
 
@@ -163,7 +163,7 @@ AnnData object with n_obs × n_vars = 2700 × 13714
 </code></pre></div></div>
 
 <h2 id="24-selection-of-highly-variable-genes">2.4 Selection of highly variable genes</h2>
-<p>The desc analysis should be performed on a particular set of genes, like highly variable genes, known cell-type markers or a combination of both, which help to separate cell groups. The function <code class="highlighter-rouge">highly_variable_genes</code> can help to select a set of the highly variable genes. It takes <strong>normalized, log-scaled</strong> data as input and can provide an adata object which contains a subset of highly variable genes.</p>
+<p>The desc analysis should be performed on a particular set of genes, like highly variable genes, known cell-type markers or a combination of both, which help to separate cell groups. The function <code class="highlighter-rouge">highly_variable_genes</code> can help to select a set of the highly variable genes. It takes <strong>normalized, log-scaled</strong> data as input and can provide an <code class="highlighter-rouge">AnnData</code> object which contains a subset of highly variable genes.</p>
 
 <p>The function is from <a href="https://scanpy.readthedocs.io/en/latest/">scanpy</a>. Check the <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">function document</a> for detailed information about the usage and the parameter setting.</p>
 
