@@ -82,12 +82,14 @@ Souce code: [Github](https://github.com/eleozzr/desc)
 We are continuing adding new features.Bug reports or feature requests are welcome([mingyao.lab@gmail.com](mingyao.lab@gmail.com)).
 
 <br>
+
 ## References
 
 Please consider citing the following reference:
 
 - Xiangjie Li, Yafei Lyu, Jihwan Park, Jingxiao Zhang, Dwight Stambolian, Katalin Susztak, Gang Hu, Mingyao Li. Deep learning enables accurate clustering and batch effect removal in single-cell RNA-seq analysis,2019: [https://www.biorxiv.org](https://www.biorxiv.org)
 <br>
+
 ## Licence
 
 Copyright (C) 2019 Mingyao's Lab
