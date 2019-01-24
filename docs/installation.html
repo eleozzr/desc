@@ -3,20 +3,20 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Installation | DESC</title>
+<title>Installation | desc</title>
 <meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="Installation" />
 <meta property="og:locale" content="en_US" />
 <link rel="canonical" href="http://localhost:4000/desc/installation.html" />
 <meta property="og:url" content="http://localhost:4000/desc/installation.html" />
-<meta property="og:site_name" content="DESC" />
+<meta property="og:site_name" content="desc" />
 <script type="application/ld+json">
 {"@type":"WebPage","url":"http://localhost:4000/desc/installation.html","headline":"Installation","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/desc/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/desc/feed.xml" title="DESC" /></head>
+<link rel="stylesheet" href="/desc/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/desc/feed.xml" title="desc" /></head>
 <body><header class="site-header" role="banner">
 
-  <div class="wrapper"><a class="site-title" rel="author" href="/desc/">DESC</a><nav class="site-nav">
+  <div class="wrapper"><a class="site-title" rel="author" href="/desc/">desc</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
         <label for="nav-trigger">
           <span class="menu-icon">
@@ -33,48 +33,59 @@
       <div class="wrapper">
         <h1 id="installation">Installation</h1>
 
-<p>To install the current release of <code class="highlighter-rouge">desc</code> you can choose:</p>
+<p>To install  <code class="highlighter-rouge">desc</code> package you must make sure that your python version is one of <code class="highlighter-rouge">python3.5.x</code>, <code class="highlighter-rouge">python3.6.x</code>. If you don’t know the version of python you can check it by</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span><span class="kn">import</span> <span class="nn">platform</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">platform</span><span class="o">.</span><span class="n">python_version</span><span class="p">()</span>
+<span class="c1">#3.5.3
+</span></code></pre></div></div>
+<p>Now you can install the current release of <code class="highlighter-rouge">desc</code> by the following three ways.</p>
 
 <ul>
   <li>PyPI<br />
 Directly install the package from PyPI:</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pip install desc
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pip <span class="nb">install </span>desc
+</code></pre></div></div>
+<p>Note: you need make sure that the <code class="highlighter-rouge">pip</code> is for python3，or we should install desc by:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 <span class="nt">-m</span> pip <span class="nb">install </span>desc 
+<span class="c">#or</span>
+pip3 <span class="nb">install </span>desc
 </code></pre></div></div>
 
-<p>If you do not have sudo rights (when you get a permission denied error):</p>
+<p>If you do not have permission (when you get a permission denied error):</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pip install --user desc
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pip <span class="nb">install</span> <span class="nt">--user</span> desc
 </code></pre></div></div>
 
 <ul>
   <li>Github<br />
-Download the package from the Github and install it locally:</li>
+Download the package from <a href="https://github.com/eleozzr/desc">Github</a> and install it locally:</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/eleozzr/desc
-cd desc
-pip install .
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/eleozzr/desc
+<span class="nb">cd </span>desc
+pip <span class="nb">install</span> <span class="nb">.</span>
 </code></pre></div></div>
 
 <ul>
   <li>Anaconda</li>
 </ul>
 
-<p>If you do not have a working Python3.5 or Python3.6 installation, consider installing Anaconda , (see Installing Anaconda ). After installing Anaconda, you can create a new environment, for example, DESC:</p>
+<p>If you do not have  Python3.5 or Python3.6 installed, consider installing Anaconda  (see <a href="https://docs.anaconda.com/anaconda/install/">Installing Anaconda</a>). After installing Anaconda, you can create a new environment, for example, <code class="highlighter-rouge">DESC</code> (<em>you can change other name what you like</em>):</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create -n DESC python=3.5.3
-# activate your environment 
-source activate DESC 
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda create <span class="nt">-n</span> DESC <span class="nv">python</span><span class="o">=</span>3.5.3
+<span class="c"># activate your environment </span>
+<span class="nb">source </span>activate DESC 
 git clone https://github.com/eleozzr/desc
-cd desc
+<span class="nb">cd </span>desc
 python setup.py build
-python setup.py install
-# now you can check whether `desc` installed successfully!
+python setup.py <span class="nb">install</span>
+<span class="c"># now you can check whether `desc` installed successfully!</span>
 </code></pre></div></div>
 
-<p>Please check DESC <a href="https://eleozzr.github.io/desc/tutorial.html">Tutorial</a> for more detials.</p>
+<p>Please check desc <a href="https://eleozzr.github.io/desc/tutorial.html">Tutorial</a> for more details.</p>
 
 <p><br /></p>
 
@@ -83,7 +94,7 @@ python setup.py install
 <p>Now, let us run a quick test to see if the <strong>desc</strong> is ready:</p>
 
 <p>Firstly, enter Python’s interpreter from your console:</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ python
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>python
 </code></pre></div></div>
 
 <p>Then, in a Python interpeter session, typing:</p>
@@ -93,13 +104,11 @@ python setup.py install
 
 <p>The <code class="highlighter-rouge">run_desc_test()</code> function enables you to perform a quick desc analysis on a small pre-processed data. If you see something like:</p>
 
-<p><strong>“The desc has been trained successfully!”</strong><br />
-<strong>…</strong><br />
+<p><strong>“The desc has been trained successfully!”</strong> 
+<strong>…</strong> 
 <strong>“The run time is xxx.xxxx”</strong></p>
 
-<p>then you are ready to go. 
-<br />
-Next, how about learn more about DESC in <a href="/desc/tutorial.html">Tutorial</a>?</p>
+<p>Then you are ready to go.</p>
 
 <p><br /></p>
 
@@ -108,37 +117,37 @@ Next, how about learn more about DESC in <a href="/desc/tutorial.html">Tutorial<
 <ul>
   <li>For Linux users:
 If you see <code class="highlighter-rouge">*/ld: cannot find -l***</code> , which means it cannot find lib file, where <code class="highlighter-rouge">l***</code> stands for link lib file <code class="highlighter-rouge">lib***.so</code>. The first thing you need is to install the corresponding lib file, for example, if you see <code class="highlighter-rouge">*/ld: cannot find -lxml2</code>, you can try
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#For ubuntu/debian user you can try
-sudo apt-get install python3-dev
-sudo apt-get install libxml2-dev
-#For ubuntu/debian user you can try
-sudo yum install libxml2-devel
-sudo yum install libxml2-devel
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#For ubuntu/debian user you can try</span>
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>python3-dev
+<span class="nb">sudo </span>apt-get <span class="nb">install </span>libxml2-dev
+<span class="c">#For ubuntu/debian user you can try</span>
+<span class="nb">sudo </span>yum <span class="nb">install </span>libxml2-devel
+<span class="nb">sudo </span>yum <span class="nb">install </span>libxml2-devel
 </code></pre></div>    </div>
     <p>Then, try to install desc again. If the issue still arises, you should try the following (with the permission), take libxml2 as an example:</p>
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd /usr/lib64
-ls -al|grep "xml2"
-sudo ln -s libxml2.so.2 libxml2.so
-ls -al|grep "xml2"
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/lib64
+<span class="nb">ls</span> <span class="nt">-al</span>|grep <span class="s2">"xml2"</span>
+<span class="nb">sudo ln</span> <span class="nt">-s</span> libxml2.so.2 libxml2.so
+<span class="nb">ls</span> <span class="nt">-al</span>|grep <span class="s2">"xml2"</span>
 </code></pre></div>    </div>
   </li>
   <li>
     <p>For Windows users: 
-Check <a href="https://igraph.org/python/">python-igraph</a> if there are some issues when installing python-igraph (DESC depends on python-igraph). Note that the automatic compilation of the C core when running pip install python-igraph will not work on Windows! So the preferred way for installing the Python interface on Windows is to download one of the unofficial installers built by <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph">Christoph Gohlke</a>. (Thanks Christoph!). Download it according to your python and windows version. Because python-igraph depend on pycairo, you had better download <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo">pycairo</a> first.</p>
+Check <a href="https://igraph.org/python/">python-igraph</a> if there are some issues when installing <code class="highlighter-rouge">python-igraph</code> (<code class="highlighter-rouge">desc</code> depends on <code class="highlighter-rouge">python-igraph</code>). Note that the automatic compilation of the C core when running <code class="highlighter-rouge">pip install python-igraph</code> will not work on Windows! So the preferred way for installing the Python interface on Windows is to download one of the unofficial installers built by <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph">Christoph Gohlke</a>. (Thanks Christoph!). Download it according to your python and windows version. Because python-igraph depends on pycairo, you should download <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo">pycairo</a> first.</p>
   </li>
-  <li>Take python3.6 win64 as example, after you download pycairo and python-igraph, you can run following commands.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install pycairo-1.18.0-cp36-cp36m-win_amd64.whl
-pip install python_igraph-0.7.1.post6-cp36-cp36m-win_amd64.whl
+  <li>Take python3.6 on win64 as an example, after you download <code class="highlighter-rouge">pycairo</code> and <code class="highlighter-rouge">python-igraph</code>, you can run following commands.
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>pycairo-1.18.0-cp36-cp36m-win_amd64.whl
+pip <span class="nb">install </span>python_igraph-0.7.1.post6-cp36-cp36m-win_amd64.whl
 </code></pre></div>    </div>
   </li>
-  <li>If you have some install issues about pydot,
+  <li>If you have some installation issues about <code class="highlighter-rouge">pydot</code>,
     <ul>
-      <li>For Linux users, you should can run <code class="highlighter-rouge">pip3 install pydot graphviz</code>.</li>
-      <li>For Windows user, you should download Graphviz from <a href="https://graphviz.gitlab.io/_pages/Download/Download_windows.html">Graphviz</a> and you need to set the PATH variable yourself. After you finished the following setting, you should close the <code class="highlighter-rouge">cmd</code> window and restart <code class="highlighter-rouge">cmd</code> window.
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  #here I downloaded `graphviz` in C:\Users\dell\Desktop
-  import os
-  graphviz_setup='C:\Users\dell\Desktop\graphviz-2.38\release\bin'
-  os.environ["PATH"] += os.pathsep + graphviz_setup
+      <li>For Linux users, you should run <code class="highlighter-rouge">pip3 install pydot graphviz</code>.</li>
+      <li>For Windows user, you should download Graphviz from <a href="https://graphviz.gitlab.io/_pages/Download/Download_windows.html">Graphviz</a> and you need to set the PATH variable yourself. After that, you should close the <code class="highlighter-rouge">cmd</code> window and restart another <code class="highlighter-rouge">cmd</code> window.
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">#here I downloaded 'graphviz' in C:\Users\dell\Desktop
+</span>  <span class="o">&gt;&gt;&gt;</span><span class="kn">import</span> <span class="nn">os</span>
+  <span class="o">&gt;&gt;&gt;</span><span class="n">graphviz_setup</span><span class="o">=</span><span class="s">"C:</span><span class="err">\</span><span class="s">Users</span><span class="err">\</span><span class="s">dell</span><span class="err">\</span><span class="s">Desktop</span><span class="err">\</span><span class="s">graphviz-2.38</span><span class="se">\r</span><span class="s">elease</span><span class="se">\b</span><span class="s">in"</span>
+  <span class="o">&gt;&gt;&gt;</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">"PATH"</span><span class="p">]</span> <span class="o">+=</span> <span class="n">os</span><span class="o">.</span><span class="n">pathsep</span> <span class="o">+</span> <span class="n">graphviz_setup</span>
 </code></pre></div>        </div>
       </li>
     </ul>
@@ -152,15 +161,15 @@ pip install python_igraph-0.7.1.post6-cp36-cp36m-win_amd64.whl
 
   <div class="wrapper">
 
-    <h2 class="footer-heading">DESC</h2>
+    <h2 class="footer-heading">desc</h2>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
-          <li class="p-name">DESC</li><li><a class="u-email" href="mailto:mingyao.lab@gmail.com">mingyao.lab@gmail.com</a></li></ul>
+          <li class="p-name">desc</li><li><a class="u-email" href="mailto:mingyao.lab@gmail.com">mingyao.lab@gmail.com</a></li></ul>
       </div>
 
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eleozzr"><svg class="svg-icon"><use xlink:href="/desc/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eleozzr</span></a></li></ul>
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eleozzr"><svg class="svg-icon"><use xlink:href="/desc/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eleozzr</span></a></li><li><a href="https://www.twitter.com/eleozzr"><svg class="svg-icon"><use xlink:href="/desc/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eleozzr</span></a></li></ul>
 </div>
 
       <div class="footer-col footer-col-3">

@@ -3,20 +3,20 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Tutorial | DESC</title>
+<title>Tutorial | desc</title>
 <meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="Tutorial" />
 <meta property="og:locale" content="en_US" />
 <link rel="canonical" href="http://localhost:4000/desc/tutorial.html" />
 <meta property="og:url" content="http://localhost:4000/desc/tutorial.html" />
-<meta property="og:site_name" content="DESC" />
+<meta property="og:site_name" content="desc" />
 <script type="application/ld+json">
 {"@type":"WebPage","url":"http://localhost:4000/desc/tutorial.html","headline":"Tutorial","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/desc/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/desc/feed.xml" title="DESC" /></head>
+<link rel="stylesheet" href="/desc/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/desc/feed.xml" title="desc" /></head>
 <body><header class="site-header" role="banner">
 
-  <div class="wrapper"><a class="site-title" rel="author" href="/desc/">DESC</a><nav class="site-nav">
+  <div class="wrapper"><a class="site-title" rel="author" href="/desc/">desc</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
         <label for="nav-trigger">
           <span class="menu-icon">
@@ -31,13 +31,13 @@
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <p>In this tutorial, we will perform an entire desc analysis with a dataset of Peripheral Blood Mononuclear Cells (PBMC). In the dataset, the expression levels of 2,700 cells were sequenced using the Illumina NextSeq 500. The data are freely available from 10X Genomics and the raw can be downloaded <a href="https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz">here</a>.</p>
+        <p>In this tutorial, we will perform an entire <code class="highlighter-rouge">desc</code> analysis using a dataset of Peripheral Blood Mononuclear Cells (PBMC). In the dataset, the expression levels of 2,700 cells were sequenced using the Illumina NextSeq 500. The data are freely available from 10X Genomics and the raw data can be downloaded <a href="https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz">here</a>.</p>
 
 <p><br /></p>
 
 <h1 id="0-import-python-modules">0 Import python modules</h1>
 
-<p>In the tutorial, we will need <code class="highlighter-rouge">desc</code> module for clustering analysis and <code class="highlighter-rouge">scanpy</code> for data preprocessing.</p>
+<p>We will need <code class="highlighter-rouge">desc</code> module for clustering analysis and <code class="highlighter-rouge">scanpy</code> for data preprocessing.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">desc</span> <span class="k">as</span> <span class="n">DESC</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
@@ -53,26 +53,26 @@
 
 <h1 id="1-import-data">1 Import data</h1>
 
-<p>The current version of desc works with a <a href="https://anndata.readthedocs.io/en/latest/anndata.AnnData.html">AnnData</a> object. AnnData stores a data matrix <code class="highlighter-rouge">.X</code> together with annotations of observations <code class="highlighter-rouge">.obs</code>, variables <code class="highlighter-rouge">.var</code> and unstructured annotations <code class="highlighter-rouge">.uns</code>. The <strong>desc</strong> package provides 3 ways to prepare an AnnData object for the following analysis:</p>
+<p>The current version of desc works with a <a href="https://anndata.readthedocs.io/en/latest/anndata.AnnData.html">AnnData</a> object. AnnData stores a data matrix <code class="highlighter-rouge">.X</code> together with annotations of observations <code class="highlighter-rouge">.obs</code>, variables <code class="highlighter-rouge">.var</code> and unstructured annotations <code class="highlighter-rouge">.uns</code>. The <strong>desc</strong> package provides 3 ways to prepare an AnnData object for the following analysis.</p>
 
 <h2 id="11-start-from-a-10x-dataset">1.1 Start from a 10X dataset</h2>
 
 <p>The desc package provides a function to load the 10X dataset directly. Download the <a href="https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz">data</a> and unzip it. Then put everything in <em>filtered_gene_bc_matrices/hg19/</em> to <em>data/pbmc/</em>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load the 10X data by providing the path to the data
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># load the 10X data by providing the path of the data
 </span><span class="n">adata</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">read_10X</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="s">'data/pbmc'</span><span class="p">)</span>
 </code></pre></div></div>
 
 <h2 id="12-start-from-mtx-and-csv-files">1.2 Start from .mtx and .csv files</h2>
 
-<p>When the expression data do not follow the standard 10X dataset format, we can manually import the data as follows:<br />
+<p>When the expression data do not follow the standard 10X dataset format, we can manually import the data as follows: 
 Read the expression matrix from .mtx file.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
 <span class="n">adata</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">utilities</span><span class="o">.</span><span class="n">read_mtx</span><span class="p">(</span><span class="s">'data/pbmc/matrix.mtx'</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 </code></pre></div></div>
 
-<p>Read the .csv file for the gene annotations. Make sure the gene names are unique.</p>
+<p>Read the .csv file for gene annotations. Make sure the gene names are unique.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">genes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/pbmc/genes.tsv'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">)</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s">'gene_ids'</span><span class="p">]</span> <span class="o">=</span> <span class="n">genes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -84,7 +84,7 @@ Read the expression matrix from .mtx file.</p>
 <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span> <span class="o">=</span> <span class="n">var_names</span>
 </code></pre></div></div>
 
-<p>Read the .csv file for the cell annotations.</p>
+<p>Read the .csv file for the  annotations.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cells</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">'data/pbmc/barcodes.tsv'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">'</span><span class="se">\t</span><span class="s">'</span><span class="p">)</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'barcode'</span><span class="p">]</span> <span class="o">=</span> <span class="n">cells</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -92,7 +92,7 @@ Read the expression matrix from .mtx file.</p>
 </code></pre></div></div>
 
 <h2 id="13-start-from-a-h5ad-file">1.3 Start from a .h5ad file</h2>
-<p>Or load a previously saved AnnData object:</p>
+<p>We can also  load a previously saved AnnData object:</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adata</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="s">'data/pbmc.h5ad'</span><span class="p">)</span>
 </code></pre></div></div>
 
@@ -102,13 +102,13 @@ Read the expression matrix from .mtx file.</p>
 
 <h1 id="2-preprocessing">2 Preprocessing</h1>
 
-<p>The standard scRNA data preprocessing workflow may include filtration of cells/genes, normalization, scaling and selection of highly variables genes. In this tutorial, we use <code class="highlighter-rouge">scanpy</code> to preprocess the data. Note that among the preprocessing steps, filtration of cells/genes and selecting highly variables genes are optional while <strong>normalization and scaling are strictly required before the desc analysis</strong>.</p>
+<p>The standard scRNA-seq data preprocessing workflow may include filtration of cells/genes, normalization, scaling and selection of highly variables genes. In this tutorial, we use <code class="highlighter-rouge">scanpy</code> to preprocess the data. Note that among the preprocessing steps, filtration of cells/genes and selecting highly variable genes are optional while <strong>normalization and scaling are strictly required before the desc analysis</strong>.</p>
 
-<p>Following steps show a topical pre-processing procedure for analyzing the human blood cells data:</p>
+<p>The following steps show a typical preprocessing procedure for analyzing the PBMC data.</p>
 
 <h2 id="21-filtering-cells-and-genes">2.1 Filtering cells and genes</h2>
 
-<p>Typing <code class="highlighter-rouge">adata</code> in the python console shows that the original datasets contain expressions for 2700 genes across 32738 cells.</p>
+<p>Typing <code class="highlighter-rouge">adata</code> in the python console shows that the original dataset contains expression values for 2700 cells across 32738 genes.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; adata
 AnnData object with n_obs × n_vars = 2700 × 32738 
@@ -122,7 +122,7 @@ AnnData object with n_obs × n_vars = 2700 × 32738
 <span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">filter_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_cells</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>A relatively high expression of mitochondria genes indicating a lower data quality in a scRNA data. Therefore, we want to also remove cells with a high proportion of mitochondria genes expression.</p>
+<p>A relatively high expression of mitochondrial genes indicates a lower data quality in a scRNA-seq data. Therefore, we also want to  remove cells with a high proportion of mitochondria genes expression.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mito_genes</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">var_names</span><span class="o">.</span><span class="nb">str</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">'MT-'</span><span class="p">)</span>
 <span class="c1"># for each cell compute fraction of counts in mito genes vs. all genes
@@ -133,7 +133,7 @@ AnnData object with n_obs × n_vars = 2700 × 32738
 </span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'n_counts'</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span>
 </code></pre></div></div>
 
-<p>Then we can check proportion of mitochondrial genes expression</p>
+<p>Then we can check proportion of mitochondrial genes expression.</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="p">[</span><span class="s">'n_genes'</span><span class="p">,</span> <span class="s">'n_counts'</span><span class="p">,</span> <span class="s">'percent_mito'</span><span class="p">],</span><span class="n">jitter</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">multi_panel</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
 <p><img src="assets/images/output_16_0.png" alt="desc qc" /></p>
@@ -144,7 +144,7 @@ AnnData object with n_obs × n_vars = 2700 × 32738
 adata = adata[adata.obs['percent_mito'] &lt; 0.05, :]
 </code></pre></div></div>
 
-<p>After filteration, we have 13714 cells left in the dataset.</p>
+<p>After filteration, we have 2700 cells and 13714 genes left in the dataset.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; adata
 AnnData object with n_obs × n_vars = 2700 × 13714 
     obs: 'barcode', 'n_genes'
@@ -152,7 +152,7 @@ AnnData object with n_obs × n_vars = 2700 × 13714
 </code></pre></div></div>
 
 <h2 id="22-normalization">2.2 Normalization</h2>
-<p>The function <code class="highlighter-rouge">normalize_per_cell</code> normalize each cell by total counts over all genes, so that every cell has the same total count after normalization. (10,000 by default).</p>
+<p>The function <code class="highlighter-rouge">normalize_per_cell</code> normalizes each cell by total counts of all genes, so that every cell has the same total count after normalization. (10,000 by default).</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">desc</span><span class="o">.</span><span class="n">normalize_per_cell</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">counts_per_cell_after</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
 </code></pre></div></div>
@@ -163,14 +163,14 @@ AnnData object with n_obs × n_vars = 2700 × 13714
 </code></pre></div></div>
 
 <h2 id="24-selection-of-highly-variable-genes">2.4 Selection of highly variable genes</h2>
-<p>The desc analysis should be performed on a particular set of genes, like highly variable genes, known cell-type markers or a combination of both, which help to separate cell groups. The function <code class="highlighter-rouge">highly_variable_genes</code> can help to select a set of the highly variable gene while controlling for the relationship between variability and average expression level. It takes <strong>normalized, log-scaled</strong> data as input and can provide an adata object which contains a subset of highly variable genes.</p>
+<p>The desc analysis should be performed on a particular set of genes, like highly variable genes, known cell-type markers or a combination of both, which help to separate cell groups. The function <code class="highlighter-rouge">highly_variable_genes</code> can help to select a set of the highly variable genes. It takes <strong>normalized, log-scaled</strong> data as input and can provide an adata object which contains a subset of highly variable genes.</p>
 
 <p>The function is from <a href="https://scanpy.readthedocs.io/en/latest/">scanpy</a>. Check the <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">function document</a> for detailed information about the usage and the parameter setting.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sc</span><span class="o">.</span><span class="n">pp</span><span class="o">.</span><span class="n">highly_variable_genes</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="n">min_mean</span><span class="o">=</span><span class="mf">0.0125</span><span class="p">,</span> <span class="n">max_mean</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_disp</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>In this dataset, 1844 genes were kept as highly variable genes:</p>
+<p>In this dataset, 1844 genes are kept as highly variable genes.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; adata
 AnnData object with n_obs × n_vars = 2643 × 1844 
@@ -198,9 +198,9 @@ AnnData object with n_obs × n_vars = 2643 × 1844
                    <span class="n">save_encoder_weights</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>After the desc model training, several result slots will be added to the adata:</p>
+<p>After the desc model training, several result slots will be added to the adata.</p>
 
-<p>Following are the desc result under <strong>resolution=0.8</strong></p>
+<p>The following  results are based on <code class="highlighter-rouge">desc</code> under <strong>resolution=0.8</strong></p>
 
 <ul>
   <li>The clustering result <strong>desc_0.8</strong> has been added to adata.obs, which stands for the clustering labels from the desc.</li>
@@ -232,7 +232,7 @@ AnnData object with n_obs × n_vars = 2643 × 1844
 <span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">stacked_violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="p">[</span><span class="s">"MS4A1"</span><span class="p">,</span> <span class="s">"GNLY"</span><span class="p">,</span> <span class="s">"CD3E"</span><span class="p">,</span> <span class="s">"CD14"</span><span class="p">,</span> <span class="s">"FCER1A"</span><span class="p">,</span> <span class="s">"FCGR3A"</span><span class="p">,</span> <span class="s">"LYZ"</span><span class="p">,</span> <span class="s">"PPBP"</span><span class="p">,</span> <span class="s">"CD8A"</span><span class="p">],</span>
                      <span class="n">groupby</span><span class="o">=</span><span class="s">'desc_0.8'</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="n">swap_axes</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
-<p><img src="assets/images/output_47_1.png" alt="desc v3" /></p>
+<p><img src="assets/images/output_47_1.png" alt="desc v3" height="350px" />.</p>
 
 <p><br /></p>
 
@@ -245,7 +245,7 @@ AnnData object with n_obs × n_vars = 2643 × 1844
 </code></pre></div></div>
 
 <h2 id="52-save-to-csv-files">5.2 Save to .csv files</h2>
-<p>Also, the desc result can be separatly saved to .csv files, which can be easily accessed using R, c or other tools for the future analysis.</p>
+<p>Also, the desc result can be separatly saved to .csv files, which can be easily accessed using <code class="highlighter-rouge">R</code>, <code class="highlighter-rouge">C</code> or other tools for the future analysis.</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#`obs` slot
 </span><span class="n">meta_data</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">meta_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s">"meta.data.csv"</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">","</span><span class="p">)</span>
@@ -261,15 +261,15 @@ AnnData object with n_obs × n_vars = 2643 × 1844
 
   <div class="wrapper">
 
-    <h2 class="footer-heading">DESC</h2>
+    <h2 class="footer-heading">desc</h2>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
         <ul class="contact-list">
-          <li class="p-name">DESC</li><li><a class="u-email" href="mailto:mingyao.lab@gmail.com">mingyao.lab@gmail.com</a></li></ul>
+          <li class="p-name">desc</li><li><a class="u-email" href="mailto:mingyao.lab@gmail.com">mingyao.lab@gmail.com</a></li></ul>
       </div>
 
-      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eleozzr"><svg class="svg-icon"><use xlink:href="/desc/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eleozzr</span></a></li></ul>
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eleozzr"><svg class="svg-icon"><use xlink:href="/desc/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eleozzr</span></a></li><li><a href="https://www.twitter.com/eleozzr"><svg class="svg-icon"><use xlink:href="/desc/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">eleozzr</span></a></li></ul>
 </div>
 
       <div class="footer-col footer-col-3">
