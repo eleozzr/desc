@@ -19,9 +19,9 @@ The [**desc**](https://github.com/eleozzr/desc) package is an implementation of 
 - Visualize the cell clustering results and  the  gene expression patterns.
 
 <br>
-
 # Installation
-To install  `desc` package you must make sure that your python version is one of `python3.5.x`, `python3.6.x`. If you don’t know the version of python you can check it by 
+
+To install  `desc` package you must make sure that your python version is one of `python3.5.x`, `python3.6.x`. If you don’t know the version of python you can check it by:
 
 ```python
 >>>import platform
@@ -31,19 +31,19 @@ To install  `desc` package you must make sure that your python version is one of
 Now you can install the current release of `desc` by the following three ways.
 
 * PyPI  
-Directly install the package from PyPI:
+Directly install the package from PyPI.
 
 ```bash
 $ pip install desc
 ```
-Note: you need make sure that the `pip` is for python3，or we should install desc by:
+**Note**: you need to make sure that the `pip` is for python3，or we should install desc by
 ```bash 
 python3 -m pip install desc 
 #or
 pip3 install desc
 ```
 
-If you do not have sudo rights (when you get a permission denied error): 
+If you do not have permission (when you get a permission denied error): 
 
 ```bash
 $ pip install --user desc
@@ -74,6 +74,7 @@ python setup.py install
 ```
 
 Please check desc [Tutorial](https://eleozzr.github.io/desc/tutorial.html) for more details.
+
 
 <br>
 
