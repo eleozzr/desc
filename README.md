@@ -1,7 +1,7 @@
 
 ## Deep Embedding for Single-cell Clustering (DESC)
 
-DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm constructs a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learning cluster-specific gene expression representation and cluster assignment based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances biological and technical differences between clusters, and reduces the influence of the batch effect. DESC also enables soft clustering by assigning a cluster-specific probability to each cell, which facilitates the identification of cells clustered with high-confidence and interpretation of results. 
+DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm constructs a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learning cluster-specific gene expression representation and cluster assignment based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances biological and technical differences between clusters, and reduces the influence of batch effect. DESC also enables soft clustering by assigning cluster-specific probabilities to each cell, which facilitates the identification of cells clustered with high-confidence and interpretation of results. 
 
 ![DESC workflow](docs/assets/images/desc_workflow.png)
 
@@ -12,10 +12,10 @@ For thorough details, see the preprint: [Bioxiv](https://www.biorxiv.org)
 
 The [**desc**](https://github.com/eleozzr/desc) package is an implementation of deep embedding for single-cell clustering. With desc, you can:
 
-- Preprocess single cell gene expression data from various formats.
+- Pre-process single cell gene expression data from various formats.
 - Build a low-dimensional representation of the single-cell gene expression data.
 - Obtain soft-clustering assignments of cells.
-- Visualize the cell clustering results and gene expression patterns.
+- Visualize the cell clustering results and  the  gene expression patterns.
 <br>
 
 # Installation
@@ -58,7 +58,7 @@ pip install .
 
 * Anaconda
 
-If you do not have Python3.5 or Python3.6 installed, consider installing Anaconda (see [Installing Anaconda](https://docs.anaconda.com/anaconda/install/)). After installing Anaconda, you can create a new environment, for example, `DESC` (*you can change to any name you like*):
+If you do not have  Python3.5 or Python3.6 installed, consider installing Anaconda  (see [Installing Anaconda](https://docs.anaconda.com/anaconda/install/)). After installing Anaconda, you can create a new environment, for example, `DESC` (*you can change to any name you like*):
 
 ```bash
 conda create -n DESC python=3.5.3
@@ -79,7 +79,7 @@ Please check desc [Tutorial](https://eleozzr.github.io/desc/tutorial.html) for m
 
 Souce code: [Github](https://github.com/eleozzr/desc)  
 
-We are continuing adding new features. Bug reports or feature requests are welcome ([mingyao.lab@gmail.com](mailto:mingyao.lab@gmail.com)).
+We are continuing adding new features.Bug reports or feature requests are welcome([mingyao.lab@gmail.com](mailto:mingyao.lab@gmail.com)).
 
 <br>
 
@@ -87,7 +87,7 @@ We are continuing adding new features. Bug reports or feature requests are welco
 
 Please consider citing the following reference:
 
-- Xiangjie Li, Yafei Lyu, Jihwan Park, Jingxiao Zhang, Dwight Stambolian, Katalin Susztak, Gang Hu, Mingyao Li. Deep learning enables accurate clustering and batch effect removal in single-cell RNA-seq analysis (2019) [https://www.biorxiv.org](https://www.biorxiv.org)
+- Xiangjie Li, Yafei Lyu, Jihwan Park, Jingxiao Zhang, Dwight Stambolian, Katalin Susztak, Gang Hu, Mingyao Li. Deep learning enables accurate clustering and batch effect removal in single-cell RNA-seq analysis,2019: [https://www.biorxiv.org](https://www.biorxiv.org)
 <br>
 
 ## Licence
