@@ -44,7 +44,7 @@ python3 -m pip install desc
 pip3 install desc
 ```
 
-If you do not have permission (when you get a permission denied error): 
+If you do not have permission (when you get a permission denied error), you should install desc by 
 
 ```bash
 $ pip install --user desc
