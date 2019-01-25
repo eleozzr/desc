@@ -93,7 +93,7 @@
 </code></pre></div></div>
 
 <h2 id="13-start-from-a-h5ad-file">1.3 Start from a <code class="highlighter-rouge">*.h5ad</code> file</h2>
-<p>We can also load a previously saved  an <code class="highlighter-rouge">AnnData</code> object:</p>
+<p>We can also load a previously saved  <code class="highlighter-rouge">AnnData</code> object:</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adata</span> <span class="o">=</span> <span class="n">desc</span><span class="o">.</span><span class="n">read_h5ad</span><span class="p">(</span><span class="s">'data/pbmc.h5ad'</span><span class="p">)</span>
 </code></pre></div></div>
 
@@ -135,7 +135,7 @@ AnnData object with n_obs × n_vars = 2700 × 32738
 </span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">'n_counts'</span><span class="p">]</span> <span class="o">=</span> <span class="n">adata</span><span class="o">.</span><span class="n">X</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">A1</span>
 </code></pre></div></div>
 
-<p>The following plots show the distribution of the number of expressed genes, the total member of UMIs and percentage of the mitochondrial genes in each cell.</p>
+<p>The following plots show the distribution of the number of expressed genes, the total number of UMIs and the percentage of the mitochondrial genes in each cell.</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sc</span><span class="o">.</span><span class="n">pl</span><span class="o">.</span><span class="n">violin</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span> <span class="p">[</span><span class="s">'n_genes'</span><span class="p">,</span> <span class="s">'n_counts'</span><span class="p">,</span> <span class="s">'percent_mito'</span><span class="p">],</span><span class="n">jitter</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">multi_panel</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </code></pre></div></div>
 <p><img src="assets/images/output_16_0.png" alt="desc qc" /></p>
@@ -184,7 +184,7 @@ AnnData object with n_obs × n_vars = 2638 × 13714
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adata</span> <span class="o">=</span> <span class="n">adata</span><span class="p">[:,</span> <span class="n">adata</span><span class="o">.</span><span class="n">var</span><span class="p">[</span><span class="s">'highly_variable'</span><span class="p">]]</span>
 </code></pre></div></div>
 
-<p><strong>Note</strong>:The function <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">sc.pp.highly_variable_genes</a> is slightly different from <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.filter_genes_dispersion.html#scanpy.api.pp.filter_genes_dispersion">sc.pp.filter_genes_dispersion</a>. The function <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">sc.pp.highly_variable_genes</a> is similar to <code class="highlighter-rouge">FindVariableGenes</code> in R package <a href="https://satijalab.org/seurat/">Seurat</a> and it only add some informations to <code class="highlighter-rouge">adata.var</code>, but cannot filter an <code class="highlighter-rouge">AnnData</code> object automatically. Thus, if using the function <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.filter_genes_dispersion.html#scanpy.api.pp.filter_genes_dispersion">sc.pp.filter_genes_dispersion</a> , you must make sure using it after  <code class="highlighter-rouge">sc.pp.filter_genes_dispersion</code>  but before <code class="highlighter-rouge">sc.pp.log1p</code>.</p>
+<p><strong>Note</strong>:The function <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">sc.pp.highly_variable_genes</a> is slightly different from <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.filter_genes_dispersion.html#scanpy.api.pp.filter_genes_dispersion">sc.pp.filter_genes_dispersion</a>. The function <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.highly_variable_genes.html">sc.pp.highly_variable_genes</a> is similar to <code class="highlighter-rouge">FindVariableGenes</code> in R package <a href="https://satijalab.org/seurat/">Seurat</a> and it only adds some information to <code class="highlighter-rouge">adata.var</code>, but cannot filter an <code class="highlighter-rouge">AnnData</code> object automatically. Thus, if using the function <a href="https://icb-scanpy.readthedocs-hosted.com/en/latest/api/scanpy.api.pp.filter_genes_dispersion.html#scanpy.api.pp.filter_genes_dispersion">sc.pp.filter_genes_dispersion</a> , you must make sure using it after  <code class="highlighter-rouge">sc.pp.filter_genes_dispersion</code>  but before <code class="highlighter-rouge">sc.pp.log1p</code>.</p>
 
 <p>In this dataset, 1838 genes are kept as highly variable genes.</p>
 
@@ -221,10 +221,10 @@ AnnData object with n_obs × n_vars = 2638 × 1838
 <p>The following results are based on <code class="highlighter-rouge">desc</code> under  <strong>resolution=0.8</strong>.</p>
 
 <ul>
-  <li>The clustering result <strong>desc_0.8</strong> has been added to <code class="highlighter-rouge">adata.obs</code>, which include clustering labels from desc.</li>
-  <li>The tSNE coordinate <strong>X_tsne0.8</strong> has been added to <code class="highlighter-rouge">adata.obsm</code>,</li>
-  <li>The Umap coordinate <strong>X_umap0.8</strong> has been added to <code class="highlighter-rouge">adata.obsm</code>,</li>
-  <li>The maximum probability matrix <strong>prob_matrix0.8</strong> has been added to <code class="highlighter-rouge">adata.uns</code>,</li>
+  <li>The clustering result <strong>desc_0.8</strong> has been added to  <code class="highlighter-rouge">adata.obs</code>, which include clustering labels from desc.</li>
+  <li>The tSNE coordinate <strong>X_tsne0.8</strong> has been added to  <code class="highlighter-rouge">adata.obsm</code>.</li>
+  <li>The Umap coordinate <strong>X_umap0.8</strong> has been added to  <code class="highlighter-rouge">adata.obsm</code>.</li>
+  <li>The maximum probability matrix <strong>prob_matrix0.8</strong> has been added to <code class="highlighter-rouge">adata.uns</code>.</li>
   <li><strong>X_Embeded_z0.8</strong> is the low dimensional representation of the expression data, the size is the number of  cells by the number of network nodes in the bottleneck layer (2638 x 16 in this tutorial). This slot facilitates users to generate <code class="highlighter-rouge">tSNE</code> or <code class="highlighter-rouge">Umap</code> plot or do other downstream analysis.</li>
 </ul>
 
@@ -232,7 +232,7 @@ AnnData object with n_obs × n_vars = 2638 × 1838
 
 <h1 id="4-visualization">4 Visualization</h1>
 
-<p>Here, we want to check clustering result, max probability, and feature plots based on the <code class="highlighter-rouge">tSNE</code> and the <code class="highlighter-rouge">Umap</code>:</p>
+<p>Here, we want to check the clustering results, max probabilities, and feature plots based on the <code class="highlighter-rouge">tSNE</code> and <code class="highlighter-rouge">Umap</code>.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">prob_08</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">uns</span><span class="p">[</span><span class="s">"prob_matrix0.8"</span><span class="p">]</span>
 <span class="n">adata</span><span class="o">.</span><span class="n">obs</span><span class="p">[</span><span class="s">"max.prob0.8"</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="nb">max</span><span class="p">(</span><span class="n">prob_08</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -255,10 +255,10 @@ AnnData object with n_obs × n_vars = 2638 × 1838
 <p><br /></p>
 
 <h1 id="5-save-the-result">5 Save the result</h1>
-<p>Lastly, let us save the desc result for the further analysis.</p>
+<p>Save the desc results for future analysis.</p>
 
 <h2 id="51-save-to-a-h5ad-file">5.1 Save to a <code class="highlighter-rouge">*.h5ad</code> file</h2>
-<p>The AnnData object can be saved to a .h5ad file for the further analysis in a Python environment.</p>
+<p>The AnnData object can be saved to a <code class="highlighter-rouge">*.h5ad</code> file for the further analysis in a Python environment.</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">adata</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">'../result/desc_result.h5ad'</span><span class="p">)</span>
 </code></pre></div></div>
 
