@@ -33,7 +33,7 @@
       <div class="wrapper">
         <h1 id="installation">Installation</h1>
 
-<p>To install  <code class="highlighter-rouge">desc</code> package you must make sure that your python version is one of <code class="highlighter-rouge">python3.5.x</code>, <code class="highlighter-rouge">python3.6.x</code>. If you don’t know the version of python you can check it by</p>
+<p>To install  <code class="highlighter-rouge">desc</code> package you must make sure that your python version is one of <code class="highlighter-rouge">python3.5.x</code>, <code class="highlighter-rouge">python3.6.x</code>. If you don’t know the version of python you can check it by:</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span><span class="kn">import</span> <span class="nn">platform</span>
 <span class="o">&gt;&gt;&gt;</span><span class="n">platform</span><span class="o">.</span><span class="n">python_version</span><span class="p">()</span>
@@ -43,12 +43,12 @@
 
 <ul>
   <li>PyPI<br />
-Directly install the package from PyPI:</li>
+Directly install the package from PyPI.</li>
 </ul>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>pip <span class="nb">install </span>desc
 </code></pre></div></div>
-<p>Note: you need make sure that the <code class="highlighter-rouge">pip</code> is for python3，or we should install desc by:</p>
+<p><strong>Note</strong>: you need to make sure that the <code class="highlighter-rouge">pip</code> is for python3，or we should install desc by</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 <span class="nt">-m</span> pip <span class="nb">install </span>desc 
 <span class="c">#or</span>
 pip3 <span class="nb">install </span>desc
@@ -91,13 +91,13 @@ python setup.py <span class="nb">install</span>
 
 <h1 id="run-a-quick-desc-test">Run a quick desc test</h1>
 
-<p>Now, let us run a quick test to see if the <strong>desc</strong> is ready:</p>
+<p>Now, let us run a quick test to see if the <strong>desc</strong> is ready.</p>
 
 <p>Firstly, enter Python’s interpreter from your console:</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>python
 </code></pre></div></div>
 
-<p>Then, in a Python interpeter session, type:</p>
+<p>Then, in a Python interpeter session, type</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">desc</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">desc</span><span class="o">.</span><span class="n">run_desc_test</span><span class="p">()</span>
 </code></pre></div></div>
@@ -116,11 +116,11 @@ python setup.py <span class="nb">install</span>
 
 <ul>
   <li>For Linux users:
-If you see <code class="highlighter-rouge">*/ld: cannot find -l***</code> , which means it cannot find lib file, where <code class="highlighter-rouge">l***</code> stands for link lib file <code class="highlighter-rouge">lib***.so</code>. The first thing you need is to install the corresponding lib file. For example, if you see <code class="highlighter-rouge">*/ld: cannot find -lxml2</code>, you can try
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#For ubuntu/debian user you can try</span>
+If you see <code class="highlighter-rouge">*/ld: cannot find -l***</code> , it means that it cannot find lib file, where <code class="highlighter-rouge">l***</code> stands for the link lib file <code class="highlighter-rouge">lib***.so</code>. The first thing you need is to install the corresponding lib file. For example, if you see <code class="highlighter-rouge">*/ld: cannot find -lxml2</code>, you can try
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#For ubuntu/debian users you can try</span>
 <span class="nb">sudo </span>apt-get <span class="nb">install </span>python3-dev
 <span class="nb">sudo </span>apt-get <span class="nb">install </span>libxml2-dev
-<span class="c">#For ubuntu/debian user you can try</span>
+<span class="c">#For ubuntu/debian users you can try</span>
 <span class="nb">sudo </span>yum <span class="nb">install </span>libxml2-devel
 <span class="nb">sudo </span>yum <span class="nb">install </span>libxml2-devel
 </code></pre></div>    </div>
@@ -133,7 +133,7 @@ If you see <code class="highlighter-rouge">*/ld: cannot find -l***</code> , whic
   </li>
   <li>
     <p>For Windows users: 
-Check <a href="https://igraph.org/python/">python-igraph</a> if there are some issues when installing <code class="highlighter-rouge">python-igraph</code> (<code class="highlighter-rouge">desc</code> depends on <code class="highlighter-rouge">python-igraph</code>). Note that the automatic compilation of the C core when running <code class="highlighter-rouge">pip install python-igraph</code> will not work on Windows! So the preferred way to install  the Python interface on Windows is to download one of the unofficial installers built by <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph">Christoph Gohlke</a>. Download it according to your python and Windows version. Because <code class="highlighter-rouge">python-igraph</code> depends on <code class="highlighter-rouge">pycairo</code>, you should download <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo">pycairo</a> first.</p>
+Check <a href="https://igraph.org/python/">python-igraph</a> if there are some issues when installing <code class="highlighter-rouge">python-igraph</code> (<code class="highlighter-rouge">desc</code> depends on <code class="highlighter-rouge">python-igraph</code>). Note that the automatic compilation of the C core when running <code class="highlighter-rouge">pip install python-igraph</code> will not work on Windows! So the preferred way to install  the Python interface on Windows is to download one of the unofficial installers built by <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#python-igraph">Christoph Gohlke</a>. Download it according to your python and Windows version. Because <code class="highlighter-rouge">python-igraph</code> depends on <code class="highlighter-rouge">pycairo</code>, you should download <a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo">pycairo</a> firstly.</p>
   </li>
   <li>Take python3.6 on win64 as an example. After  downloading  <code class="highlighter-rouge">pycairo</code> and <code class="highlighter-rouge">python-igraph</code>, you can run following commands.
     <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>pycairo-1.18.0-cp36-cp36m-win_amd64.whl
@@ -143,7 +143,7 @@ pip <span class="nb">install </span>python_igraph-0.7.1.post6-cp36-cp36m-win_amd
   <li>If you have some installation issues about <code class="highlighter-rouge">pydot</code>,
     <ul>
       <li>For Linux users, you should run <code class="highlighter-rouge">pip3 install pydot graphviz</code>.</li>
-      <li>For Windows user, you should download Graphviz from <a href="https://graphviz.gitlab.io/_pages/Download/Download_windows.html">Graphviz</a> and you need to set the PATH variable yourself. After that, you should close the <code class="highlighter-rouge">cmd</code> window and restart another <code class="highlighter-rouge">cmd</code> window.
+      <li>For Windows users, you should download Graphviz from <a href="https://graphviz.gitlab.io/_pages/Download/Download_windows.html">Graphviz</a> and you need to set the PATH variable yourself. After that, you should close the <code class="highlighter-rouge">cmd</code> window and restart another <code class="highlighter-rouge">cmd</code> window.
         <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">#here I downloaded 'graphviz' in C:\Users\dell\Desktop
 </span>  <span class="o">&gt;&gt;&gt;</span><span class="kn">import</span> <span class="nn">os</span>
   <span class="o">&gt;&gt;&gt;</span><span class="n">graphviz_setup</span><span class="o">=</span><span class="s">"C:</span><span class="err">\</span><span class="s">Users</span><span class="err">\</span><span class="s">dell</span><span class="err">\</span><span class="s">Desktop</span><span class="err">\</span><span class="s">graphviz-2.38</span><span class="se">\r</span><span class="s">elease</span><span class="se">\b</span><span class="s">in"</span>

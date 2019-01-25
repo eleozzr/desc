@@ -33,9 +33,8 @@
       <div class="wrapper">
         <h2 id="deep-embedding-for-single-cell-clustering-desc">Deep Embedding for Single-cell Clustering (DESC)</h2>
 
-<p>DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm constructs a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learning cluster-specific gene expression representation and cluster assignment based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances biological and technical differences between clusters, and reduces the influence of the batch effect. DESC also enables soft clustering by assigning a cluster-specific probability to each cell, which facilitates the identification of cells clustered with high-confidence and interpretation of results.</p>
-
-<p><img src="assets/images/desc_workflow.png" alt="DESC workflow" /></p>
+<p>DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm constructs a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learning cluster-specific gene expression representation and cluster assignment based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances biological and technical differences between clusters, and reduces the influence of batch effect. DESC also enables soft clustering by assigning cluster-specific probabilities to each cell, which facilitates the identification of cells clustered with high-confidence and interpretation of results. 
+<img src="assets/images/desc_workflow.png" alt="DESC workflow" /></p>
 
 <p>For thorough details, see the preprint: <a href="https://www.biorxiv.org">Bioxiv</a></p>
 
@@ -49,16 +48,17 @@
   <li>Preprocess single cell gene expression data from various formats.</li>
   <li>Build a low-dimensional representation of the single-cell gene expression data.</li>
   <li>Obtain soft-clustering assignments of cells.</li>
-  <li>Visualize the cell clustering results and gene expression patterns.
-<br /></li>
+  <li>Visualize the cell clustering results and  the  gene expression patterns.</li>
 </ul>
+
+<p><br /></p>
 
 <h2 id="references">References</h2>
 
 <p>Please consider citing the following reference:</p>
 
 <ul>
-  <li>Xiangjie Li, Yafei Lyu, Jihwan Park, Jingxiao Zhang, Dwight Stambolian, Katalin Susztak, Gang Hu, Mingyao Li. Deep learning enables accurate clustering and batch effect removal in single-cell RNA-seq analysis (2019) <a href="https://www.biorxiv.org">https://www.biorxiv.org</a>
+  <li>Xiangjie Li, Yafei Lyu, Jihwan Park, Jingxiao Zhang, Dwight Stambolian, Katalin Susztak, Gang Hu, Mingyao Li. Deep learning enables accurate clustering and batch effect removal in single-cell RNA-seq analysis,2019: <a href="https://www.biorxiv.org">https://www.biorxiv.org</a>
 <br /></li>
 </ul>
 
