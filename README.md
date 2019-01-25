@@ -81,7 +81,7 @@ Please check desc [Tutorial](https://eleozzr.github.io/desc/tutorial.html) for m
 
 Souce code: [Github](https://github.com/eleozzr/desc)  
 
-We are continuing adding new features.Bug reports or feature requests are welcome([mingyao.lab@gmail.com](mailto:mingyao.lab@gmail.com)).
+We are continuing adding new features. Bug reports or feature requests are welcome.
 
 <br>
 
