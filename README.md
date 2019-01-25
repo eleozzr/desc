@@ -8,14 +8,16 @@ DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. T
 For thorough details, see the preprint: [Bioxiv](https://www.biorxiv.org)
 <br>
 
+
 ## Usage
 
 The [**desc**](https://github.com/eleozzr/desc) package is an implementation of deep embedding for single-cell clustering. With desc, you can:
 
-- Pre-process single cell gene expression data from various formats.
+- Preprocess single cell gene expression data from various formats.
 - Build a low-dimensional representation of the single-cell gene expression data.
 - Obtain soft-clustering assignments of cells.
 - Visualize the cell clustering results and  the  gene expression patterns.
+
 <br>
 
 # Installation
