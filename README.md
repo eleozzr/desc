@@ -22,8 +22,7 @@ The [**desc**](https://github.com/eleozzr/desc) package is an implementation of 
 
 # Installation
 
-To install  `desc` package you must make sure that your python version is one of `python3.5.x`, `python3.6.x`. If you don’t know the version of python you can check it by:
-
+To install  `desc` package you must make sure that your python version is either  `3.5.x` or `3.6.x`. If you don’t know the version of python you can check it by:
 ```python
 >>>import platform
 >>>platform.python_version()
@@ -91,5 +90,5 @@ We are continuing adding new features. Bug reports or feature requests are welco
 
 Please consider citing the following reference:
 
-- Xiangjie Li, Yafei Lyu, Jihwan Park, Jingxiao Zhang, Dwight Stambolian, Katalin Susztak, Gang Hu, Mingyao Li. Deep learning enables accurate clustering and batch effect removal in single-cell RNA-seq analysis. 2019.  doi: [https://doi.org/10.1101/530378](https://www.biorxiv.org/content/10.1101/530378v1?rss=1).
+- Xiangjie Li, Yafei Lyu, Jihwan Park, Jingxiao Zhang, Dwight Stambolian, Katalin Susztak, Gang Hu, Mingyao Li. Deep learning enables accurate clustering and batch effect removal in single-cell RNA-seq analysis. 2019. bioRxiv 530378; doi: [https://doi.org/10.1101/530378](https://www.biorxiv.org/content/10.1101/530378v1?rss=1)
 <br>
