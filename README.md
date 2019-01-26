@@ -91,9 +91,5 @@ We are continuing adding new features. Bug reports or feature requests are welco
 
 Please consider citing the following reference:
 
-- Xiangjie Li, Yafei Lyu, Jihwan Park, Jingxiao Zhang, Dwight Stambolian, Katalin Susztak, Gang Hu, Mingyao Li. Deep learning enables accurate clustering and batch effect removal in single-cell RNA-seq analysis,2019: [https://www.biorxiv.org/content/10.1101/530378v1?rss=1](https://www.biorxiv.org/content/10.1101/530378v1?rss=1)
+- Xiangjie Li, Yafei Lyu, Jihwan Park, Jingxiao Zhang, Dwight Stambolian, Katalin Susztak, Gang Hu, Mingyao Li. Deep learning enables accurate clustering and batch effect removal in single-cell RNA-seq analysis. 2019.  doi: [https://doi.org/10.1101/530378](https://www.biorxiv.org/content/10.1101/530378v1?rss=1).
 <br>
-
-## Licence
-
-Copyright (C) 2019 Mingyao's Lab
