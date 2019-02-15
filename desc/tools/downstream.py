@@ -1,7 +1,7 @@
+"""
 from MulticoreTSNE import MulticoreTSNE as mTSNE
 from anndata import AnnData
 import matplotlib.pyplot as plt
-
 
 def run_tsne(
         data,
@@ -25,3 +25,4 @@ def run_tsne(
         plt.ylabel("tSNE_2")
 
     return tsne if return_tsne else None
+"""
