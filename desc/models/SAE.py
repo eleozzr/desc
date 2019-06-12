@@ -10,9 +10,9 @@ import  math
 import numpy as np
 import random
 import tensorflow as tf
-random.seed(201809)
-np.random.seed(201809)
-tf.set_random_seed(201809)
+#random.seed(201809)
+#np.random.seed(201809)
+#tf.set_random_seed(201809) if tf.__version__<="2.0" else tf.random.set_seed(201809)
 
 class SAE(object):
     """ 
@@ -52,7 +52,8 @@ class SAE(object):
         #set random seed
         random.seed(random_seed)
         np.random.seed(random_seed)
-        tf.set_random_seed(random_seed)
+        #tf.set_random_seed(random_seed)
+        tf.set_random_seed(random_seed) if tf.__version__<="2.0" else tf.random.set_seed(random_seed)
         if not os.path.exists(save_dir):
             os.mkdir(save_dir)
         #

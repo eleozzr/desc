@@ -36,7 +36,8 @@ except:
     from SAE import SAE  #  this is for testing whether DescModel work or not 
 random.seed(201809)
 np.random.seed(201809)
-tf.set_random_seed(201809)
+tf.set_random_seed(201809) if tf.__version__<="2.0" else tf.random.set_seed(201809)
+#tf.set_random_seed(201809)
 
 
 class ClusteringLayer(Layer):
@@ -88,7 +89,7 @@ class ClusteringLayer(Layer):
         q = 1.0 / (1.0 + (K.sum(K.square(K.expand_dims(inputs, axis=1) - self.clusters), axis=2) / self.alpha))
         q **= (self.alpha + 1.0) / 2.0
         q = K.transpose(K.transpose(q) / K.sum(q, axis=1))
-        return q
+        return q 
 
     def compute_output_shape(self, input_shape):
         assert input_shape and len(input_shape) == 2
@@ -98,6 +99,16 @@ class ClusteringLayer(Layer):
         config = {'n_clusters': self.n_clusters}
         base_config = super(ClusteringLayer, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))
+
+class ClusteringLayerGaussian(ClusteringLayer):
+    def __init__(self, n_clusters, weights=None, alpha=1.0, **kwargs):
+        super().__init__(n_clusters,weights,alpha,**kwargs)
+    
+    def call(self,inputs,**kwargs):
+        sigma=1.0
+        q=K.sum(K.exp(-K.square(K.expand_dims(inputs,axis=1)-self.clusters)/(2.0*sigma*sigma)),axis=2)
+        q=K.transpose(K.transpose(q)/K.sum(q,axis=1))
+        return q
 
 
 class DescModel(object):
@@ -122,7 +133,8 @@ class DescModel(object):
                  use_ae_weights=False,
 		 save_encoder_weights=False,
                  save_encoder_step=5,
-                 save_dir="result_tmp"
+                 save_dir="result_tmp",
+                 kernel_clustering="t"
                  # save result to save_dir, the default is "result_tmp". if recurvie path, the root dir must be exists, or there will be something wrong: for example : "/result_singlecell/dataset1" will return wrong if "result_singlecell" not exist
                  ):
 
@@ -152,6 +164,7 @@ class DescModel(object):
         self.save_encoder_weights=save_encoder_weights
         self.save_encoder_step=save_encoder_step
         self.save_dir=save_dir
+        self.kernel_clustering=kernel_clustering
         #set random seed
         random.seed(random_seed)
         np.random.seed(random_seed)
@@ -221,7 +234,7 @@ class DescModel(object):
             if adata0.shape[0]>200000:
                 np.random.seed(adata0.shape[0])#set  seed 
                 adata0=adata0[np.random.choice(adata0.shape[0],200000,replace=False)] 
-            sc.pp.neighbors(adata0, n_neighbors=self.n_neighbors)
+            sc.pp.neighbors(adata0, n_neighbors=self.n_neighbors,use_rep="X")
             sc.tl.louvain(adata0,resolution=self.resolution)
             Y_pred_init=adata0.obs['louvain']
             self.init_pred=np.asarray(Y_pred_init,dtype=int)
@@ -236,7 +249,10 @@ class DescModel(object):
             self.n_clusters=cluster_centers.shape[0]
             self.init_centroid=[cluster_centers]
         #create desc clustering layer
-        clustering_layer = ClusteringLayer(self.n_clusters,weights=self.init_centroid,name='clustering')(self.encoder.output)
+        if self.kernel_clustering=="gaussian":
+            clustering_layer = ClusteringLayerGaussian(self.n_clusters,weights=self.init_centroid,name='clustering')(self.encoder.output)
+        else:
+            clustering_layer = ClusteringLayer(self.n_clusters,weights=self.init_centroid,name='clustering')(self.encoder.output)
         self.model = Model(inputs=self.encoder.input, outputs=clustering_layer)
         
 

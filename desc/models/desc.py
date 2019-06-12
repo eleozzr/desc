@@ -91,6 +91,7 @@ def train_single(data,dims=None,
 	learning_rate=150,
 	perplexity=30,
         do_umap=False,
+        kernel_clustering="t"
 ):
     if isinstance(data,AnnData):
         adata=data
@@ -104,7 +105,8 @@ def train_single(data,dims=None,
 #set seed
     random.seed(random_seed)
     np.random.seed(random_seed)
-    tf.set_random_seed(random_seed)
+    #tf.set_random_seed(random_seed)
+    tf.set_random_seed(random_seed) if tf.__version__<="2.0" else tf.random.set_seed(random_seed)
     total_cpu=multiprocessing.cpu_count()
     num_Cores=int(num_Cores) if total_cpu>int(num_Cores) else int(math.ceil(total_cpu/2)) 
     print('The number of cpu in your computer is',total_cpu)
@@ -139,7 +141,8 @@ def train_single(data,dims=None,
               use_ae_weights=use_ae_weights,
 	      save_encoder_weights=save_encoder_weights,
               save_encoder_step=save_encoder_step,
-              save_dir=save_dir
+              save_dir=save_dir,
+              kernel_clustering=kernel_clustering
     )
     desc.compile(optimizer=SGD(0.01,0.9),loss='kld')
     Embeded_z,q_pred=desc.fit(maxiter=max_iter,)
@@ -202,7 +205,8 @@ def train(data,dims=None,
 	do_tsne=False,
 	learning_rate=150,
 	perplexity=30,
-        do_umap=False
+        do_umap=False,
+        kernel_clustering="t"
 ): 
     """ Deep Embeded single cell clustering(DESC) API
     Conduct clustering for single cell data given in the anndata object or np.ndarray,sp.sparmatrix,or pandas.DataFrame
@@ -318,7 +322,8 @@ def train(data,dims=None,
 	    do_tsne=do_tsne,
 	    learning_rate=learning_rate,
 	    perplexity=perplexity,
-            do_umap=do_umap)
+            do_umap=do_umap,
+            kernel_clustering=kernel_clustering)
         #update adata
         data=res
     print("The run time for all resolution is:",get_time()-time_start)
@@ -332,8 +337,11 @@ if __name__=='__main__':
     parser.add_argument('--use_GPU', default=True, type=bool)
     args = parser.parse_args()
     print(args)
+    import os
+
     #test for pbmc
-    adata=sc.read_10x_mtx("../datasets/pbmc",var_names="gene_symbols",cache=True)
+    #adata=sc.read_10x_mtx("../datasets/pbmc",var_names="gene_symbols",cache=True)
+    adata=sc.read("../datasets/pbmc.h5ad")
     sc.pp.filter_cells(adata, min_genes=200)
     sc.pp.filter_genes(adata, min_cells=3)
     mito_genes = adata.var_names.str.startswith('MT-')
@@ -347,7 +355,10 @@ if __name__=='__main__':
     sc.pp.highly_variable_genes(adata, min_mean=0.0125, max_mean=3, min_disp=0.5)
     adata = adata[:, adata.var['highly_variable']]
     sc.pp.scale(adata, max_value=10)
-    adata=train(adata,louvain_resolution=0.6,use_GPU=True,use_ae_weights=False)
+    adata=train(adata,louvain_resolution=0.6,use_GPU=False,num_Cores=1,use_ae_weights=False,kernel_clustering="gaussian")
+    adata.write("result_tmp/adata_desc.h5ad")
+    adata=train(adata,louvain_resolution=0.6,use_GPU=False,num_Cores=1,use_ae_weights=False,kernel_clustering="t",save_dir="result_tmp2")
+    adata.write("result_tmp2/adata_desc.h5ad")
     #adata=train(adata,louvain_resolution="0.2,0.4,0.5",use_GPU=True,use_ae_weights=True,save_encoder_weights=True)
     #adata=train(adata,louvain_resolution='0.5,0.4,0.7',use_GPU=True,use_ae_weights=False,save_encoder_weights=True)
 

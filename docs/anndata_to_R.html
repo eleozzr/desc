@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Downstream analysis based on Anndata object | DESC</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Downstream analysis based on Anndata object" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:1110/desc/anndata_to_R.html" />
+<meta property="og:url" content="http://localhost:1110/desc/anndata_to_R.html" />
+<meta property="og:site_name" content="DESC" />
+<script type="application/ld+json">
+{"@type":"WebPage","url":"http://localhost:1110/desc/anndata_to_R.html","headline":"Downstream analysis based on Anndata object","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/desc/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:1110/desc/feed.xml" title="DESC" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/desc/">DESC</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/desc/">Home</a><a class="page-link" href="/desc/installation.html">Installation</a><a class="page-link" href="/desc/tutorial.html">Tutorial</a><a class="page-link" href="/desc/contact.html">Contact</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <h1 id="downstream-analysis-based-on-anndata-object">Downstream analysis based on <code class="highlighter-rouge">Anndata</code> object</h1>
+
+<p>After running <code class="highlighter-rouge">desc</code>, you get an <code class="highlighter-rouge">AnnData</code> object. Then,  you may want to do some downstream analysis in <code class="highlighter-rouge">R</code>.</p>
+
+<h2 id="extract-some-information-in-anndata-based-on-desc-analysis">Extract some information in <code class="highlighter-rouge">Anndata</code> based on <code class="highlighter-rouge">desc</code> analysis.</h2>
+<ul>
+  <li>extract <code class="highlighter-rouge">.obs</code></li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#`.obs` saved the metadata of each cell, such as nUMI, nGene, clusterID, et al.
+</span><span class="n">df</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obs</span>
+</code></pre></div></div>
+<ul>
+  <li>extract <code class="highlighter-rouge">.var</code>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#`.var` saved the metadata of each gene, such as genename, gene symbol, et al.
+</span><span class="n">df</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">var</span>
+</code></pre></div>    </div>
+  </li>
+  <li>extract <code class="highlighter-rouge">.obsm</code>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#`.obsm` saved the tsne coordinate or dimension reduction of each cell
+</span><span class="n">df0</span><span class="o">=</span><span class="n">adata</span><span class="o">.</span><span class="n">obsm</span><span class="p">[</span><span class="s">"X_tsne"</span><span class="p">]</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="convert-anndata-object-in-python-to-seurat-object-in-r">Convert <code class="highlighter-rouge">AnnData</code> object in python to <code class="highlighter-rouge">Seurat</code> object in R</h2>
+
+<ul>
+  <li>Install necessary R packages.</li>
+</ul>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list.of.packages</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"reticulate"</span><span class="p">,</span><span class="w"> </span><span class="s2">"anndata"</span><span class="p">,,</span><span class="s2">"Seurat"</span><span class="p">)</span><span class="w">
+</span><span class="n">new.packages</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">list.of.packages</span><span class="p">[</span><span class="o">!</span><span class="p">(</span><span class="n">list.of.packages</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">installed.packages</span><span class="p">()[,</span><span class="s2">"Package"</span><span class="p">])]</span><span class="w">
+</span><span class="k">if</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">new.packages</span><span class="p">))</span><span class="w"> </span><span class="n">install.packages</span><span class="p">(</span><span class="n">new.packages</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<ul>
+  <li>Load <code class="highlighter-rouge">Anndata</code>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Sys.setenv(RETICULATE_PYTHON="/usr/bin/python3")
+ad=import("anndata",convert = FALSE) #don't forget convert=FALSE
+adata=ad$read_h5ad("./data/test.h5ad")
+adata
+</code></pre></div>    </div>
+  </li>
+  <li>Get <code class="highlighter-rouge">.raw</code> data 
+In R, almost gene expression level matrix is saved  <code class="highlighter-rouge">genes</code>×<code class="highlighter-rouge">cells</code>(each row stands for a gene and each column stands for a cell). So we need to transpose the sparse matrix to <code class="highlighter-rouge">Compressed Sparse Column format</code></li>
+</ul>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">raw.data.matrix</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tryCatch</span><span class="p">(</span><span class="w">
+</span><span class="n">expr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">py_to_r</span><span class="p">(</span><span class="n">from</span><span class="o">$</span><span class="n">raw</span><span class="o">$</span><span class="n">X</span><span class="p">)),</span><span class="w">
+    </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">stop</span><span class="p">(</span><span class="s2">"No adata.raw.X in provided adata. please make sure adata has adata.raw.X when you tyr to turn it to `seurat object`"</span><span class="p">)</span><span class="w">
+</span><span class="p">})</span><span class="w">
+</span></code></pre></div></div>
+
+<h1 id="some-useful-functions">Some useful functions</h1>
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">suppressMessages</span><span class="p">(</span><span class="n">library</span><span class="p">(</span><span class="n">Seurat</span><span class="p">))</span><span class="c1"># the version of Seurat &lt;3.0</span><span class="w">
+</span><span class="n">suppressMessages</span><span class="p">(</span><span class="n">library</span><span class="p">(</span><span class="n">reticulate</span><span class="p">))</span><span class="w">
+</span><span class="c1">#turn category obs in adata into string</span><span class="w">
+</span><span class="n">change_obs</span><span class="o">=</span><span class="k">function</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">exclude</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s2">"n_genes"</span><span class="p">,</span><span class="s2">"n_counts"</span><span class="p">)){</span><span class="w">
+</span><span class="c1">#@exclude: the columns names</span><span class="w">
+  </span><span class="n">n_col</span><span class="o">=</span><span class="nf">as.numeric</span><span class="p">(</span><span class="nf">as.character</span><span class="p">(</span><span class="n">adata</span><span class="o">$</span><span class="n">obs</span><span class="o">$</span><span class="n">columns</span><span class="o">$</span><span class="n">shape</span><span class="p">[</span><span class="m">0</span><span class="p">]))</span><span class="w">
+  </span><span class="n">tmp</span><span class="o">=</span><span class="n">adata</span><span class="o">$</span><span class="n">obs</span><span class="o">$</span><span class="n">columns</span><span class="w">
+  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nf">seq_len</span><span class="p">(</span><span class="n">n_col</span><span class="p">)){</span><span class="w">
+    </span><span class="n">cur_colname</span><span class="o">=</span><span class="nf">as.character</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="n">i</span><span class="m">-1</span><span class="p">])</span><span class="w">
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">cur_colname</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">exclude</span><span class="p">){</span><span class="w">
+      </span><span class="n">adata</span><span class="o">$</span><span class="n">obs</span><span class="p">[[</span><span class="n">cur_colname</span><span class="p">]]</span><span class="o">=</span><span class="n">adata</span><span class="o">$</span><span class="n">obs</span><span class="p">[[</span><span class="n">cur_colname</span><span class="p">]]</span><span class="o">$</span><span class="n">astype</span><span class="p">(</span><span class="s2">"str"</span><span class="p">)</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+  </span><span class="nf">return</span><span class="p">(</span><span class="n">adata</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+
+</span><span class="n">Convert_from_anndata_to_seurat</span><span class="o">=</span><span class="k">function</span><span class="p">(</span><span class="n">from</span><span class="o">=</span><span class="n">adata</span><span class="p">,</span><span class="n">X.slot</span><span class="o">=</span><span class="s2">"scale.data"</span><span class="p">,</span><span class="n">raw.X.slot</span><span class="o">=</span><span class="s2">"logcount.data"</span><span class="p">){</span><span class="w">
+        </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">py_module_available</span><span class="p">(</span><span class="s2">"anndata"</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">stop</span><span class="p">(</span><span class="s2">"Please install the anndata python module"</span><span class="p">)</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+        </span><span class="n">stopifnot</span><span class="p">(</span><span class="n">X.slot</span><span class="o">%in%</span><span class="nf">c</span><span class="p">(</span><span class="s2">"scale.data"</span><span class="p">,</span><span class="s2">"normlizecount.data"</span><span class="p">))</span><span class="w">
+        </span><span class="n">stopifnot</span><span class="p">(</span><span class="n">raw.X.slot</span><span class="o">%in%</span><span class="nf">c</span><span class="p">(</span><span class="s2">"count.data"</span><span class="p">,</span><span class="s2">"logcount.data"</span><span class="p">))</span><span class="w">
+        </span><span class="n">data.matrix</span><span class="o">=</span><span class="n">tryCatch</span><span class="p">(</span><span class="w">
+                </span><span class="n">expr</span><span class="o">=</span><span class="n">t</span><span class="p">(</span><span class="n">py_to_r</span><span class="p">(</span><span class="n">from</span><span class="o">$</span><span class="n">X</span><span class="p">)),</span><span class="w">
+                        </span><span class="n">error</span><span class="o">=</span><span class="k">function</span><span class="p">(</span><span class="n">e</span><span class="p">){</span><span class="w">
+                                </span><span class="n">stop</span><span class="p">(</span><span class="s2">"No adata.X in provided adata. If Both adata.X and adata.raw.X are None"</span><span class="p">)</span><span class="w">
+                        </span><span class="p">}</span><span class="w">
+       </span><span class="p">)</span><span class="w">
+        </span><span class="n">rownames</span><span class="p">(</span><span class="n">data.matrix</span><span class="p">)</span><span class="o">&lt;-</span><span class="n">rownames</span><span class="p">(</span><span class="n">py_to_r</span><span class="p">(</span><span class="n">from</span><span class="o">$</span><span class="n">var</span><span class="p">))</span><span class="w">
+        </span><span class="n">colnames</span><span class="p">(</span><span class="n">data.matrix</span><span class="p">)</span><span class="o">&lt;-</span><span class="n">rownames</span><span class="p">(</span><span class="n">py_to_r</span><span class="p">(</span><span class="n">from</span><span class="o">$</span><span class="n">obs</span><span class="p">))</span><span class="w">
+        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">X.slot</span><span class="o">==</span><span class="s2">"normalizecount.data"</span><span class="p">)</span><span class="w"> </span><span class="n">X.slot</span><span class="o">=</span><span class="s2">"data"</span><span class="w">
+
+        </span><span class="n">raw.data.matrix</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tryCatch</span><span class="p">(</span><span class="w">
+                </span><span class="n">expr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">(</span><span class="n">py_to_r</span><span class="p">(</span><span class="n">from</span><span class="o">$</span><span class="n">raw</span><span class="o">$</span><span class="n">X</span><span class="p">)),</span><span class="w">
+                </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="n">stop</span><span class="p">(</span><span class="s2">"No adata.raw.X in provided adata. please make sure adata have adata.raw.X when you tyr to turn it to `seurat object`"</span><span class="p">)</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+        </span><span class="p">)</span><span class="w">
+        </span><span class="k">if</span><span class="p">(</span><span class="n">raw.X.slot</span><span class="o">==</span><span class="s2">"logcount.data"</span><span class="p">){</span><span class="w">
+                </span><span class="n">raw.data.matrix</span><span class="o">=</span><span class="n">expm1</span><span class="p">(</span><span class="n">raw.data.matrix</span><span class="p">)</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+
+        </span><span class="n">rownames</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raw.data.matrix</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rownames</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">py_to_r</span><span class="p">(</span><span class="n">from</span><span class="o">$</span><span class="n">raw</span><span class="o">$</span><span class="n">var</span><span class="p">))</span><span class="w">
+        </span><span class="n">colnames</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raw.data.matrix</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rownames</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="n">py_to_r</span><span class="p">(</span><span class="n">from</span><span class="o">$</span><span class="n">obs</span><span class="p">))</span><span class="w">
+        </span><span class="c1">#get meta.data</span><span class="w">
+        </span><span class="n">meta.data</span><span class="o">=</span><span class="n">py_to_r</span><span class="p">(</span><span class="n">from</span><span class="o">$</span><span class="n">obs</span><span class="p">)</span><span class="w">
+        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="s2">"nUMI"</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">meta.data</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">colnames</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">meta.data</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="w">
+                </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"nUMI"</span><span class="p">,</span><span class="w">
+                </span><span class="n">replacement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"nUMI_ori"</span><span class="p">,</span><span class="w">
+                </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">meta.data</span><span class="p">)</span><span class="w">
+                </span><span class="p">)</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+         </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="s2">"nGene"</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">meta.data</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">colnames</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">meta.data</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">gsub</span><span class="p">(</span><span class="w">
+                </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"nGene"</span><span class="p">,</span><span class="w">
+                </span><span class="n">replacement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"nGene_ori"</span><span class="p">,</span><span class="w">
+                </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">meta.data</span><span class="p">)</span><span class="w">
+                </span><span class="p">)</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="n">seurat.object</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">CreateSeuratObject</span><span class="p">(</span><span class="n">raw.data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raw.data.matrix</span><span class="p">,</span><span class="n">meta.data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">meta.data</span><span class="p">)</span><span class="w">
+        </span><span class="n">seurat.object</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">SetAssayData</span><span class="p">(</span><span class="w">
+                </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seurat.object</span><span class="p">,</span><span class="w">
+                </span><span class="n">assay.type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"RNA"</span><span class="p">,</span><span class="w">
+                </span><span class="n">slot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X.slot</span><span class="p">,</span><span class="w">
+                </span><span class="n">new.data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.matrix</span><span class="w">
+        </span><span class="p">)</span><span class="w">
+        </span><span class="c1">#deal with obsm fields that are not dimensional reductions, or have different name structures</span><span class="w">
+        </span><span class="n">drs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">unlist</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">py_to_r</span><span class="p">(</span><span class="n">from</span><span class="o">$</span><span class="n">obsm</span><span class="o">$</span><span class="n">keys</span><span class="p">()))</span><span class="w">
+        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">dr</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">drs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">dr.embed</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">py_to_r</span><span class="p">(</span><span class="n">from</span><span class="o">$</span><span class="n">obsm</span><span class="p">[[</span><span class="n">eval</span><span class="p">(</span><span class="n">dr</span><span class="p">)]])</span><span class="w">
+                </span><span class="n">dr.name</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">"X_"</span><span class="p">,</span><span class="n">replacement</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">dr</span><span class="p">)</span><span class="w">
+                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">dr.name</span><span class="p">)</span><span class="o">|</span><span class="n">dr.name</span><span class="o">==</span><span class="s2">""</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="n">dr.name</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dr</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+                </span><span class="n">dr.dict</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span><span class="n">tSNE_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"tsne"</span><span class="p">,</span><span class="w"> </span><span class="n">PC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"pca"</span><span class="p">)</span><span class="w">
+                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">dr.name</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">dr.dict</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="n">dr.key</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">names</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">which</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dr.dict</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">dr.name</span><span class="p">))</span><span class="w">
+                </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+                        </span><span class="n">dr.key</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">toupper</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dr.name</span><span class="p">)</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+                </span><span class="n">colnames</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dr.embed</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="n">dr.key</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="n">ncol</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dr.embed</span><span class="p">))</span><span class="w">
+                </span><span class="n">rownames</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dr.embed</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">seurat.object</span><span class="o">@</span><span class="n">cell.names</span><span class="w">
+                </span><span class="n">seurat.object</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">SetDimReduction</span><span class="p">(</span><span class="w">
+                        </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seurat.object</span><span class="p">,</span><span class="w">
+                        </span><span class="n">reduction.type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dr.name</span><span class="p">,</span><span class="w">
+                        </span><span class="n">slot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"cell.embeddings"</span><span class="p">,</span><span class="w">
+                        </span><span class="n">new.data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dr.embed</span><span class="w">
+                </span><span class="p">)</span><span class="w">
+                </span><span class="n">seurat.object</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">SetDimReduction</span><span class="p">(</span><span class="w">
+                        </span><span class="n">object</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seurat.object</span><span class="p">,</span><span class="w">
+                        </span><span class="n">reduction.type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dr.name</span><span class="p">,</span><span class="w">
+                        </span><span class="n">slot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"key"</span><span class="p">,</span><span class="w">
+                        </span><span class="n">new.data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dr.key</span><span class="w">
+                </span><span class="p">)</span><span class="w">
+         </span><span class="p">}</span><span class="w">
+        </span><span class="nf">return</span><span class="p">(</span><span class="n">seurat.object</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># example</span><span class="w">
+</span><span class="n">adata</span><span class="o">=</span><span class="n">change_obs</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">exclude</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s2">"n_genes"</span><span class="p">,</span><span class="s2">"n_counts"</span><span class="p">))</span><span class="c1"># columns to exclude</span><span class="w">
+</span><span class="n">obj0</span><span class="o">=</span><span class="n">Convert_from_anndata_to_seurat</span><span class="p">(</span><span class="n">adata</span><span class="p">,</span><span class="n">raw.X.slot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"count.data"</span><span class="p">)</span><span class="w">
+</span><span class="n">obj0</span><span class="o">=</span><span class="n">NormalizeData</span><span class="p">(</span><span class="n">obj0</span><span class="p">,</span><span class="n">display.progress</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">F</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Updating…..</p>
+
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/desc/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">DESC</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">DESC</li><li><a class="u-email" href="mailto:eleozzr@gmail.com">eleozzr@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/eleozzr"><svg class="svg-icon"><use xlink:href="/desc/assets/minima-social-icons.svg#github"></use></svg> <span class="username">eleozzr</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
