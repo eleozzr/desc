@@ -63,7 +63,7 @@ def scale_bygroup(adata,groupby,max_value=6):
                 tmp[tmp>max_value]=max_value
             adata.X[df==category]=tmp.copy()
     else:
-        print("Warning: The groupby:"+str(groupby)"+ you provided, we scale across all cells")
+        print("Warning: The groupby:"+str(groupby)+ "you provided is not exists, we scale across all cells")
         res=adata.X
         #avoid all 0 columns
         mean0,var0=get_mean_var(res)
