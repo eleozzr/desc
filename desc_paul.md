@@ -97,12 +97,12 @@ adata.obs['max.prob']=adata.uns["prob_matrix1.0"].max(1)
 ```python
 sc.pl.scatter(adata,basis="tsne1.0",color=['desc_1.0','max.prob'])
 ```
-![png](output_13_1.png)
+![png](docs/assets/images/output_13_1.png)
 
 ```python
 sc.pl.scatter(adata,basis="tsne1.0",color=['celltype','celltype2'])
 ```
-![png](output_14_0.png)
+![png](docs/assets/images/output_14_0.png)
 
 
 # reference
