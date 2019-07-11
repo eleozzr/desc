@@ -1,6 +1,6 @@
-|PyPI| |bioconda| |Docs| |Build Status|
+|PyPI| |Docs|
 
-.. |PyPI| image:: https://img.shields.io/pypi/v/scanpy.svg
+.. |PyPI| image:: https://img.shields.io/pypi/v/desc.svg
    :target: https://pypi.org/project/desc
 .. |Docs| image:: https://readthedocs.com/projects/icb-scanpy/badge/?version=latest
    :target: https://eleozzr.github.io/desc
