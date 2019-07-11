@@ -240,11 +240,9 @@ if __name__ == "__main__":
     # extract features
     print ('Finished training, extracting features using the trained SAE model')
     features = sae.extract_feature(x)
-
     print ('performing k-means clustering on the extracted features')
     from sklearn.cluster import KMeans
     km = KMeans(n_clusters, n_init=20)
     y_pred = km.fit_predict(features)
-
     from sklearn.metrics import normalized_mutual_info_score as nmi
     print ('K-means clustering result on extracted features: NMI =', nmi(y, y_pred))

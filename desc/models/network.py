@@ -118,7 +118,6 @@ class DescModel(object):
                  alpha=1.0,
 		 tol=0.005,
                  init='glorot_uniform', #initialization method
-                 n_clusters=None,     # Number of Clusters, if provided, the clusters center will be initialized by K-means,
                  louvain_resolution=1.0, # resolution for louvain 
                  n_neighbors=10,    # the 
                  pretrain_epochs=300, # epoch for autoencoder
@@ -170,10 +169,10 @@ class DescModel(object):
         np.random.seed(random_seed)
         tf.set_random_seed(random_seed)
 	#pretrain autoencoder
-        self.pretrain(n_clusters=n_clusters)
+        self.pretrain()
         
 
-    def pretrain(self,n_clusters=None):
+    def pretrain(self):
         sae=SAE(dims=self.dims,
 		act=self.activation,
                 drop_rate=self.drop_rate_SAE,
@@ -186,9 +185,10 @@ class DescModel(object):
            )
         # begin pretraining
         t0 = get_time()
-        print("Checking whether %s  exists in the directory"%str(os.path.join(self.save_dir,'ae_weights,h5')))
         if self.use_ae_weights: 
+            print("Checking whether %s  exists in the directory"%str(os.path.join(self.save_dir,'ae_weights.h5')))
             if not os.path.isfile(self.save_dir+"/ae_weights.h5"):
+                print("The file ae_weights.h5 is not exits")
                 if self.is_stacked:
                     sae.fit(self.x,epochs=self.pretrain_epochs)
                 else:
@@ -200,6 +200,7 @@ class DescModel(object):
                 self.autoencoder=sae.autoencoders
                 self.encoder=sae.encoder
         else:
+            print("use_ae_weights=False, the program will rerun autoencoder")
             if self.is_stacked:
                 sae.fit(self.x,epochs=self.pretrain_epochs)
             else:
@@ -218,14 +219,18 @@ class DescModel(object):
         #initialize cluster centers using louvain if n_clusters is not exist
         features=self.extract_features(self.x)
         features=np.asarray(features)
-        if isinstance(n_clusters,int):
-            print("...number of clusters have been specified, Initializing Cluster centroid  using K-Means")
+        #if isinstance(n_clusters,int):
+        if False:
+            #saved for other initizlization methods in futher
+            #print("...number of clusters have been specified, Initializing Cluster centroid  using K-Means")
+            """
             kmeans = KMeans(n_clusters=n_clusters, n_init=20)
             Y_pred_init = kmeans.fit_predict(features)
             self.init_pred= np.copy(Y_pred_init)
             self.n_clusters=n_clusters
             cluster_centers=kmeans.cluster_centers_
             self.init_centroid=[cluster_centers]
+            """
         else:
             print("...number of clusters is unknown, Initialize cluster centroid using louvain method")
             #can be replaced by other clustering methods

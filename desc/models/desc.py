@@ -66,7 +66,6 @@ def train_single(data,dims=None,
         alpha=1.0,
         tol=0.005,
         init='glorot_uniform',
-        n_clusters=None,
         louvain_resolution=1.0,
         n_neighbors=15,
         pretrain_epochs=300,
@@ -126,7 +125,6 @@ def train_single(data,dims=None,
               alpha=alpha,
               tol=tol,
               init=init,
-              n_clusters=n_clusters,
               louvain_resolution=louvain_resolution,
               n_neighbors=n_neighbors,
               pretrain_epochs=pretrain_epochs,
@@ -145,7 +143,7 @@ def train_single(data,dims=None,
               kernel_clustering=kernel_clustering
     )
     desc.compile(optimizer=SGD(0.01,0.9),loss='kld')
-    Embeded_z,q_pred=desc.fit(maxiter=max_iter,)
+    Embeded_z,q_pred=desc.fit(maxiter=max_iter)
     print("The desc has been trained successfully!!!!!!")
     if verbose:
         print("The summary of desc model is:")
@@ -181,7 +179,6 @@ def train(data,dims=None,
         alpha=1.0,
         tol=0.005,
         init='glorot_uniform',
-        n_clusters=None,
         louvain_resolution=[0.6,0.8],
         n_neighbors=10,
         pretrain_epochs=300,
@@ -225,7 +222,6 @@ def train(data,dims=None,
     init: `str`,optional. Default: `glorot_uniform`.
         Initialization method used to initialize weights.
 
-    n_clusters: `int`, optional. Default:`None`, if we specify it , the algorithm will use K-means initialize the cluster center after autoencoder model trained.
     louvain_resolution: `list  or str or float. for example, louvain_resolution=1.2 or louvain_resolution=[0.2,0.4,0.8] or louvain_resolution="0.3,0.4,0.8" sep with ","
     n_neighbors, `int`, optional. Default: 10. The size of local neighborhood (in terms of number of neighboring data points) used for connectivity matrix. Larger values result in more global views of the manifold, while smaller values result in more local data being preserved. In general values should be in the range 2 to 100. Lo 
 
@@ -298,7 +294,6 @@ def train(data,dims=None,
             alpha=alpha,
             tol=tol,
             init=init,
-            n_clusters=n_clusters,
             louvain_resolution=resolution,
             n_neighbors=n_neighbors,
             pretrain_epochs=pretrain_epochs,
@@ -327,7 +322,7 @@ def train(data,dims=None,
         #update adata
         data=res
     print("The run time for all resolution is:",get_time()-time_start)
-    print("After training, the information of adata is:\n",adata)
+    print("After training, the information of adata is:\n",data)
     return data
 
 
