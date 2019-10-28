@@ -157,16 +157,18 @@ def train_single(data,dims=None,
         num_Cores_tsne=int(num_Cores_tsne) if total_cpu>int(num_Cores_tsne) else int(math.ceil(total_cpu/2))
         sc.tl.tsne(adata,use_rep="X_Embeded_z"+str(louvain_resolution),learning_rate=learning_rate,perplexity=perplexity,n_jobs=num_Cores_tsne)
         adata.obsm["X_tsne"+str(louvain_resolution)]=adata.obsm["X_tsne"].copy()
-        sc.logging.msg(' tsne finished', t=True, end=' ', v=4)
-        sc.logging.msg('and added\n'
-                 '    \'X_tsne\''+str(louvain_resolution),'the tsne coordinates (adata.obs)\n', v=4)
+        print('tsne finished and added X_tsne'+str(louvain_resolution),' into the umap coordinates (adata.obsm)\n')
+        #sc.logging.msg(' tsne finished', t=True, end=' ', v=4)
+        #sc.logging.msg('and added\n'
+        #         '    \'X_tsne\''+str(louvain_resolution),'the tsne coordinates (adata.obs)\n', v=4)
     if do_umap:
         sc.pp.neighbors(adata,n_neighbors=n_neighbors,use_rep="X_Embeded_z"+str(louvain_resolution)) 
         sc.tl.umap(adata)
         adata.obsm["X_umap"+str(louvain_resolution)]=adata.obsm["X_umap"].copy() 
-        sc.logging.msg(' umap finished', t=True, end=' ', v=4)
-        sc.logging.msg('and added\n'        
-                 '    \'X_umap\''+str(louvain_resolution),'the umap coordinates (adata.obsm)\n', v=4)
+        print('umap finished and added X_umap'+str(louvain_resolution),' into the umap coordinates (adata.obsm)\n')
+        #sc.logging.msg(' umap finished', t=True, end=' ', v=4)
+        #sc.logging.msg('and added\n'        
+        #        '    \'X_umap\''+str(louvain_resolution),'the umap coordinates (adata.obsm)\n', v=4)
         del adata.uns["neighbors"]
 
    
