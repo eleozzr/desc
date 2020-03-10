@@ -3,15 +3,15 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
-<title>Reproduce | DESC</title>
+<title>Reproducibility | DESC</title>
 <meta name="generator" content="Jekyll v3.8.5" />
-<meta property="og:title" content="Reproduce" />
+<meta property="og:title" content="Reproducibility" />
 <meta property="og:locale" content="en_US" />
 <link rel="canonical" href="http://localhost:12132/desc/reproduce.html" />
 <meta property="og:url" content="http://localhost:12132/desc/reproduce.html" />
 <meta property="og:site_name" content="DESC" />
 <script type="application/ld+json">
-{"@type":"WebPage","url":"http://localhost:12132/desc/reproduce.html","headline":"Reproduce","@context":"http://schema.org"}</script>
+{"@type":"WebPage","url":"http://localhost:12132/desc/reproduce.html","headline":"Reproducibility","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/desc/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:12132/desc/feed.xml" title="DESC" /></head>
 <body><header class="site-header" role="banner">
@@ -26,7 +26,7 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/desc/">Home</a><a class="page-link" href="/desc/installation.html">Installation</a><a class="page-link" href="/desc/tutorial.html">Tutorial</a><a class="page-link" href="/desc/reproduce.html">Reproduce</a><a class="page-link" href="/desc/contact.html">Contact</a></div>
+        <div class="trigger"><a class="page-link" href="/desc/">Home</a><a class="page-link" href="/desc/installation.html">Installation</a><a class="page-link" href="/desc/tutorial.html">Tutorial</a><a class="page-link" href="/desc/reproduce.html">Reproducibility</a><a class="page-link" href="/desc/contact.html">Contact</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -44,12 +44,12 @@ pre.r {
 </style>
 
 <p style="font-family: times, serif; font-size:21pt;color:red;">
-In this note, we will show some details about out manuscript, including reproducing code, the reviwers'comments and corresponding point-to-point response for our paper.
+In this note, we show details and codes to reproduce results shown in the paper.
 </p>
 
 <h1 id="deep-learning-enables-accurate-clustering-with-batch-effect-removal-in-single-cell-rna-seq-analysis">Deep learning enables accurate clustering with batch effect removal in single-cell RNA-seq analysis</h1>
 
-<p>Xiangjie Li<sup>1,4,2</sup>, Kui Wang<sup>1,3</sup>, Yafei Lyu<sup>1</sup>, Jingxiao Zhang<sup>4</sup>, Dwight Stambolian<sup>5</sup>, Katalin Susztak<sup>6</sup>, Muredach P. Reilly<sup>7</sup>, Gang Hu<sup>1,8*</sup>, Mingyao Li<sup>1*</sup></p>
+<p>Xiangjie Li<sup>1,2,3</sup>, Kui Wang<sup>1,4</sup>, Yafei Lyu<sup>1</sup>,Huize Pan<sup>5</sup>, Jingxiao Zhang<sup>2</sup>, Dwight Stambolian<sup>6</sup>, Katalin Susztak<sup>7</sup>, Muredach P. Reilly<sup>5</sup>, Gang Hu<sup>1,8*</sup>, Mingyao Li<sup>1*</sup></p>
 
 <details>
 <summary>
@@ -57,41 +57,36 @@ In this note, we will show some details about out manuscript, including reproduc
  </summary>
  <ol>
 <li>Department of Biostatistics, Epidemiology and Informatics, University of Pennsylvania Perelman School of Medicine, Philadelphia, PA 19104, USA.</li>
+<li>Center for Applied Statistics, School of Statistics, Renmin University, Beijing, China.  </li>
 <li> State Key Laboratory of Cardiovascular Disease, Fuwai Hospital, National Center for Cardiovascular Diseases, Chinese Academy of Medical Sciences and Peking Union Medical College, Beijing 100037, China. </li>
 <li> Department of Information Theory and Data Science, School of Mathematical Sciences and LPMC, Nankai University, Tianjin 300071, China.  </li>
-<li>Center for Applied Statistics, School of Statistics, Renmin University, Beijing, China.  </li>
+<li>Cardiology Division, Department of Medicine, Columbia University Medical Center, New York, NY 10032, USA. </li>
 <li>Department of Ophthalmology, University of Pennsylvania Perelman School of Medicine, Philadelphia, PA 19104, USA.  </li>
 <li>Departments of Medicine and Genetics, University of Pennsylvania Perelman School of Medicine, Philadelphia, PA 19104, USA. </li>
-<li>Cardiology Division, Department of Medicine, Columbia University Medical Center, New York, NY 10032, USA. </li>
 <li>School of Statistics and Data Science, Key Laboratory for medical Data Analysis and Statistical Research of Tianjin, Nankai University, Tianjin 300071, China.</li>    
  </ol>
   </details>
 
+<p><br /></p>
+
 <h2 id="figures">Figures</h2>
 <ul>
   <li><a href="./private_html/DESC_paper_macaque_retina.html">Figures related to macaque retina data.</a></li>
-  <li><a href="./private_html/DESC_paper_pancreas_data.html">Figures related to Human pancreas data.</a></li>
-  <li><a href="./private_html/DESC_paper_pbmc_data.html">Figures related to Human PBMC data.</a></li>
-  <li><a href="./private_html/DESC_paper_paul.html">Figures related to Mouse bone marrow myeloid progenitor cell dataset.</a></li>
-  <li><a href="./private_html/DESC_paper_monocyte_data.html">Figures related to Human monocyte data.</a></li>
+  <li><a href="./private_html/DESC_paper_pancreas_data.html">Figures related to human pancreas data.</a></li>
+  <li><a href="./private_html/DESC_paper_pbmc_data.html">Figures related to human PBMC data.</a></li>
+  <li><a href="./private_html/DESC_paper_paul.html">Figures related to mouse bone marrow myeloid progenitor cell dataset.</a></li>
+  <li><a href="./private_html/DESC_paper_monocyte_data.html">Figures related to human monocyte data.</a></li>
   <li><a href="./private_html/DESC_paper_memory_time.html">Figures related to running time and memory usage</a></li>
   <li><a href="./private_html/DESC_paper_1.3millon_data.html">Figures related to 1.3 million brain cells from E18 mice.</a></li>
 </ul>
 
-<p>The two figures in <code class="highlighter-rouge">Figure 10</code> can be found in <a href="./private_html/DESC_paper_memory_time.html">Figures related to running time and memory usage</a> and  <a href="./private_html/DESC_paper_macaque_retina.html">Figures related to macaque retina data.</a>, respectively.</p>
-
-<p><strong>Note:</strong> When you want to back this page after clicking above link, you need click the <code class="highlighter-rouge">back button</code> in your Browser or click <code class="highlighter-rouge">Go back to desc homepage</code>.</p>
+<p>The two figures in <code class="highlighter-rouge">Figure 10</code> can be found in <a href="./private_html/DESC_paper_memory_time.html">Figures related to running time and memory usage</a> and  <a href="./private_html/DESC_paper_macaque_retina.html">Figures related to macaque retina data</a>, respectively.</p>
 
 <h2 id="workflow-figure">Workflow figure</h2>
 
-<p>Our workflow figures  <img src="assets/images/desc_workflow.png" alt="Drawing" style="width: 100px;" /> is designed by <a href="https://products.office.com/en-us/visio/flowchart-software">Microsoft Visio</a>.</p>
+<p>Our workflow figure  <img src="assets/images/desc_workflow.png" alt="Drawing" style="width: 100px;" /> was designed by <a href="https://products.office.com/en-us/visio/flowchart-software">Microsoft Visio</a>.</p>
 
-<h2 id="reviews-comment">Review’s comment</h2>
-<ul>
-  <li>continuing….</li>
-</ul>
-
-<p>Please email  <a href="mailto:eleozzr@gmail.com" title="For quicker response, recommand mailto ele717@163.com">eleozzr@gmail.com</a> or <a href="mailto:ele717@163.com">ele717@163.com</a> with any questions about the <a href="https://github.com/eleozzr/desc"><strong>desc</strong></a> package.</p>
+<p>Please contact  <a href="mailto:eleozzr@gmail.com" title="For quicker response, recommand mailto ele717@163.com">eleozzr@gmail.com</a> or <a href="mailto:ele717@163.com">ele717@163.com</a> with any questions about the <a href="https://github.com/eleozzr/desc"><strong>desc</strong></a> package.</p>
 
 
       </div>
