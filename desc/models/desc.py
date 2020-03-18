@@ -118,7 +118,7 @@ def train_single(data,dims=None,
         if tf.__version__ < "2.0":
             K.set_session(tf.Session(graph=tf.get_default_graph(),config=tf.ConfigProto(intra_op_parallelism_threads=num_Cores, inter_op_parallelism_threads=num_Cores)))
         else:
-            K.set_session(tf.compat.v1.Session(graph=tf.compat.v1.get_default_graph(),config=tf.compat.v1.ConfigProto(intra_op_parallelism_threads=num_Cores, inter_op_parallelism_threads=num_Cores)))
+            tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(graph=tf.compat.v1.get_default_graph(),config=tf.compat.v1.ConfigProto(intra_op_parallelism_threads=num_Cores, inter_op_parallelism_threads=num_Cores)))
 
     if not use_ae_weights and os.path.isfile(os.path.join(save_dir,"ae_weights.h5")):
         os.remove(os.path.join(save_dir,"ae_weights.h5"))
