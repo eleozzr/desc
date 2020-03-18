@@ -105,7 +105,7 @@ def train_single(data,dims=None,
     random.seed(random_seed)
     np.random.seed(random_seed)
     #tf.set_random_seed(random_seed)
-    tf.set_random_seed(random_seed) if tf.__version__<="2.0" else tf.random.set_seed(random_seed)
+    tf.set_random_seed(random_seed) if tf.__version__ < "2.0" else tf.random.set_seed(random_seed)
     total_cpu=multiprocessing.cpu_count()
     num_Cores=int(num_Cores) if total_cpu>int(num_Cores) else int(math.ceil(total_cpu/2)) 
     print('The number of cpu in your computer is',total_cpu)
@@ -115,7 +115,11 @@ def train_single(data,dims=None,
     else:
         #set only use cpu
         os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-        K.set_session(tf.Session(graph=tf.get_default_graph(),config=tf.ConfigProto(intra_op_parallelism_threads=num_Cores, inter_op_parallelism_threads=num_Cores)))
+        if tf.__version__ < "2.0":
+            K.set_session(tf.Session(graph=tf.get_default_graph(),config=tf.ConfigProto(intra_op_parallelism_threads=num_Cores, inter_op_parallelism_threads=num_Cores)))
+        else:
+            K.set_session(tf.compat.v1.Session(graph=tf.compat.v1.get_default_graph(),config=tf.compat.v1.ConfigProto(intra_op_parallelism_threads=num_Cores, inter_op_parallelism_threads=num_Cores)))
+
     if not use_ae_weights and os.path.isfile(os.path.join(save_dir,"ae_weights.h5")):
         os.remove(os.path.join(save_dir,"ae_weights.h5"))
   

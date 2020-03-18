@@ -36,7 +36,7 @@ except:
     from SAE import SAE  #  this is for testing whether DescModel work or not 
 random.seed(201809)
 np.random.seed(201809)
-tf.set_random_seed(201809) if tf.__version__<="2.0" else tf.random.set_seed(201809)
+tf.set_random_seed(201809) if tf.__version__<  "2.0" else tf.random.set_seed(201809)
 #tf.set_random_seed(201809)
 
 
@@ -167,7 +167,8 @@ class DescModel(object):
         #set random seed
         random.seed(random_seed)
         np.random.seed(random_seed)
-        tf.set_random_seed(random_seed)
+        #tf.set_random_seed(random_seed)
+        tf.set_random_seed(random_seed) if tf.__version__ < "2.0" else tf.random.set_seed(random_seed)
 	#pretrain autoencoder
         self.pretrain()
         

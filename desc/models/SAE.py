@@ -53,7 +53,7 @@ class SAE(object):
         random.seed(random_seed)
         np.random.seed(random_seed)
         #tf.set_random_seed(random_seed)
-        tf.set_random_seed(random_seed) if tf.__version__<="2.0" else tf.random.set_seed(random_seed)
+        tf.set_random_seed(random_seed) if tf.__version__<"2.0" else tf.random.set_seed(random_seed)
         if not os.path.exists(save_dir):
             os.mkdir(save_dir)
         #
