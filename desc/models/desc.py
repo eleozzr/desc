@@ -84,6 +84,7 @@ def train_single(data,dims=None,
         num_Cores=20,
         num_Cores_tsne=10,
         use_GPU=True,
+        GPU_id=None,
         random_seed=201809,
         verbose=True,
 	do_tsne=False,
@@ -109,8 +110,13 @@ def train_single(data,dims=None,
     total_cpu=multiprocessing.cpu_count()
     num_Cores=int(num_Cores) if total_cpu>int(num_Cores) else int(math.ceil(total_cpu/2)) 
     print('The number of cpu in your computer is',total_cpu)
-    if use_GPU:
-        os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+    if use_GPU and GPU_id is not None:
+        #if you use GPU,you must be sure that there is GPU in your device
+        try:
+            os.environ["CUDA_VISIBLE_DEVICES"] = str(GPU_id)
+        except:
+            os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+
         #os.environ['CUDA_VISIBLE_DEVICES']=K.tensorflow_backend._get_available_gpus()[0][-1]#use first GPUid
     else:
         #set only use cpu
@@ -203,6 +209,7 @@ def train(data,dims=None,
         num_Cores=20,
         num_Cores_tsne=10,
         use_GPU=False,
+        GPU_id=None,
         random_seed=201809,
         verbose=True,
 	do_tsne=False,
@@ -258,6 +265,8 @@ def train(data,dims=None,
     num_Cores: `int`, optional. Default,`20`. How many cpus use during tranning. if `num_Cores` > the max cpus in our computer, num_Cores will use  a half of cpus in your computer. 
 
     use_GPU=True, `bool`, optional. Default, `True`. it will use GPU to train model if GPU is avaliable 
+
+    GPU_id=True, `str or int`, optional.The GPU id in your device.  Default, `None`. it will use GPU to train model if `use_GPU`==True and GPU_id is not None; 
 
     random_seed, `int`,optional. Default,`201809`. the random seed for random.seed, numpy.random.seed, tensorflow.set_random_seed
 
@@ -318,6 +327,7 @@ def train(data,dims=None,
             num_Cores=num_Cores,
             num_Cores_tsne=num_Cores_tsne,
             use_GPU=use_GPU,
+            GPU_id=GPU_id,
             random_seed=random_seed,
             verbose=verbose,
 	    do_tsne=do_tsne,

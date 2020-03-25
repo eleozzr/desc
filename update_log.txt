@@ -1,2 +1,7 @@
+#2020-03-26
+require tensorflow<2.0 because some inconsistency between keras and tensorflow 2.0
+
 # 2020-03-18
-update tf.Session to tf.compat.v1.Session() when using tensorflow2.0
+2.0.0: update tf.Session to tf.compat.v1.Session() when using tensorflow2.0
+
+
