@@ -1,11 +1,12 @@
 import os
 os.environ['PYTHONHASHSEED'] = '0'
-import keras
-from keras.layers import Input, Dense, Dropout
-from keras.models import Model, Sequential
-from keras.optimizers import SGD
-from keras.utils.vis_utils import plot_model
-from keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, ReduceLROnPlateau,History
+import tensorflow as tf
+from tensorflow import  keras
+from tensorflow.keras.layers import Input, Dense, Dropout
+from tensorflow.keras.models import Model, Sequential
+from tensorflow.keras.optimizers import SGD
+from tensorflow.keras.utils import plot_model
+from tensorflow.keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, ReduceLROnPlateau,History
 import  math
 import numpy as np
 import random
@@ -40,7 +41,14 @@ class SAE(object):
         use_earlyStop: optional. Default,`True`. Stops training if loss does not improve if given min_delta=1e-4, patience=10.
         save_dir:'str',optional. Default,'result_tmp',some result will be saved in this directory.
     """
-    def __init__(self, dims, act='relu', drop_rate=0.2, batch_size=32,random_seed=201809,actincenter="tanh",init="glorot_uniform",use_earlyStop=True,save_dir='result_tmp'): #act relu
+    def __init__(self, dims, act='relu', 
+            drop_rate=0.2, 
+            batch_size=32,
+            random_seed=201809,
+            actincenter="tanh",
+            init="glorot_uniform",
+            use_earlyStop=True,
+            save_dir='result_tmp'): #act relu
         self.dims = dims
         self.n_stacks = len(dims) - 1
         self.n_layers = 2*self.n_stacks  # exclude input layer
@@ -67,6 +75,8 @@ class SAE(object):
             raise ValueError('Invalid `init` argument: '
                              'expected on of {"glorot_uniform", "glorot_normal", "he_normal","he_uniform","lecun_normal","lecun_uniform","RandomNormal","RandomUniform","TruncatedNormal"} '
                              'but got', mode)
+        """
+        #tensorflow <2.0
         if init=="glorot_uniform":
             res=keras.initializers.glorot_uniform(seed=seed)
         elif init=="glorot_normal":
@@ -85,7 +95,8 @@ class SAE(object):
             res=keras.initializers.RandomUniform(minval=-0.05,maxval=0.05,seed=seed)
         else:
             res=keras.initializers.TruncatedNormal(mean=0.0, stddev=0.05, seed=seed)
-        return res
+        """
+        return init
         
         
 
@@ -184,7 +195,8 @@ class SAE(object):
             lr = pow(10, -j)
             print ('learning rate =', lr)
             self.autoencoders.compile(optimizer=SGD(lr, momentum=0.9), loss='mse')
-            self.autoencoders.fit(x=x, y=x, batch_size=self.batch_size, epochs=50)
+            callbacks=[EarlyStopping(monitor='loss',min_delta=1e-4,patience=10,verbose=1,mode='auto')]
+            self.autoencoders.fit(x=x,y=x,callbacks=callbacks,batch_size=self.batch_size,epochs=50)
 
     def fit(self, x, epochs=300,decaying_step=3): # use stacked autoencoder pretrain and fine tuning
         self.pretrain_stacks(x, epochs=int(epochs/2),decaying_step=decaying_step)
@@ -218,7 +230,7 @@ if __name__ == "__main__":
     import numpy as np
     def load_mnist(sample_size=10000):
         # the data, shuffled and split between train and test sets
-        from keras.datasets import mnist
+        from tensorflow.keras.datasets import mnist
         (x_train, y_train), (x_test, y_test) = mnist.load_data()
         x = np.concatenate((x_train, x_test))
         y = np.concatenate((y_train, y_test))

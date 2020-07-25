@@ -31,10 +31,8 @@ import pandas as pd
 import tensorflow as tf
 import multiprocessing
 from anndata import AnnData
-import scanpy.api as sc
-from keras import backend as K
+import scanpy as sc
 from scipy.sparse import issparse
-import keras
 try:
     from .network import *
 except:
@@ -106,7 +104,8 @@ def train_single(data,dims=None,
     random.seed(random_seed)
     np.random.seed(random_seed)
     #tf.set_random_seed(random_seed)
-    tf.set_random_seed(random_seed) if tf.__version__ < "2.0" else tf.random.set_seed(random_seed)
+    tf.random.set_seed(random_seed)
+    #tf.set_random_seed(random_seed) if tf.__version__ < "2.0" else tf.random.set_seed(random_seed)
     total_cpu=multiprocessing.cpu_count()
     num_Cores=int(num_Cores) if total_cpu>int(num_Cores) else int(math.ceil(total_cpu/2)) 
     print('The number of cpu in your computer is',total_cpu)
@@ -121,10 +120,7 @@ def train_single(data,dims=None,
     else:
         #set only use cpu
         os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-        if tf.__version__ < "2.0":
-            K.set_session(tf.Session(graph=tf.get_default_graph(),config=tf.ConfigProto(intra_op_parallelism_threads=num_Cores, inter_op_parallelism_threads=num_Cores)))
-        else:
-            tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(graph=tf.compat.v1.get_default_graph(),config=tf.compat.v1.ConfigProto(intra_op_parallelism_threads=num_Cores, inter_op_parallelism_threads=num_Cores)))
+        tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(graph=tf.compat.v1.get_default_graph(),config=tf.compat.v1.ConfigProto(intra_op_parallelism_threads=num_Cores, inter_op_parallelism_threads=num_Cores)))
 
     if not use_ae_weights and os.path.isfile(os.path.join(save_dir,"ae_weights.h5")):
         os.remove(os.path.join(save_dir,"ae_weights.h5"))
@@ -264,9 +260,9 @@ def train(data,dims=None,
 
     num_Cores: `int`, optional. Default,`20`. How many cpus use during tranning. if `num_Cores` > the max cpus in our computer, num_Cores will use  a half of cpus in your computer. 
 
-    use_GPU=True, `bool`, optional. Default, `True`. it will use GPU to train model if GPU is avaliable 
+    use_GPU=False, `bool`, optional. Default, `True`. it will use GPU to train model if GPU is avaliable 
 
-    GPU_id=True, `str or int`, optional.The GPU id in your device.  Default, `None`. it will use GPU to train model if `use_GPU`==True and GPU_id is not None; 
+    GPU_id=None, `str or int`, optional.The GPU id in your device.  Default, `None`. it will use GPU to train model if `use_GPU`==True and GPU_id is not None; 
 
     random_seed, `int`,optional. Default,`201809`. the random seed for random.seed, numpy.random.seed, tensorflow.set_random_seed
 
@@ -345,7 +341,7 @@ def train(data,dims=None,
 if __name__=='__main__':
     import argparse
     parser = argparse.ArgumentParser(description='just for simple test train.py',formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--use_GPU', default=True, type=bool)
+    parser.add_argument('--use_GPU', default=False, type=bool)
     args = parser.parse_args()
     print(args)
     import os
@@ -356,15 +352,16 @@ if __name__=='__main__':
     sc.pp.filter_cells(adata, min_genes=200)
     sc.pp.filter_genes(adata, min_cells=3)
     mito_genes = adata.var_names.str.startswith('MT-')
-    adata.obs['percent_mito'] = np.sum(
-    adata[:, mito_genes].X, axis=1).A1 / np.sum(adata.X, axis=1).A1
+    adata.obs['percent_mito'] = np.sum(adata[:, mito_genes].X, axis=1).A1 / np.sum(adata.X, axis=1).A1
     adata.obs['n_counts'] = adata.X.sum(axis=1).A1
-    adata = adata[adata.obs['n_genes'] < 2500, :]
-    adata = adata[adata.obs['percent_mito'] < 0.05, :]
+    adata = adata[adata.obs['n_genes'] < 2500, :].copy()
+    adata = adata[adata.obs['percent_mito'] < 0.05, :].copy()
     sc.pp.normalize_per_cell(adata, counts_per_cell_after=1e4)
     sc.pp.log1p(adata)
     sc.pp.highly_variable_genes(adata, min_mean=0.0125, max_mean=3, min_disp=0.5)
-    adata = adata[:, adata.var['highly_variable']]
+    print(adata)
+    adata = adata[:, adata.var['highly_variable']].copy()
+    print(adata)
     sc.pp.scale(adata, max_value=10)
     adata=train(adata,louvain_resolution=0.6,use_GPU=False,num_Cores=1,use_ae_weights=False,kernel_clustering="gaussian")
     adata.write("result_tmp/adata_desc.h5ad")

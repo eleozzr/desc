@@ -52,7 +52,7 @@ def scale_bygroup(adata,groupby,max_value=6):
         df=pd.Series(adata.obs[groupby],dtype="category")
         for category in df.cat.categories:
             tmp=adata[df==category]
-            tmp=tmp.X
+            tmp=tmp.X.copy()
             tmp=np.asarray(tmp)
             mean0,var0=get_mean_var(tmp)
             sd0=np.sqrt(var0)

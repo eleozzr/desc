@@ -11,22 +11,22 @@ if havedisplay:
 else:
     matplotlib.use('Agg')
 os.environ['PYTHONHASHSEED'] = '0'
-import networkx as nx
+#import networkx as nx
 import matplotlib.pyplot as plt
 from time import time as get_time
 import numpy as np
 import random
-import tensorflow as tf
-import keras.backend as K
-from keras.engine.topology import Layer, InputSpec
-from keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, ReduceLROnPlateau,History
-from keras.layers import Dense, Input
-from keras.models import Model,load_model
-from keras.optimizers import SGD
-from keras import callbacks
-from keras.initializers import VarianceScaling
+from tensorflow import keras
+import tensorflow.keras.backend as K
+from tensorflow.keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, ReduceLROnPlateau,History
+from tensorflow.keras.layers import Dense, Input,Layer,InputSpec
+from tensorflow.keras.models import Model,load_model
+from tensorflow.keras.optimizers import SGD
+from tensorflow.keras import callbacks
+from tensorflow.keras.initializers import VarianceScaling
 from sklearn.cluster import KMeans
-import scanpy.api as sc
+import tensorflow as tf
+import scanpy as sc
 import pandas as pd
 from natsort import natsorted #call natsorted
 import os
@@ -36,7 +36,8 @@ except:
     from SAE import SAE  #  this is for testing whether DescModel work or not 
 random.seed(201809)
 np.random.seed(201809)
-tf.set_random_seed(201809) if tf.__version__<  "2.0" else tf.random.set_seed(201809)
+tf.random.set_seed(201809)
+#tf.set_random_seed(201809) if tf.__version__<  "2.0" else tf.random.set_seed(201809)
 #tf.set_random_seed(201809)
 
 
@@ -167,8 +168,9 @@ class DescModel(object):
         #set random seed
         random.seed(random_seed)
         np.random.seed(random_seed)
+        tf.random.set_seed(random_seed)
         #tf.set_random_seed(random_seed)
-        tf.set_random_seed(random_seed) if tf.__version__ < "2.0" else tf.random.set_seed(random_seed)
+        #tf.set_random_seed(random_seed) if tf.__version__ < "2.0" else tf.random.set_seed(random_seed)
 	#pretrain autoencoder
         self.pretrain()
         
@@ -396,7 +398,7 @@ if __name__ == "__main__":
     import numpy as np
     def load_mnist(sample_size=10000):
         # the data, shuffled and split between train and test sets
-        from keras.datasets import mnist
+        from tensorflow.keras.datasets import mnist
         (x_train, y_train), (x_test, y_test) = mnist.load_data()
         x = np.concatenate((x_train, x_test))
         y = np.concatenate((y_train, y_test))
