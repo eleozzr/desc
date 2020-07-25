@@ -7,13 +7,30 @@
 <meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="Tutorial" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:1234/desc/tutorial.html" />
-<meta property="og:url" content="http://localhost:1234/desc/tutorial.html" />
+<link rel="canonical" href="http://localhost:12132/desc/tutorial.html" />
+<meta property="og:url" content="http://localhost:12132/desc/tutorial.html" />
 <meta property="og:site_name" content="DESC" />
 <script type="application/ld+json">
-{"@type":"WebPage","url":"http://localhost:1234/desc/tutorial.html","headline":"Tutorial","@context":"http://schema.org"}</script>
+{"@type":"WebPage","url":"http://localhost:12132/desc/tutorial.html","headline":"Tutorial","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/desc/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:1234/desc/feed.xml" title="DESC" /></head>
+<link rel="stylesheet" href="/desc/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:12132/desc/feed.xml" title="DESC" /></head>
+<!-- 自己插入的-->
+<head>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">window.MathJax = {"showProcessingMessages" : false,"messageStyle" : "none", "tex2jax": {"inlineMath": [ ["$","$"] ]}};</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+  
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/desc/">DESC</a><nav class="site-nav">
@@ -32,6 +49,12 @@
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
         <p>In this tutorial, we will perform an entire <code class="highlighter-rouge">desc</code> analysis using a dataset of Peripheral Blood Mononuclear Cells (PBMC). In the dataset, the expression levels of 2,700 cells were sequenced using the Illumina NextSeq 500. The data are freely available from 10X Genomics and the raw data can be downloaded <a href="https://s3-us-west-2.amazonaws.com/10x.files/samples/cell/pbmc3k/pbmc3k_filtered_gene_bc_matrices.tar.gz">here</a>.</p>
+
+<p>Because of the difference between <code class="highlighter-rouge">tensorflow 1*</code> and <code class="highlighter-rouge">tensorflow 2*</code>, we updated our <a href="https://github.com/eleozzr/desc">desc</a> algorithm into two version such that it can be compatible with <code class="highlighter-rouge">tensorflow 1*</code> and <code class="highlighter-rouge">tensorflow 2*</code>, respectively.</p>
+<ol>
+  <li>For  <code class="highlighter-rouge">tensorflow 1*</code>, we released <code class="highlighter-rouge">desc(2.0.3)</code>. Please see our jupyter notebook example <a href="./jupyter_notebook/desc_2.0.3_paul.ipynb">desc_2.0.3_paul.ipynb</a></li>
+  <li>For  <code class="highlighter-rouge">tensorflow 2*</code>, we released <code class="highlighter-rouge">desc(2.1.1)</code>. Please see our jupyter notebook example <a href="./jupyter_notebook/desc_2.1.1_paul.ipynb">desc_2.1.1_paul.ipynb</a></li>
+</ol>
 
 <p><br /></p>
 

@@ -7,13 +7,30 @@
 <meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="Downstream analysis based on Anndata object" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:1234/desc/anndata_to_R.html" />
-<meta property="og:url" content="http://localhost:1234/desc/anndata_to_R.html" />
+<link rel="canonical" href="http://localhost:12132/desc/anndata_to_R.html" />
+<meta property="og:url" content="http://localhost:12132/desc/anndata_to_R.html" />
 <meta property="og:site_name" content="DESC" />
 <script type="application/ld+json">
-{"@type":"WebPage","url":"http://localhost:1234/desc/anndata_to_R.html","headline":"Downstream analysis based on Anndata object","@context":"http://schema.org"}</script>
+{"@type":"WebPage","url":"http://localhost:12132/desc/anndata_to_R.html","headline":"Downstream analysis based on Anndata object","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/desc/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:1234/desc/feed.xml" title="DESC" /></head>
+<link rel="stylesheet" href="/desc/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:12132/desc/feed.xml" title="DESC" /></head>
+<!-- 自己插入的-->
+<head>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">window.MathJax = {"showProcessingMessages" : false,"messageStyle" : "none", "tex2jax": {"inlineMath": [ ["$","$"] ]}};</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+  
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/desc/">DESC</a><nav class="site-nav">
@@ -156,7 +173,8 @@ In R, almost gene expression level matrix is saved  <code class="highlighter-rou
                 </span><span class="n">new.data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data.matrix</span><span class="w">
         </span><span class="p">)</span><span class="w">
         </span><span class="c1">#deal with obsm fields that are not dimensional reductions, or have different name structures</span><span class="w">
-        </span><span class="n">drs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">unlist</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">py_to_r</span><span class="p">(</span><span class="n">from</span><span class="o">$</span><span class="n">obsm</span><span class="o">$</span><span class="n">keys</span><span class="p">()))</span><span class="w">
+        </span><span class="n">x</span><span class="m">1</span><span class="o">=</span><span class="n">py_to_r</span><span class="p">(</span><span class="n">from</span><span class="o">$</span><span class="n">obsm</span><span class="o">$</span><span class="n">keys</span><span class="p">())</span><span class="w">
+        </span><span class="n">drs</span><span class="o">&lt;-</span><span class="n">unlist</span><span class="p">(</span><span class="n">strsplit</span><span class="p">(</span><span class="n">gsub</span><span class="p">(</span><span class="s2">".{1,50}:|\\s|)"</span><span class="p">,</span><span class="n">replacement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="m">1</span><span class="p">),</span><span class="n">split</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">","</span><span class="p">))</span><span class="w">
         </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">dr</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">drs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
                 </span><span class="n">dr.embed</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">py_to_r</span><span class="p">(</span><span class="n">from</span><span class="o">$</span><span class="n">obsm</span><span class="p">[[</span><span class="n">eval</span><span class="p">(</span><span class="n">dr</span><span class="p">)]])</span><span class="w">
                 </span><span class="n">dr.name</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sub</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="s2">"X_"</span><span class="p">,</span><span class="n">replacement</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="n">dr</span><span class="p">)</span><span class="w">

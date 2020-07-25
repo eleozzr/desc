@@ -3,9 +3,9 @@
 
 DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm constructs a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learning cluster-specific gene expression representation and cluster assignment based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances biological and technical differences between clusters, and reduces the influence of batch effect. DESC also enables soft clustering by assigning cluster-specific probabilities to each cell, which facilitates the identification of cells clustered with high-confidence and interpretation of results. 
 
-![DESC workflow](./docs/assets/images/desc_workflow.png)
+![DESC workflow](assets/images/desc_workflow.png)
 
-For thorough details, see the preprint: [Bioxiv](https://www.biorxiv.org/content/10.1101/530378v1?rss=1)
+For thorough details, see our paper: [https://www.nature.com/articles/s41467-020-15851-3](https://www.nature.com/articles/s41467-020-15851-3)
 <br>
 
 
@@ -17,6 +17,12 @@ The [**desc**](https://github.com/eleozzr/desc) package is an implementation of 
 - Build a low-dimensional representation of the single-cell gene expression data.
 - Obtain soft-clustering assignments of cells.
 - Visualize the cell clustering results and  the  gene expression patterns.
+
+Because of the difference between `tensorflow 1*` and `tensorflow 2*`, we updated our [desc](https://github.com/eleozzr/desc) algorithm into two version such that it can be compatible with `tensorflow 1*` and `tensorflow 2*`, respectively. 
+
+1. For  `tensorflow 1*`, we released `desc(2.0.3)`. Please see our jupyter notebook example [desc_2.0.3_paul.ipynb](./desc_2.0.3_paul.ipynb)
+2. For  `tensorflow 2*`, we released `desc(2.1.1)`. Please see our jupyter notebook example [desc_2.1.1_paul.ipynb](./desc_2.1.1_paul.ipynb)
+
 
 <br>
 
@@ -77,7 +83,7 @@ python setup.py install
 # now you can check whether `desc` installed successfully!
 ```
 
-Please check desc [Tutorial](https://eleozzr.github.io/desc/tutorial.html) for more details. And we also provide a simple example [paul\_desc.md](./desc_paul.md) or [desc\_paul.ipynb](./desc_paul.ipynb) for reproducing the results of Paul's data in our paper.
+Please check desc [Tutorial](https://eleozzr.github.io/desc/tutorial.html) for more details. And we also provide a [simple example](./paul_desc.md) for reproducing the results of Paul's data in our paper.
 
 
 <br>

@@ -5,7 +5,7 @@ DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. T
 
 ![DESC workflow](assets/images/desc_workflow.png)
 
-For thorough details, see the preprint: [Bioxiv](https://www.biorxiv.org/content/10.1101/530378v1?rss=1)
+For thorough details, see our paper: [https://www.nature.com/articles/s41467-020-15851-3](https://www.nature.com/articles/s41467-020-15851-3)
 <br>
 
 
@@ -17,6 +17,12 @@ The [**desc**](https://github.com/eleozzr/desc) package is an implementation of 
 - Build a low-dimensional representation of the single-cell gene expression data.
 - Obtain soft-clustering assignments of cells.
 - Visualize the cell clustering results and  the  gene expression patterns.
+
+Because of the difference between `tensorflow 1*` and `tensorflow 2*`, we updated our [desc](https://github.com/eleozzr/desc) algorithm into two version such that it can be compatible with `tensorflow 1*` and `tensorflow 2*`, respectively. 
+
+1. For  `tensorflow 1*`, we released `desc(2.0.3)`. Please see our jupyter notebook example [desc_2.0.3_paul.ipynb](./desc_2.0.3_paul.ipynb)
+2. For  `tensorflow 2*`, we released `desc(2.1.1)`. Please see our jupyter notebook example [desc_2.1.1_paul.ipynb](./desc_2.1.1_paul.ipynb)
+
 
 <br>
 

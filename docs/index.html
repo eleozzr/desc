@@ -7,13 +7,30 @@
 <meta name="generator" content="Jekyll v3.8.5" />
 <meta property="og:title" content="Home" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:1234/desc/" />
-<meta property="og:url" content="http://localhost:1234/desc/" />
+<link rel="canonical" href="http://localhost:12132/desc/" />
+<meta property="og:url" content="http://localhost:12132/desc/" />
 <meta property="og:site_name" content="DESC" />
 <script type="application/ld+json">
-{"@type":"WebSite","url":"http://localhost:1234/desc/","name":"DESC","headline":"Home","@context":"http://schema.org"}</script>
+{"@type":"WebSite","url":"http://localhost:12132/desc/","name":"DESC","headline":"Home","@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/desc/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:1234/desc/feed.xml" title="DESC" /></head>
+<link rel="stylesheet" href="/desc/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:12132/desc/feed.xml" title="DESC" /></head>
+<!-- 自己插入的-->
+<head>
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script>hljs.initHighlightingOnLoad();</script><script type="text/javascript">window.MathJax = {"showProcessingMessages" : false,"messageStyle" : "none", "tex2jax": {"inlineMath": [ ["$","$"] ]}};</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+</head>
+  
 <body><header class="site-header" role="banner">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/desc/">DESC</a><nav class="site-nav">
@@ -36,7 +53,7 @@
 <p>DESC is an unsupervised deep learning algorithm for clustering scRNA-seq data. The algorithm constructs a non-linear mapping function from the original scRNA-seq data space to a low-dimensional feature space by iteratively learning cluster-specific gene expression representation and cluster assignment based on a deep neural network. This iterative procedure moves each cell to its nearest cluster, balances biological and technical differences between clusters, and reduces the influence of batch effect. DESC also enables soft clustering by assigning cluster-specific probabilities to each cell, which facilitates the identification of cells clustered with high-confidence and interpretation of results. 
 <img src="assets/images/desc_workflow.png" alt="DESC workflow" /></p>
 
-<p>For thorough details, see the our paper: <a href="https://www.nature.com/articles/s41467-020-15851-3">https://www.nature.com/articles/s41467-020-15851-3</a></p>
+<p>For thorough details, see our paper: <a href="https://www.nature.com/articles/s41467-020-15851-3">https://www.nature.com/articles/s41467-020-15851-3</a></p>
 
 <p><br /></p>
 
@@ -50,6 +67,57 @@
   <li>Obtain soft-clustering assignments of cells.</li>
   <li>Visualize the cell clustering results and  the  gene expression patterns.</li>
 </ul>
+
+<!-- 文字闪烁参考链接 https://www.mybj123.com/6311.html  -->
+
+<div class="box">New New New (25/07/2020) !!!  </div>
+
+<style>  
+    .box{ 
+    	font-size: 20px; 
+    	color:#ED212A; 
+    	margin: 5px;
+    	animation: changeshadow 1s  ease-in  infinite ;
+    	/* 其它浏览器兼容性前缀 */
+	    -webkit-animation: changeshadow 1s linear infinite;
+	    -moz-animation: changeshadow 1s linear infinite;
+	    -ms-animation: changeshadow 1s linear infinite;
+	    -o-animation: changeshadow 1s linear infinite;
+    }  
+    @keyframes changeshadow {  
+        0%{ text-shadow: 0 0 4px #ED212A}  
+        50%{ text-shadow: 0 0 40px #ED212A}  
+        100%{ text-shadow: 0 0 4px #ED212A}  
+    }
+    /* 添加兼容性前缀 */
+	@-webkit-keyframes changeshadow {
+	  0%{ text-shadow: 0 0 4px #4cc134}  
+          50%{ text-shadow: 0 0 40px #4cc134}  
+          100%{ text-shadow: 0 0 4px #4cc134}  
+	}
+	@-moz-keyframes changeshadow {
+	    0%{ text-shadow: 0 0 4px #4cc134}  
+            50%{ text-shadow: 0 0 40px #4cc134}  
+            100%{ text-shadow: 0 0 4px #4cc134}  
+	}
+	@-ms-keyframes changeshadow {
+	    0%{ text-shadow: 0 0 4px #4cc134}  
+            50%{ text-shadow: 0 0 40px #4cc134}  
+            100%{ text-shadow: 0 0 4px #4cc134}  
+	}
+	@-o-keyframes changeshadow {
+	    0%{ text-shadow: 0 0 4px #4cc134}  
+            50%{ text-shadow: 0 0 40px #4cc134}  
+            100%{ text-shadow: 0 0 4px #4cc134}  
+	}
+</style>
+
+<p>Because of the difference between <code class="highlighter-rouge">tensorflow 1*</code> and <code class="highlighter-rouge">tensorflow 2*</code>, we updated our <a href="https://github.com/eleozzr/desc">desc</a> algorithm into two version such that it can be compatible with <code class="highlighter-rouge">tensorflow 1*</code> and <code class="highlighter-rouge">tensorflow 2*</code>, respectively.</p>
+
+<ol>
+  <li>For  <code class="highlighter-rouge">tensorflow 1*</code>, we released <code class="highlighter-rouge">desc(2.0.3)</code>. Please see our jupyter notebook example <a href="./desc_2.0.3_paul.ipynb">desc_2.0.3_paul.ipynb</a></li>
+  <li>For  <code class="highlighter-rouge">tensorflow 2*</code>, we released <code class="highlighter-rouge">desc(2.1.1)</code>. Please see our jupyter notebook example <a href="./desc_2.1.1_paul.ipynb">desc_2.1.1_paul.ipynb</a></li>
+</ol>
 
 <p><br /></p>
 

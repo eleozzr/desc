@@ -5,3 +5,8 @@ require tensorflow<2.0 because some inconsistency between keras and tensorflow 2
 2.0.0: update tf.Session to tf.compat.v1.Session() when using tensorflow2.0
 
 
+# 2020-07-25
+2.0.3: update scanpy dependency such that DESC can be compatible with scanpy>=1.4+, but still with tensorflow 1.0. please see `desc_2.0.3_paul.ipynb` for detail
+
+# 2020-07-25
+2.1.1: update scanpy dependency such that DESC  can be compatible with tensorflow 2.0. Please see `desc_2.1.1_paul.ipynb` for detail
