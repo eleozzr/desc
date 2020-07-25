@@ -26,6 +26,5 @@ setup(name = 'desc',
 				'h5py',
 				'pandas>=0.21', 
 				],
-			zip_safe = False
-			)
+			zip_safe = False)
 			
