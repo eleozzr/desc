@@ -5,7 +5,7 @@ from tensorflow import  keras
 from tensorflow.keras.layers import Input, Dense, Dropout
 from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras.optimizers import SGD
-from tensorflow.keras.utils import plot_model
+#from tensorflow.keras.utils import plot_model
 from tensorflow.keras.callbacks import TensorBoard, ModelCheckpoint, EarlyStopping, ReduceLROnPlateau,History
 import  math
 import numpy as np
@@ -69,7 +69,7 @@ class SAE(object):
         self.use_earlyStop=use_earlyStop
         self.stacks = [self.make_stack(i,random_seed=self.random_seed+2*i) for i in range(self.n_stacks)]
         self.autoencoders ,self.encoder= self.make_autoencoders()
-        plot_model(self.autoencoders, show_shapes=True, to_file=os.path.join(save_dir,'autoencoders.png'))
+        #plot_model(self.autoencoders, show_shapes=True, to_file=os.path.join(save_dir,'autoencoders.png'))
     def choose_init(self,init="glorot_uniform",seed=1):
         if init not in {'glorot_uniform','glorot_normal','he_normal','lecun_normal','he_uniform','lecun_uniform','RandomNormal','RandomUniform',"TruncatedNormal"}:
             raise ValueError('Invalid `init` argument: '
